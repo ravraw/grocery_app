@@ -6,6 +6,9 @@ import './App.scss';
 
 // componets
 import Users from './components/Users';
+import Header from './components/Layout/Header';
+import Main from './components/Layout/Main';
+import Footer from './components/Layout/Footer';
 
 // Apollo client setup
 const client = new ApolloClient({
@@ -17,10 +20,12 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <div className="App">
-          <header className="App-header">
+          <Header />
+          <Main>
             <h1>Grocery App </h1>
             <Users />
-          </header>
+          </Main>
+          <Footer />
         </div>
       </ApolloProvider>
     );
