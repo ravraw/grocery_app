@@ -21,12 +21,18 @@ const faker = require('faker');
 // const db = require('./db');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
+const Department = require('./resolvers/Department');
+const Category = require('./resolvers/Category');
+const Product = require('./resolvers/Product');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers: {
     Query,
-    Mutation
+    Mutation,
+    Department,
+    Category,
+    Product
   },
   context: { knex }
 });
