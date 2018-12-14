@@ -20,7 +20,9 @@ import User_new from "./components/User_new";
 import User_show from "./components/User_show";
 
 import Product_show from "./components/Product_show";
-import Error from "./components/Error"
+import Cart from "./components/Cart";
+
+import Error from "./components/Error";
 
 // import Departments from "./components/Departments";
 
@@ -36,19 +38,24 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-      <div>
-        <Header />
-        <Switch>
-          <Route path="/" component={Home} exact />
-          <Route path="/departments" component={Departments} />
-          <Route path="/users/new" component={User_new} />
-          <Route path="/users/:user_id/show" component={User_show} />
-          <Route path="/departments/:department_id/show" component={Department_show} />
-          <Route path="/products/:product_id/show" component={Product_show} />
-          <Route component={Error} />
+        <div>
+          <Header />
+          <Switch>
+            <Route path="/" component={Home} exact />
+            <Route path="/departments" component={Departments} exact />
+            <Route
+              path="/departments/:department_id/show"
+              component={Department_show}
+            />
+            <Route path="/users/new" component={User_new} />
+            <Route path="/users/:user_id/show" component={User_show} />
+            
+            <Route path="/products/:product_id/show" component={Product_show} />
+            <Route path="/cart" component={Cart} />
 
-        </Switch>
-        <Footer />
+            <Route component={Error} />
+          </Switch>
+          <Footer />
         </div>
       </BrowserRouter>
     );
