@@ -43,7 +43,7 @@ class App extends Component {
           unit_price: 99,
           store: "Walmart",
           department: "vegetable",
-          image: './public/images/carrot',
+          image: './images/carrot.png',
           category: 'unpacked'
         },
         {
@@ -51,7 +51,7 @@ class App extends Component {
           unit_price: 20,
           store: "Superstore",
           department: "Meat",
-          image: './public/images/carrot',
+          image: './images/carrot.png',
           category: 'packaged'
         }
       ]
@@ -60,7 +60,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <body>
+        <div>
           <Header />
           <Switch>
             <Route path="/" render={(props) => <Home {...props}  products={this.state.products} />} exact />
@@ -77,7 +77,7 @@ class App extends Component {
             <Route component={Error} />
           </Switch>
           <Footer />
-        </body>
+        </div>
       </BrowserRouter>
     );
   }

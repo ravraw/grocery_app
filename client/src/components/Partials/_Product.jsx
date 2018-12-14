@@ -2,23 +2,30 @@ import React, { Component } from "react";
 
 class _Product extends Component {
   render() {
+    console.log("_props for _product", this.props);
+    const {
+      image,
+      product_name,
+      unit_price,
+      store,
+      department,
+      category
+    } = this.props.product;
     return (
-      <tbody>
-        <tr>
-          <th>
-            <img src={this.props.image} />
-          </th>
-          <th>
-            <ul>
-              <li>Product Name: {this.props.product_name}</li>
-              <li>Unit Price: {this.props.unit_price}</li>
-              <li>Store: {this.props.store}</li>
-              <li>Department: {this.props.department}</li>
-              <li>Category: {this.props.category}</li>
-            </ul>
-          </th>
-        </tr>
-      </tbody>
+      <tr>
+        <th>
+          <img src={image} />
+        </th>
+        <th>
+          <ul>
+            <li>Product Name: {product_name}</li>
+            <li>Unit Price: {unit_price}</li>
+            <li>Store: {store}</li>
+            <li>Department: {department}</li>
+            <li>Category: {category}</li>
+          </ul>
+        </th>
+      </tr>
     );
   }
 }

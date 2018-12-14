@@ -35,18 +35,20 @@ class Header extends Component {
           </a>
         </div>
         <div className="header_navigation">
-        <table>
-          <tr className="navigation_table">
-            <th className="navigation_link">
-              <Link to="/">Home</Link>
-            </th>
-            <th className="navigation_link">
-              <Link to="/Departments">Departments</Link>
-            </th>
-            <th className="navigation_link">
-              <Link to="/stores">Stores</Link>
-            </th>
-          </tr>
+          <table>
+            <tbody>
+              <tr className="navigation_table">
+                <th className="navigation_link">
+                  <Link to="/">Home</Link>
+                </th>
+                <th className="navigation_link">
+                  <Link to="/Departments">Departments</Link>
+                </th>
+                <th className="navigation_link">
+                  <Link to="/stores">Stores</Link>
+                </th>
+              </tr>
+            </tbody>
           </table>
         </div>
       </header>

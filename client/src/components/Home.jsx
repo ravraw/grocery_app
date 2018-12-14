@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import _Product from "./Partials/_Product";
 class Home extends Component {
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const products = [];
     this.props.products.forEach((product)=>{
       products.push( <_Product product={product} />);
@@ -12,7 +12,9 @@ class Home extends Component {
         <div>
           <h2>Our Suggestions Based On Your Recent Purchase</h2>
           <table>
+            <tbody>
             {products}
+            </tbody>
           </table>
         </div>
         <div>
