@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class Departments extends Component {
   render() {
     return (
-      <body className="body departments_body">
+      <main className="main departments_main">
         <div>This is Departments Page</div>
-      </body>
+      </main>
     );
   }
 }

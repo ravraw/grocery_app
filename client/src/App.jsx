@@ -60,7 +60,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <body>
           <Header />
           <Switch>
             <Route path="/" render={(props) => <Home {...props}  products={this.state.products} />} exact />
@@ -77,7 +77,7 @@ class App extends Component {
             <Route component={Error} />
           </Switch>
           <Footer />
-        </div>
+        </body>
       </BrowserRouter>
     );
   }

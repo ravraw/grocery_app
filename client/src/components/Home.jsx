@@ -8,7 +8,7 @@ class Home extends Component {
       products.push( <_Product product={product} />);
     })
     return (
-      <body className="body home_body">
+      <main className="main home_main">
         <div>
           <h2>Our Suggestions Based On Your Recent Purchase</h2>
           <table>
@@ -19,7 +19,7 @@ class Home extends Component {
           <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/World_Association_of_Girl_Guides_and_Girl_Scouts_map.png" />
           >
         </div>
-      </body>
+      </main>
     );
   }
 }

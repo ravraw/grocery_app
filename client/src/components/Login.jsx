@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class Login extends Component {
   render() {
     return (
-      <body className="home home_body">
+      <main className="home home_main">
         <div>This is Login Page</div>
-      </body>
+      </main>
     );
   }
 }

@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class Error extends Component {
   render() {
     return (
-      <body className="body error_body">
+      <main className="main error_main">
         <div>Error: No such page exists!</div>
-      </body>
+      </main>
     );
   }
 }
