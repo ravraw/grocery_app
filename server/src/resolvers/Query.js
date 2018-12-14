@@ -1,7 +1,7 @@
-const knex = require('../knex');
+// const knex = require('../knex');
 
 const Query = {
-  users(parent, args, { db }, info) {
+  users(parent, args, { knex }, info) {
     // if (!args.query) {
     //   return db.users;
     // }

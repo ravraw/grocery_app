@@ -14,11 +14,10 @@ class Users extends Component {
     console.log(this.props);
     if (data.loading) {
       return <div>Loading Users...</div>;
-    } else {
-      return data.users.map(user => {
-        return <li key={user.id}> {user.email} </li>;
-      });
     }
+    return data.users.map(user => {
+      return <li key={user.id}> {user.email} </li>;
+    });
   }
 
   render() {
