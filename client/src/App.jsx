@@ -18,10 +18,9 @@ import Departments from "./components/Departments";
 import Department_show from "./components/Department_show";
 import User_new from "./components/User_new";
 import User_show from "./components/User_show";
-
+import Login from "./components/Login";
 import Product_show from "./components/Product_show";
 import Cart from "./components/Cart";
-
 import Error from "./components/Error";
 
 // import Departments from "./components/Departments";
@@ -49,10 +48,9 @@ class App extends Component {
             />
             <Route path="/users/new" component={User_new} />
             <Route path="/users/:user_id/show" component={User_show} />
-
+            <Route path="/login" component={Login} />
             <Route path="/products/:product_id/show" component={Product_show} />
             <Route path="/cart" component={Cart} />
-
             <Route component={Error} />
           </Switch>
           <Footer />
