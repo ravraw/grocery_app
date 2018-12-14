@@ -49,7 +49,7 @@ class App extends Component {
             />
             <Route path="/users/new" component={User_new} />
             <Route path="/users/:user_id/show" component={User_show} />
-            
+
             <Route path="/products/:product_id/show" component={Product_show} />
             <Route path="/cart" component={Cart} />
 
