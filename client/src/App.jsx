@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ApolloClient from "apollo-boost";
+// eslint-disable-next-line
 import { ApolloProvider } from "react-apollo";
 
 //import react-router-dom
@@ -9,6 +10,7 @@ import "./App.scss";
 
 // componets
 import Header from "./components/Layout/Header";
+// eslint-disable-next-line
 import Main from "./components/Layout/Main";
 import Footer from "./components/Layout/Footer";
 import Home from "./components/Home";
@@ -25,6 +27,7 @@ import Error from "./components/Error"
 //
 
 // Apollo client setup
+// eslint-disable-next-line
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
 });
