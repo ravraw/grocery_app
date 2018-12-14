@@ -34,13 +34,36 @@ const client = new ApolloClient({
 });
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      products: [
+        {
+          product_name: "carot",
+          unit_price: 99,
+          store: "Walmart",
+          department: "vegetable",
+          image: './public/images/carrot',
+          category: 'unpacked'
+        },
+        {
+          product_name: "Pork",
+          unit_price: 20,
+          store: "Superstore",
+          department: "Meat",
+          image: './public/images/carrot',
+          category: 'packaged'
+        }
+      ]
+    };
+  }
   render() {
     return (
       <BrowserRouter>
         <div>
           <Header />
           <Switch>
-            <Route path="/" component={Home} exact />
+            <Route path="/" render={(props) => <Home {...props}  products={this.state.products} />} exact />
             <Route path="/departments" component={Departments} exact />
             <Route
               path="/departments/:department_id/show"
