@@ -1,13 +1,14 @@
 type Query {
+    # All with / without query
     users(query: String): [User!]!
     stores(query:String):[Store!]!
     departments(query:String):[Department!]!
     categories(query:String):[Category!]!
     products(query:String):[Product!]!
+    # Single 
     department:Department!
     category: Category!
     product:Product!
-    me: User!
 }
 
 type Mutation {

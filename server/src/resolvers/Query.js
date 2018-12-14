@@ -33,14 +33,6 @@ const Query = {
       return knex.select('*').from('products');
     }
     return knex('products').where('name', 'like', `%${args.query}%`);
-  },
-  me() {
-    return {
-      id: '12',
-      name: 'ravraw',
-      email: 'r@r.com',
-      age: 23
-    };
   }
 };
 
