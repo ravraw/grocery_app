@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-        <div className="header_top_left">
+        <div className="header__topleft">
           <a href="/" className="home_link">
             Grocery App
           </a>
@@ -35,6 +35,7 @@ class Header extends Component {
           </a>
         </div>
         <div className="header_navigation">
+        <table>
           <tr className="navigation_table">
             <th className="navigation_link">
               <Link to="/">Home</Link>
@@ -46,6 +47,7 @@ class Header extends Component {
               <Link to="/stores">Stores</Link>
             </th>
           </tr>
+          </table>
         </div>
       </header>
     );
