@@ -34,16 +34,33 @@ class Cart extends Component {
     };
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleMinus = this.handleMinus.bind(this);
+
   }
 
   handleAdd(id) {
     console.log("id", id);
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
-    
+
     const newCartProducts = this.state.cartProducts;
     newCartProducts[productIndex] = {
       ...newCartProducts[productIndex],
-      quantity: newCartProducts[productIndex].quantity +1
+      quantity: newCartProducts[productIndex].quantity + 1
+    };
+    this.setState({
+      cartProducts: newCartProducts
+    });
+    console.log("cartProducts", this.state.cartProducts);
+  }
+
+  handleMinus(id) {
+    console.log("id", id);
+    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
+
+    const newCartProducts = this.state.cartProducts;
+    newCartProducts[productIndex] = {
+      ...newCartProducts[productIndex],
+      quantity: newCartProducts[productIndex].quantity - 1
     };
     this.setState({
       cartProducts: newCartProducts
@@ -72,6 +89,7 @@ class Cart extends Component {
           url="cart"
           onChangeQuantity={this.handleChangeQuantity}
           onAdd={this.handleAdd}
+          onMinus={this.handleMinus}
         />
       );
     });

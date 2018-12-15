@@ -41,10 +41,10 @@ class _Product extends Component {
               }}
             />
             <div>
-              <button onClick={()=>this.props.onAdd(id)}>+</button>
+              <button onClick={() => this.props.onAdd(id)}>+</button>
             </div>
             <div>
-              <button>-</button>
+              <button onClick={() => this.props.onMinus(id)}>-</button>
             </div>
             <div>Delete</div>
           </th>
