@@ -19,9 +19,10 @@ body {
   /* padding: 2rem; */
   width: 100%;
   height: 100%;
-  background: gray;
+  background: white;
   display:flex;
   flex-direction: column;
+  min-height: 200px ;
 }
 .app{
   height:100vh;
