@@ -34,6 +34,13 @@ const Query = {
     }
     return knex('products').where('name', 'like', `%${args.query}%`);
   }
+  //shoppingCart
+  // userCartItems(parent, args, { knex }, info) {
+  //   if (!args.query) {
+  //     return knex.select('*').from('products');
+  //   }
+  //   return knex('products').where('name', 'like', `%${args.query}%`);
+  // }
 };
 
 module.exports = Query;

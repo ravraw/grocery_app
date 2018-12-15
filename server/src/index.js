@@ -21,6 +21,7 @@ const faker = require('faker');
 // const db = require('./db');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
+const User = require('./resolvers/User');
 const Department = require('./resolvers/Department');
 const Category = require('./resolvers/Category');
 const Product = require('./resolvers/Product');
@@ -30,6 +31,7 @@ const server = new ApolloServer({
   resolvers: {
     Query,
     Mutation,
+    User,
     Department,
     Category,
     Product
