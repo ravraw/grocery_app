@@ -1,10 +1,12 @@
 type Query {
     # All with / without query
-    users(query: String): [User!]!
+    users(query:String):[User!]!
     stores(query:String):[Store!]!
     departments(query:String):[Department!]!
     categories(query:String):[Category!]!
     products(query:String):[Product!]!
+    shoppingCart(query:String):[Product!]!
+    # userCartItems(query:ID):[Product!]!
     # Single 
     department:Department!
     category: Category!
@@ -12,12 +14,12 @@ type Query {
 }
 
 type Mutation {
-    createUser(data: CreateUserInput!): User!
-    deleteUser(id: ID!): User!
-    updateUser(id: ID!, data: UpdateUserInput!): User!
+    addCartItem(data: CreateCartInput!): Product!
+    removeCartItem(id: ID!): Product!
+    updateCartItem(id: ID!, data: UpdateUserInput!): Product!
 }
 
-input CreateUserInput {
+input CreateCartInput {
     email: String!
     password:String!
 }
@@ -31,6 +33,7 @@ type User {
     id: ID!
     email: String!
     password:String!
+    shoppingCart:[Product!]!
 }
 
 type Store{
@@ -55,16 +58,20 @@ type Category {
   name: String!
   department:Department!
   products: [Product!]!
-}
+}   
 
 type Product {
     id:ID!
     name:String!
     description:String!
-    price:String! # to be chnaged to Int!
-    department:Department!
+    price:Float! # to be chnaged to Int!
+    depart:Department!
     category:Category!
 }
+
+
+
+
  
 
 

@@ -5,6 +5,12 @@ const getUsersQuery = gql`
     users {
       id
       email
+      shoppingCart {
+        id
+        name
+        description
+        price
+      }
     }
   }
 `;
