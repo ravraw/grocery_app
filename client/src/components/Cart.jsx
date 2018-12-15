@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import _Product from "./Partials/_Product";
 
-const cart_products = [
+const cartProducts = [
   {
+    id: 1,
     quantity: 6,
-    product_name: "carot",
+    product_name: "carrot",
     unit_price: 99,
     store: "Walmart",
     department: "vegetable",
@@ -13,6 +14,7 @@ const cart_products = [
     category: "unpacked"
   },
   {
+    id: 2,
     quantity: 12,
     product_name: "Pork",
     unit_price: 20,
@@ -27,16 +29,43 @@ class Cart extends Component {
   constructor() {
     super();
     this.state = {
-      //should use fethed Cart data from database; now uses hardcoded cart_products
-      cart_products: cart_products
+      //should use fethed Cart data from database; now uses hardcoded cartProducts
+      cartProducts: cartProducts
     };
+    this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
   }
+
+  // checkout() {}
+
+  handleChangeQuantity = (id, quantity) => {
+    console.log('id',id,'quantity',quantity)
+    const cartProductIndex = this.state.cartProducts.findIndex(
+      cp => cp.id === id
+    );
+    console.log("cartProductIndex",cartProductIndex)
+    const newCartProducts = this.state.cartProducts;
+    newCartProducts[cartProductIndex] = {
+      ...newCartProducts[cartProductIndex],
+      quantity
+    };
+    this.setState({
+      CartProducts: newCartProducts
+    });
+    console.log("state product", this.state.cartProducts[cartProductIndex]);
+  };
+
   render() {
     // id = this.props.match.params.cart;
-    
+
     const products = [];
-    this.state.cart_products.forEach(product => {
-      products.push(<_Product product={product} url='cart' />);
+    this.state.cartProducts.forEach(product => {
+      products.push(
+        <_Product
+          product={product}
+          url="cart"
+          onChangeQuantity={this.handleChangeQuantity}
+        />
+      );
     });
     return (
       <main className="main cart_main">

@@ -3,13 +3,15 @@ import React, { Component } from "react";
 class _Product extends Component {
   render() {
     const url = this.props.url;
+  
     const {
       image,
       product_name,
       unit_price,
       store,
       department,
-      category
+      category,
+      id
     } = this.props.product;
 
     return (
@@ -26,12 +28,20 @@ class _Product extends Component {
             <li>Category: {category}</li>
           </ul>
         </th>
-        {url === "cart"&& (
+        {url === "cart" && (
           <th>
             <div>Quantity</div>
-            <form>
-              <input type="text" placeholder={this.props.product.quantity} />
-            </form>
+
+            <input
+              type="text"
+              placeholder={this.props.product.quantity}
+              onKeyPress={event=>{
+                if (event.key === "Enter"){
+                  this.props.onChangeQuantity(id,event.target.value)
+                }
+              }}
+            />
+
             <div>
               <button>+</button>
             </div>
