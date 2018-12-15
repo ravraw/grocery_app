@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class _Product extends Component {
   render() {
     const url = this.props.url;
-  
+
     const {
       image,
       product_name,
@@ -31,19 +31,17 @@ class _Product extends Component {
         {url === "cart" && (
           <th>
             <div>Quantity</div>
-
             <input
               type="text"
               placeholder={this.props.product.quantity}
-              onKeyPress={event=>{
-                if (event.key === "Enter"){
-                  this.props.onChangeQuantity(id,event.target.value)
+              onKeyPress={event => {
+                if (event.key === "Enter") {
+                  this.props.onChangeQuantity(id, event.target.value);
                 }
               }}
             />
-
             <div>
-              <button>+</button>
+              <button onClick={()=>this.props.onAdd(id)}>+</button>
             </div>
             <div>
               <button>-</button>

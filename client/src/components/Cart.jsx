@@ -29,41 +29,49 @@ class Cart extends Component {
   constructor() {
     super();
     this.state = {
-      //should use fethed Cart data from database; now uses hardcoded cartProducts
+      //should use fetched Cart data from database; now uses hardcoded cartProducts
       cartProducts: cartProducts
     };
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
-  // checkout() {}
+  handleAdd(id) {
+    console.log("id", id);
+    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
+    
+    const newCartProducts = this.state.cartProducts;
+    newCartProducts[productIndex] = {
+      ...newCartProducts[productIndex],
+      quantity: newCartProducts[productIndex].quantity +1
+    };
+    this.setState({
+      cartProducts: newCartProducts
+    });
+    console.log("cartProducts", this.state.cartProducts);
+  }
 
   handleChangeQuantity = (id, quantity) => {
-    console.log('id',id,'quantity',quantity)
-    const cartProductIndex = this.state.cartProducts.findIndex(
-      cp => cp.id === id
-    );
-    console.log("cartProductIndex",cartProductIndex)
+    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
     const newCartProducts = this.state.cartProducts;
-    newCartProducts[cartProductIndex] = {
-      ...newCartProducts[cartProductIndex],
+    newCartProducts[productIndex] = {
+      ...newCartProducts[productIndex],
       quantity
     };
     this.setState({
-      CartProducts: newCartProducts
+      cartProducts: newCartProducts
     });
-    console.log("state product", this.state.cartProducts[cartProductIndex]);
+    console.log(this.state.cartProducts);
   };
 
   render() {
-    // id = this.props.match.params.cart;
-
-    const products = [];
-    this.state.cartProducts.forEach(product => {
-      products.push(
+    const products = this.state.cartProducts.map(product => {
+      return (
         <_Product
           product={product}
           url="cart"
           onChangeQuantity={this.handleChangeQuantity}
+          onAdd={this.handleAdd}
         />
       );
     });
