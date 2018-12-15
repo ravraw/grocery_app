@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Error extends Component {
+class Errors extends Component {
   render() {
     return (
       <main className="main error_main">
@@ -10,4 +10,4 @@ class Error extends Component {
   }
 }
 
-export default Error;
+export default Errors;

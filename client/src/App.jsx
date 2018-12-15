@@ -21,7 +21,7 @@ import User_show from "./components/User_show";
 import Login from "./components/Login";
 import Product_show from "./components/Product_show";
 import Cart from "./components/Cart";
-import Error from "./components/Error";
+import Errors from "./components/Errors";
 
 // import Departments from "./components/Departments";
 
@@ -33,14 +33,44 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
 });
 
+const routes = [
+  { path: "/", component: Home },
+  { path: "/departments", component: Departments },
+  { path: "//departments/:department_id/show", component: Department_show },
+  { path: "/users/new", component: User_new },
+  { path: "/users/:user_id/show", component: User_show },
+  { path: "/login", component: Login },
+  { path: "/products/:product_id/show", component: Product_show },
+  { path: "/cart", component: Cart },
+  { component: Errors }
+];
+
+const Router = props => {
+  const arr = routes.map(({ path, component: C }) => {
+    if (path === "/") {
+      return (
+        <Route
+          exact
+          path={path}
+          render={() => <C products={props.products} />}
+        />
+      );
+    } else {
+      return (
+        <Route path={path} render={() => <C products={props.products} />} />
+      );
+    }
+  });
+  return <Switch>{arr}</Switch>;
+};
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      //session['user_id']?
-      //session['user_email']?
-
       current_user: {
+        //session['user_id']?
+        //session['user_email']?
         id: 1,
         email: "imbirdy@yahoo.com"
       },
@@ -50,7 +80,8 @@ class App extends Component {
           unit_price: 99,
           store: "Walmart",
           department: "vegetable",
-          image: "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
+          image:
+            "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
           category: "unpacked"
         },
         {
@@ -58,44 +89,22 @@ class App extends Component {
           unit_price: 20,
           store: "Superstore",
           department: "meat",
-          image: "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
+          image:
+            "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
           category: "packaged"
         }
       ]
     };
   }
 
-  
-
-
-
   render() {
     return (
       <BrowserRouter>
         <div>
           <Header />
-          <Switch>
-            <Route
-              path="/"
-              render={props => (
-                <Home {...props} products={this.state.products} />
-              )}
-              exact
-            />
-            <Route path="/departments" component={Departments} exact />
-            <Route
-              path="/departments/:department_id/show"
-              render={props => (
-                <Department_show {...props} products={this.state.products} />
-              )}
-            />
-            <Route path="/users/new" component={User_new} />
-            <Route path="/users/:user_id/show" component={User_show} />
-            <Route path="/login" component={Login} />
-            <Route path="/products/:product_id/show" component={Product_show} />
-            <Route path="/cart" component={Cart} />
-            <Route component={Error} />
-          </Switch>
+
+          <Router products={this.state.products} />
+
           <Footer />
         </div>
       </BrowserRouter>
