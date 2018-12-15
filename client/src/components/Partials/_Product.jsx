@@ -23,7 +23,7 @@ class _Product extends Component {
           <ul>
             <li>Product Name: {product_name}</li>
             <li>Unit Price: {unit_price}</li>
-            <li>Store: {store}</li>
+            <li>Store: {store}</li >
             <li>Department: {department}</li>
             <li>Category: {category}</li>
           </ul>
@@ -46,7 +46,7 @@ class _Product extends Component {
             <div>
               <button onClick={() => this.props.onMinus(id)}>-</button>
             </div>
-            <div>Delete</div>
+            <button onClick={() => this.props.onDelete(id)}>Delete</button>
           </th>
         )}
       </tr>

@@ -35,11 +35,11 @@ class Cart extends Component {
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleMinus = this.handleMinus.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 
   }
 
   handleAdd(id) {
-    console.log("id", id);
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
 
     const newCartProducts = this.state.cartProducts;
@@ -50,11 +50,11 @@ class Cart extends Component {
     this.setState({
       cartProducts: newCartProducts
     });
-    console.log("cartProducts", this.state.cartProducts);
   }
 
+  
+
   handleMinus(id) {
-    console.log("id", id);
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
 
     const newCartProducts = this.state.cartProducts;
@@ -65,7 +65,14 @@ class Cart extends Component {
     this.setState({
       cartProducts: newCartProducts
     });
-    console.log("cartProducts", this.state.cartProducts);
+  }
+
+  handleDelete(id) {
+    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
+    const newCartProducts = this.state.cartProducts;
+
+    newCartProducts.splice(productIndex, 1);
+    this.setState({ cartProducts: newCartProducts });
   }
 
   handleChangeQuantity = (id, quantity) => {
@@ -78,7 +85,6 @@ class Cart extends Component {
     this.setState({
       cartProducts: newCartProducts
     });
-    console.log(this.state.cartProducts);
   };
 
   render() {
@@ -90,6 +96,7 @@ class Cart extends Component {
           onChangeQuantity={this.handleChangeQuantity}
           onAdd={this.handleAdd}
           onMinus={this.handleMinus}
+          onDelete={this.handleDelete}
         />
       );
     });
