@@ -45,6 +45,27 @@ const routes = [
   { component: Errors }
 ];
 
+const products = [
+  {
+    product_name: "carot",
+    unit_price: 99,
+    store: "Walmart",
+    department: "vegetable",
+    image:
+      "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
+    category: "unpacked"
+  },
+  {
+    product_name: "Pork",
+    unit_price: 20,
+    store: "Superstore",
+    department: "meat",
+    image:
+      "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
+    category: "packaged"
+  }
+]
+
 const Router = props => {
   const arr = routes.map(({ path, component: C }) => {
     if (path === "/") {
@@ -74,26 +95,7 @@ class App extends Component {
         id: 1,
         email: "imbirdy@yahoo.com"
       },
-      products: [
-        {
-          product_name: "carot",
-          unit_price: 99,
-          store: "Walmart",
-          department: "vegetable",
-          image:
-            "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
-          category: "unpacked"
-        },
-        {
-          product_name: "Pork",
-          unit_price: 20,
-          store: "Superstore",
-          department: "meat",
-          image:
-            "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
-          category: "packaged"
-        }
-      ]
+      products: products
     };
   }
 
