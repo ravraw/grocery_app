@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import './App.scss';
 
 // componets
-import Users from './components/Users';
+
 import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
@@ -23,7 +23,7 @@ class App extends Component {
           <Header />
           <Main>
             <h1>Grocery App </h1>
-            <Users />
+        
           </Main>
           <Footer />
         </div>
