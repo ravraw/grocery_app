@@ -32,9 +32,11 @@ class Cart extends Component {
     };
   }
   render() {
+    // id = this.props.match.params.cart;
+    
     const products = [];
     this.state.cart_products.forEach(product => {
-      products.push(<_Product product={product} />);
+      products.push(<_Product product={product} url='cart' />);
     });
     return (
       <main className="main cart_main">

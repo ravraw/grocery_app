@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
 class _Product extends Component {
-
   render() {
-    console.log("_props for _product", this.props);
+    const url = this.props.url;
     const {
       image,
       product_name,
@@ -12,6 +11,7 @@ class _Product extends Component {
       department,
       category
     } = this.props.product;
+
     return (
       <tr>
         <th>
@@ -26,17 +26,22 @@ class _Product extends Component {
             <li>Category: {category}</li>
           </ul>
         </th>
-        <th>
-          <div>Quantity</div>
-          <form>
-            <input type='text' placeholder={this.props.product.quantity} />
-          </form>
-          <div><button>+</button></div>
-          <div><button>-</button></div>
-          <div>Delete</div>
-        </th>
+        {url === "cart"&& (
+          <th>
+            <div>Quantity</div>
+            <form>
+              <input type="text" placeholder={this.props.product.quantity} />
+            </form>
+            <div>
+              <button>+</button>
+            </div>
+            <div>
+              <button>-</button>
+            </div>
+            <div>Delete</div>
+          </th>
+        )}
       </tr>
-
     );
   }
 }

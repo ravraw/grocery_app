@@ -14,7 +14,7 @@ import React, { Component } from "react";
 const routes = [
   { path: "/", component: Home },
   { path: "/departments", component: Departments },
-  { path: "//departments/:department_id/show", component: Department_show },
+  { path: "/departments/:department_id/show", component: Department_show },
   { path: "/users/new", component: User_new },
   { path: "/users/:user_id/show", component: User_show },
   { path: "/login", component: Login },
