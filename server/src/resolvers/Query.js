@@ -1,23 +1,38 @@
-// const knex = require('../knex');
-
 const Query = {
+  // users
   users(parent, args, { knex }, info) {
-    // if (!args.query) {
-    //   return db.users;
-    // }
-    // return db.users.filter(user => {
-    //   return user.name.toLowerCase().includes(args.query.toLowerCase());
-    // });
-    return knex.select('*').from('users');
+    if (!args.query) {
+      return knex.select('*').from('users');
+    }
+    return knex('users').where('email', 'like', `%${args.query}%`);
   },
-
-  me() {
-    return {
-      id: '12',
-      name: 'ravraw',
-      email: 'r@r.com',
-      age: 23
-    };
+  // stores
+  stores(parent, args, { knex }, info) {
+    if (!args.query) {
+      return knex.select('*').from('stores');
+    }
+    return knex('stores').where('name', 'like', `%${args.query}%`);
+  },
+  // departments
+  departments(parent, args, { knex }, info) {
+    if (!args.query) {
+      return knex.select('*').from('departments');
+    }
+    return knex('departments').where('name', 'like', `%${args.query}%`);
+  },
+  // categories
+  categories(parent, args, { knex }, info) {
+    if (!args.query) {
+      return knex.select('*').from('categories');
+    }
+    return knex('categories').where('name', 'like', `%${args.query}%`);
+  },
+  // products
+  products(parent, args, { knex }, info) {
+    if (!args.query) {
+      return knex.select('*').from('products');
+    }
+    return knex('products').where('name', 'like', `%${args.query}%`);
   }
 };
 

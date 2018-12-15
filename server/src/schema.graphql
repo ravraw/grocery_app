@@ -1,6 +1,14 @@
 type Query {
+    # All with / without query
     users(query: String): [User!]!
-    me: User!
+    stores(query:String):[Store!]!
+    departments(query:String):[Department!]!
+    categories(query:String):[Category!]!
+    products(query:String):[Product!]!
+    # Single 
+    department:Department!
+    category: Category!
+    product:Product!
 }
 
 type Mutation {
@@ -24,5 +32,40 @@ type User {
     email: String!
     password:String!
 }
+
+type Store{
+    id:ID!
+    name:String!
+    building_number:String!
+    street:String!
+    city:String!
+    postal_code:String!
+    state:String!
+    country:String!
+}
+
+type Department {
+  id: ID!
+  name: String!
+  categories: [Category!]!
+  products: [Product!]!
+}
+type Category {
+  id: ID!
+  name: String!
+  department:Department!
+  products: [Product!]!
+}
+
+type Product {
+    id:ID!
+    name:String!
+    description:String!
+    price:String! # to be chnaged to Int!
+    department:Department!
+    category:Category!
+}
+ 
+
 
 
