@@ -5,8 +5,8 @@ const cartProducts = [
   {
     id: 1,
     quantity: 6,
-    product_name: "carrot",
-    unit_price: 99,
+    productName: "carrot",
+    unitPrice: 99,
     store: "Walmart",
     department: "vegetable",
     image:
@@ -16,8 +16,8 @@ const cartProducts = [
   {
     id: 2,
     quantity: 12,
-    product_name: "Pork",
-    unit_price: 20,
+    productName: "Pork",
+    unitPrice: 20,
     store: "Superstore",
     department: "meat",
     image:
@@ -36,7 +36,6 @@ class Cart extends Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleMinus = this.handleMinus.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-
   }
 
   handleAdd(id) {
@@ -51,8 +50,6 @@ class Cart extends Component {
       cartProducts: newCartProducts
     });
   }
-
-  
 
   handleMinus(id) {
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
@@ -88,6 +85,19 @@ class Cart extends Component {
   };
 
   render() {
+    const productsTotal = () => {
+      const multiples = this.state.cartProducts.map(
+        ({ quantity, unitPrice }) => {
+          return quantity * unitPrice;
+        }
+      );
+      return multiples.reduce((a, b) => a + b);
+    };
+
+    const deliveryFee = productsTotal() * 0.1;
+    const gst = (productsTotal() + deliveryFee) * 0.05;
+    const subtotal = productsTotal() + deliveryFee + gst;
+
     const products = this.state.cartProducts.map(product => {
       return (
         <_Product
@@ -107,6 +117,15 @@ class Cart extends Component {
           <table>
             <tbody>{products}</tbody>
           </table>
+        </div>
+        <div>
+          <div>Products Total:{productsTotal().toFixed(2)}</div>
+          <div>Delivery Fee:{deliveryFee.toFixed(2)}</div>
+          <div>GST:{gst.toFixed(2)}</div>
+          <div>Subtotal:{subtotal.toFixed(2)}</div>
+          <div>
+            <input type="text" placeholder="Driver's Tips" />
+          </div>
         </div>
       </main>
     );
