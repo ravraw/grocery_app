@@ -37,22 +37,29 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      //session['user_id']?
+      //session['user_email']?
+
+      current_user: {
+        id: 1,
+        email: "imbirdy@yahoo.com"
+      },
       products: [
         {
           product_name: "carot",
           unit_price: 99,
           store: "Walmart",
           department: "vegetable",
-          image: './images/carrot.png',
-          category: 'unpacked'
+          image: "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
+          category: "unpacked"
         },
         {
           product_name: "Pork",
           unit_price: 20,
           store: "Superstore",
-          department: "Meat",
-          image: './images/carrot.png',
-          category: 'packaged'
+          department: "meat",
+          image: "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png",
+          category: "packaged"
         }
       ]
     };
@@ -63,11 +70,19 @@ class App extends Component {
         <div>
           <Header />
           <Switch>
-            <Route path="/" render={(props) => <Home {...props}  products={this.state.products} />} exact />
+            <Route
+              path="/"
+              render={props => (
+                <Home {...props} products={this.state.products} />
+              )}
+              exact
+            />
             <Route path="/departments" component={Departments} exact />
             <Route
               path="/departments/:department_id/show"
-              component={Department_show}
+              render={props => (
+                <Department_show {...props} products={this.state.products} />
+              )}
             />
             <Route path="/users/new" component={User_new} />
             <Route path="/users/:user_id/show" component={User_show} />
