@@ -27,7 +27,7 @@ class Header extends Component {
           <a href="/login" className="login_link">
             Login
           </a>
-          <a href="/users/new" className="register_link">
+          <a href="/user/new" className="register_link">
             Register
           </a>
           <a href="/cart" className="cart_link">
