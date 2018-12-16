@@ -33,10 +33,18 @@ const Query = {
   },
   // products
   products(parent, args, { knex }, info) {
-    if (!args.query) {
+    // if (!args.query) {
+    //   return knex.select('*').from('products');
+    // }
+    // return knex('products').where('name', 'like', `%${args.query}%`);
+    const { query, id } = args;
+    if (query) {
+      return knex('products').where('name', 'like', `%${query}%`);
+    } else if (id) {
+      return knex('products').where({ id });
+    } else {
       return knex.select('*').from('products');
     }
-    return knex('products').where('name', 'like', `%${args.query}%`);
   }
   //shoppingCart
   // userCartItems(parent, args, { knex }, info) {
