@@ -33,6 +33,7 @@ const Router = props => {
           render={() => <C products={props.products} />}
         />
       );
+      
     } else {
       return (
         <Route path={path} render={() => <C products={props.products} />} />
