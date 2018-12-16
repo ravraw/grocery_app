@@ -1,4 +1,4 @@
-import Home from "./components/Home";
+import Home from "./components/PageViews/Home";
 import Departments from "./components/Departments";
 import Department_show from "./components/Department_show";
 import User_new from "./components/User_new";
