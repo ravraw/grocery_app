@@ -35,6 +35,7 @@ const Router = props => {
       );
 
       
+
     } else {
       return (
         <Route path={path} render={() => <C products={props.products} />} />
