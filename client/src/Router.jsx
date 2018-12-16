@@ -1,14 +1,15 @@
-import Home from './components/Home';
-import Departments from './components/Departments';
-import Department_show from './components/Department_show';
-import User_new from './components/User_new';
-import User_show from './components/User_show';
-import Login from './components/Login';
-import Product_show from './components/Product_show';
-import Cart from './components/Cart';
-import Errors from './components/Errors';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
-import React, { Component } from 'react';
+import Home from "./components/PageViews/Home";
+import Departments from "./components/Departments";
+import Department_show from "./components/Department_show";
+import User_new from "./components/User_new";
+import User_show from "./components/User_show";
+import Login from "./components/Login";
+import Product_show from "./components/Product_show";
+import Cart from "./components/Cart";
+import Errors from "./components/Errors";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import React, { Component } from "react";
+
 
 const routes = [
   { path: '/', component: Home },
