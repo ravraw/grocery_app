@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Department from "./Department";
+import React, { Component } from 'react';
+import Department from './Department';
 
 class Departments extends Component {
   constructor() {
@@ -9,15 +9,15 @@ class Departments extends Component {
       departments: [
         {
           id: 1,
-          departmentName: "meat",
+          departmentName: 'meat',
           image:
-            "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png"
+            'https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png'
         },
         {
           id: 2,
-          departmentName: "deli",
+          departmentName: 'deli',
           image:
-            "https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png"
+            'https://d2d8wwwkmhfcva.cloudfront.net/156x/d2lnr5mha7bycj.cloudfront.net/warehouse/logo/317/7eec43fd-6aca-489a-8070-08c18b12c4b1.png'
         }
       ]
     };
