@@ -15,10 +15,14 @@ const Query = {
   },
   // departments
   departments(parent, args, { knex }, info) {
-    if (!args.query) {
+    const { query, id } = args;
+    if (query) {
+      return knex('departments').where('name', 'like', `%${query}%`);
+    } else if (id) {
+      return knex('departments').where({ id });
+    } else {
       return knex.select('*').from('departments');
     }
-    return knex('departments').where('name', 'like', `%${args.query}%`);
   },
   // categories
   categories(parent, args, { knex }, info) {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class _Product extends Component {
   render() {
@@ -14,14 +14,14 @@ class _Product extends Component {
       id
     } = this.props.product;
     const renders =
-      url === "cart" ? (
+      url === 'cart' ? (
         <th>
           <div>Quantity</div>
           <input
             type="text"
             placeholder={this.props.product.quantity}
             onKeyPress={event => {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 this.props.onChangeQuantity(id, event.target.value);
               }
             }}

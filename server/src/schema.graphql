@@ -2,7 +2,7 @@ type Query {
     # All with / without query
     users(query:String):[User!]!
     stores(query:String):[Store!]!
-    departments(query:String):[Department!]!
+    departments(query:String,id:ID):[Department!]!
     categories(query:String):[Category!]!
     products(query:String):[Product!]!
     shoppingCart(query:String):[Product]!
