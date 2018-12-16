@@ -12,9 +12,6 @@ import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
 import Router from './Router';
-// import Departments from "./components/Departments";
-
-console.log('RAPPER', Router);
 
 // Apollo client setup
 

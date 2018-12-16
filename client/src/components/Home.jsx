@@ -3,7 +3,7 @@ import _Product from "./Partials/_Product";
 import Department_show from "./Department_show";
 class Home extends Component {
   render() {
-    console.log("this.props----HOME",this.props)
+    // console.log("this.props----HOME",this.props)
     const products = [];
     this.props.products.forEach((product)=>{
       products.push( <_Product product={product} />);
