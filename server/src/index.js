@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer, gql, PubSub } = require('apollo-server-express');
 
 const PORT = 4000;
 const express = require('express');
@@ -9,6 +9,8 @@ const fs = require('fs');
 const typeDefs = gql`
   ${fs.readFileSync(__dirname.concat('/schema.graphql'), 'utf8')}
 `;
+
+const pubSub = new PubSub();
 // const ENV = process.env.ENV || 'development';
 // const knexConfig = require('../knexfile');
 // const knex = require('knex')(knexConfig[ENV]);
@@ -21,6 +23,7 @@ const faker = require('faker');
 // const db = require('./db');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
+const Subscription = require('./resolvers/Subscription');
 const User = require('./resolvers/User');
 const Department = require('./resolvers/Department');
 const Category = require('./resolvers/Category');
@@ -31,12 +34,13 @@ const server = new ApolloServer({
   resolvers: {
     Query,
     Mutation,
+    Subscription,
     User,
     Department,
     Category,
     Product
   },
-  context: { knex }
+  context: { knex, pubSub }
 });
 server.applyMiddleware({ app });
 

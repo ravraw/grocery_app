@@ -5,7 +5,7 @@ type Query {
     departments(query:String):[Department!]!
     categories(query:String):[Category!]!
     products(query:String):[Product!]!
-    shoppingCart(query:String):[Product!]!
+    shoppingCart(query:String):[Product]!
     # userCartItems(query:ID):[Product!]!
     # Single 
     department:Department!
@@ -14,20 +14,30 @@ type Query {
 }
 
 type Mutation {
-    addCartItem(data: CreateCartInput!): Product!
-    removeCartItem(id: ID!): Product!
-    updateCartItem(id: ID!, data: UpdateUserInput!): Product!
+    # shopping Cart
+    addCartItem(data:AddCartItemInput):Product!
+    deleteCartItem(data:DeleteCartItemInput):Product!
+    # removeCartItem(id: ID!): Product!
+    # updateCartItem(id: ID!, data: UpdateCartItemInput!): Product!
 }
 
-input CreateCartInput {
-    email: String!
-    password:String!
+type Subscription{
+    count:Int!
 }
-input UpdateUserInput {
-    email: String!
-    password:String!
- 
+
+input AddCartItemInput {
+    quantity:Int!
+    user_id:ID!
+    product_id:ID!
 }
+input DeleteCartItemInput{
+    user_id:ID!
+    product_id:ID!
+}
+# input UpdateUserInput {
+#     email: String!
+#     password:String!
+# }
 
 type User {
     id: ID!
@@ -65,7 +75,8 @@ type Product {
     name:String!
     description:String!
     price:Float! # to be chnaged to Int!
-    depart:Department!
+    quantity:Int!
+    department:Department!
     category:Category!
 }
 

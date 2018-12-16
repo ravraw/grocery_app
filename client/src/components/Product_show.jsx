@@ -5,6 +5,7 @@ class Product_show extends Component {
     return (
       <main className="main Product_show_main">
         <div>This is Product_show Page</div>
+        <div>This is Product_show Page</div>
       </main>
     );
   }
