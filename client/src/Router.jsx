@@ -12,21 +12,20 @@ import React, { Component } from "react";
 
 
 const routes = [
-  { path: "/", component: Home },
-  { path: "/departments", component: Departments },
-  { path: "/department/:department_id/show", component: Department_show },
-  { path: "/user/new", component: User_new },
-  { path: "/user/:user_id/show", component: User_show },
-  { path: "/login", component: Login },
-  { path: "/product/:product_id/show", component: Product_show },
-  { path: "/cart", component: Cart },
+  { path: '/', component: Home },
+  { path: '/departments', component: Departments },
+  { path: '/department/:department_id/show', component: Department_show },
+  { path: '/user/new', component: User_new },
+  { path: '/user/:user_id/show', component: User_show },
+  { path: '/login', component: Login },
+  { path: '/product/:product_id/show', component: Product_show },
+  { path: '/cart', component: Cart },
   { component: Errors }
 ];
 
-
 const Router = props => {
   const arr = routes.map(({ path, component: C }) => {
-    if (path === "/") {
+    if (path === '/') {
       return (
         <Route
           exact
@@ -42,8 +41,5 @@ const Router = props => {
   });
   return <Switch>{arr}</Switch>;
 };
-
-
-
 
 export default Router;
