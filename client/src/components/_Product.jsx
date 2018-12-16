@@ -4,6 +4,7 @@ class _Product extends Component {
   render() {
     const url = this.props.url;
 
+    
     const {
       image,
       product_name,
