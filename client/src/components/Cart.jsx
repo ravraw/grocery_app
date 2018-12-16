@@ -33,12 +33,12 @@ class Cart extends Component {
       cartProducts: cartProducts
     };
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
+    this.handlePlus = this.handlePlus.bind(this);
     this.handleMinus = this.handleMinus.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleAdd(id) {
+  handlePlus(id) {
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
 
     const newCartProducts = this.state.cartProducts;
@@ -50,6 +50,7 @@ class Cart extends Component {
       cartProducts: newCartProducts
     });
   }
+  
 
   handleMinus(id) {
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
@@ -104,7 +105,7 @@ class Cart extends Component {
           product={product}
           url="cart"
           onChangeQuantity={this.handleChangeQuantity}
-          onAdd={this.handleAdd}
+          onPlus={this.handlePlus}
           onMinus={this.handleMinus}
           onDelete={this.handleDelete}
         />
