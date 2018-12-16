@@ -11,6 +11,7 @@ import User_new from "../PageViews/User_new";
 class Main extends Component {
   render() {
     return (
+      <main>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/user/new" component={User_new} />
@@ -20,6 +21,7 @@ class Main extends Component {
           <Route path="/cart" component={Cart} />
           <Route component={Errors} />  */}
         </Switch>
+      </main>
     );
   }
 }
