@@ -13,7 +13,7 @@ class Department_show extends Component {
     let data = this.props.data;
     // const { id, name, categories } = data.departments;
     // const D = data.departments;
-    console.log('this is data:', data);
+    // console.log('this is data:', data);
     if (data.loading) {
       return <div>Loading Categories...</div>;
     } else {
@@ -23,8 +23,6 @@ class Department_show extends Component {
     }
   }
   render(props) {
-    console.log('this props:', this.props.data.variables.id);
-
     return <div>{this.displayCategories()}</div>;
   }
 }

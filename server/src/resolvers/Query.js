@@ -1,10 +1,14 @@
 const Query = {
   // users
   users(parent, args, { knex }, info) {
-    if (!args.query) {
+    console.log('users args:', args.id);
+    if (!args.id) {
       return knex.select('*').from('users');
     }
-    return knex('users').where('email', 'like', `%${args.query}%`);
+    //return knex('users').where('id', `%${args.id}%`);
+    return knex('users')
+      .returning('*')
+      .where({ id: `${args.id}` });
   },
   // stores
   stores(parent, args, { knex }, info) {

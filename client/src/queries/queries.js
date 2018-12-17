@@ -82,6 +82,21 @@ const getCategoriesAndProducts = gql`
     }
   }
 `;
+const getCartQuery = gql`
+  query($id: ID) {
+    users(id: $id) {
+      id
+      email
+      shoppingCart {
+        id
+        name
+        description
+        price
+        quantity
+      }
+    }
+  }
+`;
 
 export {
   getUsersQuery,
@@ -89,25 +104,6 @@ export {
   getDepartmentsQuery,
   getCategoriesQuery,
   getProductsQuery,
-  getCategoriesAndProducts
+  getCategoriesAndProducts,
+  getCartQuery
 };
-
-// const getBookQuery = gql`
-//   query($id: ID) {
-//     book(id: $id) {
-//       id
-//       name
-//       genre
-//       author {
-//         id
-//         name
-//         age
-//         books {
-//           id
-//           name
-//           genre
-//         }
-//       }
-//     }
-//   }
-// `;

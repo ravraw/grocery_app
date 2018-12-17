@@ -5,8 +5,8 @@ import Department_show from '../PageViews/Department_show';
 import User_new from '../PageViews/User_new';
 // import User_show from "./components/User_show";
 // import Login from "./components/Login";
-import Cart from "../PageViews/Cart";
-import Errors from "../PageViews/Errors";
+import Cart from '../PageViews/Cart';
+import Errors from '../PageViews/Errors';
 
 class Main extends Component {
   render() {
@@ -15,18 +15,17 @@ class Main extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/user/new" component={User_new} />
-          <Route path="/cart" component={Cart} />
-          <Route component={Errors} />
+          <Route path="/cart/:id" component={Cart} />
+
           {/* <Route path="/user/:user_id/show" component={User_show} /> */}
           {/* <Route path="/login" component={Login} /> */}
-
 
           <Route path="/department/:id/show" component={Department_show} />
           {/* <Route path="/cart" component={Cart} />
           <Route component={Errors} />
           <Route path="/user/:user_id/show" component={User_show} />
           <Route path="/login" component={Login} /> */}
-
+          <Route component={Errors} />
         </Switch>
       </main>
     );

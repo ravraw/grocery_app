@@ -1,6 +1,6 @@
 type Query {
     # All with / without query
-    users(query:String):[User!]!
+    users(id:ID):[User!]!
     stores(query:String):[Store!]!
     departments(query:String,id:ID):[Department!]!
     categories(query:String):[Category!]!
