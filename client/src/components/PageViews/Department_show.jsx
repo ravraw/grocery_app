@@ -11,9 +11,6 @@ class Department_show extends Component {
   };
   displayCategories() {
     let data = this.props.data;
-    // const { id, name, categories } = data.departments;
-    // const D = data.departments;
-    // console.log('this is data:', data);
     if (data.loading) {
       return <div>Loading Categories...</div>;
     } else {
