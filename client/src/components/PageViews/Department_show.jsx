@@ -1,81 +1,37 @@
-import React, { Component } from "react";
-import Category from "../Categories/Category";
+import React, { Component } from 'react';
+import Category from '../Categories/Category';
+import { graphql } from 'react-apollo';
+import { getCategoriesQuery } from '../../queries/queries';
 
 //should take all categories that are available to that department
-const categories =  [
-  {
-    "id": "2",
-    "name": "fresh fruits",
-    "products": [
-      {
-        "id": "1",
-        "name": "banana",
-        "price": 0.2
-      },
-      {
-        "id": "2",
-        "name": "Orange",
-        "price": 0.38
-      },
-      {
-        "id": "3",
-        "name": "watermelon",
-        "price": 5.38
-      }
-    ]
-  },
-  {
-    "id": "3",
-    "name": "fresh herbs",
-    "products": [
-      {
-        "id": "4",
-        "name": "white Onion",
-        "price": 0.39
-      },
-      {
-        "id": "5",
-        "name": "yellow onion",
-        "price": 2.98
-      },
-      {
-        "id": "6",
-        "name": "roma tomatos",
-        "price": 2.98
-      },
-      {
-        "id": "7",
-        "name": "roma tomatos",
-        "price": 2.98
-      }
-    ]
-  },
-  {
-    "id": "4",
-    "name": "fresh vegetables",
-    "products": []
-  }
-]
-;
 
 class Department_show extends Component {
- 
-  render() {
-    const Categories = categories.map(category => {
-      return <Category name={category.name} products={category.products} />;
-    });
-    // console.log(this.props)
+  state = {
+    id: this.props.match.params.department_name
+  };
+  displayCategories() {
+    let data = this.props.data;
+    // const { id, name, categories } = data.departments;
+    // const D = data.departments;
+    console.log('this is data:', data);
+    if (data.loading) {
+      return <div>Loading Categories...</div>;
+    } else {
+      return data.departments[0].categories.map(category => {
+        return <Category category={category} />;
+      });
+    }
+  }
+  render(props) {
+    console.log('this props:', this.props.data.variables.id);
 
-    const id = this.props.match.params.department_name;
-    // console.log("id", id);
-
-    return (
-      <React.Fragment>
-        <h2>Categories In {id} Department</h2>
-        {Categories}
-      </React.Fragment>
-    );
+    return <div>{this.displayCategories()}</div>;
   }
 }
 
-export default Department_show;
+export default graphql(getCategoriesQuery, {
+  options: props => {
+    console.log('from props:', props);
+    return { variables: { id: props.match.params.id } };
+  }
+})(Department_show);

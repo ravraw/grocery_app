@@ -57,8 +57,32 @@ exports.seed = function(knex, Promise) {
           name: 'roma tomatos',
           description: '1 lbs',
           price: 2.98,
-          department_id: 1, // produce
-          category_id: 3, // fresh vegetable
+          department_id: 2, // produce
+          category_id: 5, // fresh vegetable
+          brand_id: 1 // no name
+        },
+        {
+          name: 'roma tomatos',
+          description: '1 lbs',
+          price: 2.98,
+          department_id: 2, // produce
+          category_id: 6, // fresh vegetable
+          brand_id: 1 // no name
+        },
+        {
+          name: 'roma tomatos',
+          description: '1 lbs',
+          price: 2.98,
+          department_id: 2, // produce
+          category_id: 7, // fresh vegetable
+          brand_id: 1 // no name
+        },
+        {
+          name: 'roma tomatos',
+          description: '1 lbs',
+          price: 2.98,
+          department_id: 2, // produce
+          category_id: 8, // fresh vegetable
           brand_id: 1 // no name
         }
       ]);
