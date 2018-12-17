@@ -23,23 +23,19 @@ class Department_show extends Component {
       });
     }
   }
-  // displaySidebar() {
-  //   let data = this.props.data;
-  //   if (!data.loading) {
-  //     return data.departments[0].categories.map(category => {
-  //       return <Sidebar category={category} />;
-  //     });
-  //   }
-  // }
+  displaySidebar() {
+    let data = this.props.data;
+    if (!data.loading) {
+      return <Sidebar categories={data.departments[0].categories} />;
+    }
+  }
+
   render(props) {
-    
     console.log("this props:", this.props.data.variables.id);
 
     return (
       <React.Fragment>
-        <div>
-          <Sidebar />
-        </div>
+        <div>{this.displaySidebar()}</div>
         <div>{this.displayCategories()}</div>
       </React.Fragment>
     );

@@ -3,10 +3,23 @@ import { NavLink } from "react-router-dom";
 
 class Sidebar extends Component {
   render() {
-    const links=this.props.categories
+    const categories = this.props.categories;
+    console.log("categories props", categories);
+
+    const links = this.props.categories.map(category => {
+      return (
+        <React.Fragment>
+          <NavLink to={`/category/${category.id}/show`}>
+            {category.name}
+          </NavLink>
+          <br />
+        </React.Fragment>
+      );
+    });
     return (
       <div>
-        <NavLink to="/about"></NavLink>
+        <h4>Categories: </h4>
+        {links}
       </div>
     );
   }
