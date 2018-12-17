@@ -82,46 +82,54 @@ class Cart extends Component {
     this.setState({ cartProducts: newCartProducts });
   };
 
-  render() {
-    const productsTotal = () => {
-      const multiples = cartProducts.map(({ quantity, price }) => {
-        return quantity * price;
+  renderCart() {
+    if (this.state.cartProducts.length>0) {
+      const products = cartProducts.map(product => {
+        return (
+          <Product
+            product={product}
+            onChangeQuantity={this.handleChangeQuantity}
+            onPlus={this.handlePlus}
+            onMinus={this.handleMinus}
+            onRemove={this.handleRemove}
+          />
+        );
       });
-      return multiples.reduce((a, b) => a + b);
-    };
+      const productsTotal = () => {
+        const multiples = cartProducts.map(({ quantity, price }) => {
+          return quantity * price;
+        });
+        return multiples.reduce((a, b) => a + b);
+      };
 
-    const deliveryFee = productsTotal() * 0.1;
-    const gst = (productsTotal() + deliveryFee) * 0.05;
-    const subtotal = productsTotal() + deliveryFee + gst;
+      const deliveryFee = productsTotal() * 0.1;
+      const gst = (productsTotal() + deliveryFee) * 0.05;
+      const subtotal = productsTotal() + deliveryFee + gst;
 
-    const products = cartProducts.map(product => {
       return (
-        <Product
-          product={product}
-          onChangeQuantity={this.handleChangeQuantity}
-          onPlus={this.handlePlus}
-          onMinus={this.handleMinus}
-          onRemove={this.handleRemove}
-        />
-      );
-    });
-    return (
-      <React.Fragment>
-        <div>
-          <h2>This Is Your Cart!</h2>
-          {products}
-        </div>
-        <div>
-          <div>Products Total:{productsTotal().toFixed(2)}</div>
-          <div>Delivery Fee:{deliveryFee.toFixed(2)}</div>
-          <div>GST:{gst.toFixed(2)}</div>
-          <div>Subtotal:{subtotal.toFixed(2)}</div>
+        <React.Fragment>
           <div>
-            <input type="text" placeholder="Driver's Tips" />
+            <h2>This Is Your Cart!</h2>
+            {products}
           </div>
-        </div>
-      </React.Fragment>
-    );
+          <div>
+            <div>Products Total:{productsTotal().toFixed(2)}</div>
+            <div>Delivery Fee:{deliveryFee.toFixed(2)}</div>
+            <div>GST:{gst.toFixed(2)}</div>
+            <div>Subtotal:{subtotal.toFixed(2)}</div>
+            <div>
+              <input type="text" placeholder="Driver's Tips" />
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return <h1>Your Cart Is Empty!!!</h1>;
+    }
+  }
+
+  render() {
+    return <React.Fragment>{this.renderCart()}</React.Fragment>;
   }
 }
 
