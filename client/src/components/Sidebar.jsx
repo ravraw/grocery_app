@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom";
 
 class Sidebar extends Component {
   render() {
+    const links=this.props.categories
     return (
       <div>
-        <NavLink to="/about">This is a side bar!!!!!!!!!!!!!!!!!!!!!!!!!!</NavLink>
+        <NavLink to="/about"></NavLink>
       </div>
     );
   }

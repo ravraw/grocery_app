@@ -32,6 +32,7 @@ class Department_show extends Component {
   //   }
   // }
   render(props) {
+    
     console.log("this props:", this.props.data.variables.id);
 
     return (
