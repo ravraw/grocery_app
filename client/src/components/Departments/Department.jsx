@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 class Department extends Component {
   render() {
     const { id, name } = this.props.department;
+
     return (
       <Link id={id} to={`/department/${id}/show`}>
         <h1>{name}</h1>
