@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Product from "../Cart/Product";
 
-const cartProducts = [
+let cartProducts = [
   {
     id: 1,
     quantity: 6,
@@ -31,64 +31,62 @@ class Cart extends Component {
     this.state = {
       cartProducts: cartProducts
     };
+
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
     this.handlePlus = this.handlePlus.bind(this);
     this.handleMinus = this.handleMinus.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
-
+  //Beside updating the state, it needs to change the quantity of the product in cart database
   handlePlus(id) {
-    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
-    const newCartProducts = this.state.cartProducts;
+    const productIndex = cartProducts.findIndex(cp => cp.id === id);
+    const newCartProducts = cartProducts;
     newCartProducts[productIndex] = {
       ...newCartProducts[productIndex],
       quantity: newCartProducts[productIndex].quantity + 1
     };
-    this.setState({
-      cartProducts: newCartProducts
-    });
+
+    this.setState({ cartProducts: newCartProducts });
   }
 
+  //Beside updating the state, it needs to change the quantity of the product in cart database
   handleMinus(id) {
-    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
+    const productIndex = cartProducts.findIndex(cp => cp.id === id);
 
-    const newCartProducts = this.state.cartProducts;
+    const newCartProducts = cartProducts;
     newCartProducts[productIndex] = {
       ...newCartProducts[productIndex],
       quantity: newCartProducts[productIndex].quantity - 1
     };
-    this.setState({
-      cartProducts: newCartProducts
-    });
+
+    this.setState({ cartProducts: newCartProducts });
   }
 
-  handleDelete(id) {
-    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
-    const newCartProducts = this.state.cartProducts;
+  //Beside updating the state, it needs to change the quantity of the product in cart database
+  handleRemove(id) {
+    const productIndex = cartProducts.findIndex(cp => cp.id === id);
+    const newCartProducts = cartProducts;
 
     newCartProducts.splice(productIndex, 1);
     this.setState({ cartProducts: newCartProducts });
   }
 
+  //Beside updating the state, it needs to change the quantity of the product in cart database
   handleChangeQuantity = (id, quantity) => {
-    const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
-    const newCartProducts = this.state.cartProducts;
+    const productIndex = cartProducts.findIndex(cp => cp.id === id);
+    const newCartProducts = cartProducts;
     newCartProducts[productIndex] = {
       ...newCartProducts[productIndex],
       quantity
     };
-    this.setState({
-      cartProducts: newCartProducts
-    });
+    this.setState({ cartProducts: newCartProducts });
   };
 
   render() {
     const productsTotal = () => {
-      const multiples = this.state.cartProducts.map(
-        ({ quantity, price }) => {
-          return quantity * price;
-        }
-      );
+      const multiples = cartProducts.map(({ quantity, price }) => {
+        return quantity * price;
+      });
       return multiples.reduce((a, b) => a + b);
     };
 
@@ -96,15 +94,14 @@ class Cart extends Component {
     const gst = (productsTotal() + deliveryFee) * 0.05;
     const subtotal = productsTotal() + deliveryFee + gst;
 
-    const products = this.state.cartProducts.map(product => {
+    const products = cartProducts.map(product => {
       return (
         <Product
           product={product}
-          url="cart"
           onChangeQuantity={this.handleChangeQuantity}
           onPlus={this.handlePlus}
           onMinus={this.handleMinus}
-          onDelete={this.handleDelete}
+          onRemove={this.handleRemove}
         />
       );
     });
@@ -112,8 +109,7 @@ class Cart extends Component {
       <React.Fragment>
         <div>
           <h2>This Is Your Cart!</h2>
-            {products}
-         
+          {products}
         </div>
         <div>
           <div>Products Total:{productsTotal().toFixed(2)}</div>
