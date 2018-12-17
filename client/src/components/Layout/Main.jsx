@@ -25,7 +25,7 @@ class Main extends Component {
           {/* <Route path="/login" component={Login} /> */}
 
           <Route path="/department/:id/show" component={Department_show} />
-          <Route path="/product/:id/show" component={Product_show} />
+          <Route path="/product/:id/show"  component={Product_show} />
          
           {/* <Route path="/user/:user_id/show" component={User_show} />
           <Route path="/login" component={Login} /> */}
