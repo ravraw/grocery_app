@@ -15,23 +15,18 @@ class Main extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/user/new" component={User_new} />
-<<<<<<< HEAD
-          <Route
-            path="/department/:department_name/show"
-            component={Department_show}
-          />
           <Route path="/cart" component={Cart} />
           <Route component={Errors} />
           {/* <Route path="/user/:user_id/show" component={User_show} /> */}
           {/* <Route path="/login" component={Login} /> */}
 
-=======
+
           <Route path="/department/:id/show" component={Department_show} />
           {/* <Route path="/cart" component={Cart} />
           <Route component={Errors} />
           <Route path="/user/:user_id/show" component={User_show} />
           <Route path="/login" component={Login} /> */}
->>>>>>> 517bed3e985c7edd01ac3df54063e942357692bc
+
         </Switch>
       </main>
     );
