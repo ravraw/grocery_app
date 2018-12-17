@@ -7,7 +7,7 @@ import { getCategoriesQuery } from '../../queries/queries';
 
 class Department_show extends Component {
   state = {
-    id: this.props.match.params.department_name
+    id: this.props.match.params.department_id
   };
   displayCategories() {
     let data = this.props.data;
