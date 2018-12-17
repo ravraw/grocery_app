@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 
-const productOfId = {
-  name: "PAPY",
-  price: 30,
-  description: "it is super delicious"
-};
-
 class Product_show extends Component {
+  constructor() {
+    super();
+    this.state = {
+      id: this.props.match.params.id,
+      productOfId: {
+        //fetch that product of id.
+        name: "PAPY",
+        price: 30,
+        description: "it is super delicious"
+      }
+    };
+  }
+
+  handleAdd() {
+    // Add this.state.productOfId to Cart in database.
+  }
   render() {
-    const { name, price, description } = productOfId;
+    const { name, price, description } = this.state.productOfId;
     // console.log("product_id",this.props.match.params.id)
- console.log("passed ID", this.props.id)
     return (
       <React.Fragment>
         <div>This is Product_show Page</div>
@@ -18,6 +27,7 @@ class Product_show extends Component {
         <h2>Name: {name}</h2>
         <h2>Unit_Price: {price}</h2>
         <h2>Description: {description}</h2>
+        <button onClick={this.handleAdd}>Add To Cart</button>
       </React.Fragment>
     );
   }
