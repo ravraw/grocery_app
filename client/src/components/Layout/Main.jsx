@@ -6,7 +6,7 @@ import User_new from "../PageViews/User_new";
 // import User_show from "./components/User_show";
 // import Login from "./components/Login";
 import Cart from "../PageViews/Cart";
-// import Errors from "./components/Errors";
+import Errors from "../PageViews/Errors";
 
 class Main extends Component {
   render() {
@@ -20,9 +20,9 @@ class Main extends Component {
             component={Department_show}
           />
           <Route path="/cart" component={Cart} />
-          {/* <Route component={Errors} />
-          <Route path="/user/:user_id/show" component={User_show} />
-          <Route path="/login" component={Login} /> */}
+          <Route component={Errors} />
+          {/* <Route path="/user/:user_id/show" component={User_show} /> */}
+          {/* <Route path="/login" component={Login} /> */}
 
         </Switch>
       </main>
