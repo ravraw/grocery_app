@@ -37,10 +37,20 @@ const getDepartmentsQuery = gql`
   }
 `;
 const getCategoriesQuery = gql`
-  {
-    categories {
+  query($id: ID) {
+    departments(id: $id) {
       id
       name
+      categories {
+        id
+        name
+        products {
+          id
+          name
+          description
+          price
+        }
+      }
     }
   }
 `;
@@ -81,3 +91,23 @@ export {
   getProductsQuery,
   getCategoriesAndProducts
 };
+
+// const getBookQuery = gql`
+//   query($id: ID) {
+//     book(id: $id) {
+//       id
+//       name
+//       genre
+//       author {
+//         id
+//         name
+//         age
+//         books {
+//           id
+//           name
+//           genre
+//         }
+//       }
+//     }
+//   }
+// `;

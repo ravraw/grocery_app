@@ -6,7 +6,9 @@ import { getDepartmentsQuery } from '../../queries/queries';
 class Departments extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      selected: null
+    };
   }
   displayDepartments() {
     let data = this.props.data;
@@ -15,7 +17,13 @@ class Departments extends Component {
       return <div>Loading Departments...</div>;
     } else {
       return data.departments.map(department => {
-        return <Department department={department} />;
+        return (
+          <Department
+            key={department.id}
+            department={department}
+            onClick={e => this.setState({ selected: department.id })}
+          />
+        );
       });
     }
   }

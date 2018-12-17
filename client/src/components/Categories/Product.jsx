@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Product extends Component {
   render() {
+    const { id, name, description, price } = this.props.product;
     return (
-      <div>
-        <img src={this.props.product.image} />
-        <h3>Product Name: {this.props.product.name}</h3>
-        <h3>Unit Price: {this.props.product.price}</h3>
-        
-
+      <div key={id}>
+        <img src="http://fosterclark.com/wp-content/uploads/2016/06/Banana-150x150.png" />
+        <h2>{name}</h2>
+        <p>Description: {description}</p>
+        <p>Price: {price}</p>
       </div>
     );
   }
