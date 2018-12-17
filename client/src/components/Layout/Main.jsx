@@ -5,7 +5,7 @@ import Department_show from "../PageViews/Department_show";
 import User_new from "../PageViews/User_new";
 // import User_show from "./components/User_show";
 // import Login from "./components/Login";
-// import Cart from "./components/Cart";
+import Cart from "../PageViews/Cart";
 // import Errors from "./components/Errors";
 
 class Main extends Component {
@@ -19,8 +19,8 @@ class Main extends Component {
             path="/department/:department_name/show"
             component={Department_show}
           />
-          {/* <Route path="/cart" component={Cart} />
-          <Route component={Errors} />
+          <Route path="/cart" component={Cart} />
+          {/* <Route component={Errors} />
           <Route path="/user/:user_id/show" component={User_show} />
           <Route path="/login" component={Login} /> */}
 

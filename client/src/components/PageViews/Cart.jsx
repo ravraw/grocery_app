@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import _Product from "./Partials/_Product";
+import Product from "../Cart/Product";
 
 const cartProducts = [
   {
     id: 1,
     quantity: 6,
-    productName: "carrot",
-    unitPrice: 99,
+    name: "carrot",
+    price: 99,
     store: "Walmart",
     department: "vegetable",
     image:
@@ -16,8 +16,8 @@ const cartProducts = [
   {
     id: 2,
     quantity: 12,
-    productName: "Pork",
-    unitPrice: 20,
+    name: "Pork",
+    price: 20,
     store: "Superstore",
     department: "meat",
     image:
@@ -29,7 +29,6 @@ class Cart extends Component {
   constructor() {
     super();
     this.state = {
-      //should use fetched Cart data from database; now uses hardcoded cartProducts
       cartProducts: cartProducts
     };
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
@@ -40,7 +39,6 @@ class Cart extends Component {
 
   handlePlus(id) {
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
-
     const newCartProducts = this.state.cartProducts;
     newCartProducts[productIndex] = {
       ...newCartProducts[productIndex],
@@ -50,7 +48,6 @@ class Cart extends Component {
       cartProducts: newCartProducts
     });
   }
-  
 
   handleMinus(id) {
     const productIndex = this.state.cartProducts.findIndex(cp => cp.id === id);
@@ -88,8 +85,8 @@ class Cart extends Component {
   render() {
     const productsTotal = () => {
       const multiples = this.state.cartProducts.map(
-        ({ quantity, unitPrice }) => {
-          return quantity * unitPrice;
+        ({ quantity, price }) => {
+          return quantity * price;
         }
       );
       return multiples.reduce((a, b) => a + b);
@@ -101,7 +98,7 @@ class Cart extends Component {
 
     const products = this.state.cartProducts.map(product => {
       return (
-        <_Product
+        <Product
           product={product}
           url="cart"
           onChangeQuantity={this.handleChangeQuantity}
@@ -112,12 +109,11 @@ class Cart extends Component {
       );
     });
     return (
-      <main className="main cart_main">
+      <React.Fragment>
         <div>
           <h2>This Is Your Cart!</h2>
-          <table>
-            <tbody>{products}</tbody>
-          </table>
+            {products}
+         
         </div>
         <div>
           <div>Products Total:{productsTotal().toFixed(2)}</div>
@@ -128,7 +124,7 @@ class Cart extends Component {
             <input type="text" placeholder="Driver's Tips" />
           </div>
         </div>
-      </main>
+      </React.Fragment>
     );
   }
 }
