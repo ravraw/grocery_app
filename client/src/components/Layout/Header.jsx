@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const id = 1;
 class Header extends Component {
@@ -25,12 +25,12 @@ class Header extends Component {
           </form>
         </div>
         <div className="header_top_right">
-          <a href="/login" className="login_link">
+          <Link to={`/login`} className="login_link">
             Login
-          </a>
-          <a href="/user/new" className="register_link">
+          </Link> 
+          <Link to={`/user/new`} className="registration_link">
             Register
-          </a>
+          </Link>
           <Link to={`/cart/${id}`} className="cart_link">
             Cart
           </Link>
