@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Category from "../Department_show/Category";
+import Category from "../DepartmentContainer/Category";
 import { graphql } from "react-apollo";
 import { getCategoriesQuery } from "../../queries/queries";
 import Sidebar from "../Sidebar";
 
 //should take all categories that are available to that department
 
-class Department_show extends Component {
+class DepartmentContainer extends Component {
   state = {
     id: this.props.match.params.department_id
   };
@@ -45,4 +45,4 @@ export default graphql(getCategoriesQuery, {
     console.log("from props:", props);
     return { variables: { id: props.match.params.id } };
   }
-})(Department_show);
+})(DepartmentContainer);
