@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 const id = 1;
-class Header extends React.PureComponent {
+class Header extends Component {
   constructor() {
     super();
     this.state = {
@@ -23,12 +23,13 @@ class Header extends React.PureComponent {
     event.preventDefault();
     this.setState({ redirect: true });
   }
-  reset = () => this.setState({ redirect: false })
+ 
   render() {
     
     if (this.state.redirect) {
-      this.reset();
+      this.setState({ redirect: false });
       return <Redirect to={`/products/${this.state.searchPath}` }/>;
+      
     }
     return (
       <header className="header">
