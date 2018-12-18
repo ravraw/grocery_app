@@ -30,17 +30,17 @@ const Query = {
   },
   // categories
   categories(parent, args, { knex }, info) {
-    if (!args.query) {
+    const { query, id } = args;
+    if (query) {
+      return knex('categories').where('name', 'like', `%${query}%`);
+    } else if (id) {
+      return knex('categories').where({ id });
+    } else {
       return knex.select('*').from('categories');
     }
-    return knex('categories').where('name', 'like', `%${args.query}%`);
   },
   // products
   products(parent, args, { knex }, info) {
-    // if (!args.query) {
-    //   return knex.select('*').from('products');
-    // }
-    // return knex('products').where('name', 'like', `%${args.query}%`);
     const { query, id } = args;
     if (query) {
       return knex('products').where('name', 'like', `%${query}%`);

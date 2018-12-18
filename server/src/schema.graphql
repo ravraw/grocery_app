@@ -3,7 +3,7 @@ type Query {
     users(id:ID):[User!]!
     stores(query:String):[Store!]!
     departments(query:String,id:ID):[Department!]!
-    categories(query:String):[Category!]!
+    categories(query:String,id:ID):[Category!]!
     products(query:String,id:ID):[Product!]!
     shoppingCart(query:String):[Product]!
     # userCartItems(query:ID):[Product!]!

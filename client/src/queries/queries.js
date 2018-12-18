@@ -97,6 +97,30 @@ const getCartQuery = gql`
     }
   }
 `;
+const getCategoryProductsQuery = gql`
+  query($id: ID) {
+    categories(id: $id) {
+      id
+      name
+      products {
+        id
+        name
+        description
+        price
+      }
+    }
+  }
+`;
+const getProductQuery = gql`
+  query($id: ID) {
+    products(id: $id) {
+      id
+      name
+      description
+      price
+    }
+  }
+`;
 
 export {
   getUsersQuery,
@@ -105,5 +129,7 @@ export {
   getCategoriesQuery,
   getProductsQuery,
   getCategoriesAndProducts,
-  getCartQuery
+  getCartQuery,
+  getCategoryProductsQuery,
+  getProductQuery
 };
