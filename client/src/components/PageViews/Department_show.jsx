@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Category from "../Categories/Category";
+import Category from "../Department_show/Category";
 import { graphql } from "react-apollo";
 import { getCategoriesQuery } from "../../queries/queries";
 import Sidebar from "../Sidebar";

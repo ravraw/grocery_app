@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getCategoryProductsQuery } from "../../queries/queries";
 
-import Category from "../Categories/Category";
-import Product from "../Category/Product";
+import Product from "../Product";
 import Sidebar from "../Sidebar";
 
 //should take all categories that are available to that department

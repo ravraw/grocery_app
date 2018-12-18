@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Product from '../Categories/Product';
+import Product from '../Product';
 import { graphql } from 'react-apollo';
 import { getCartQuery } from '../../queries/queries';
 
