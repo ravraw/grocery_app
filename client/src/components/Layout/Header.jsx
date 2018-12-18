@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const id = 1;
 class Header extends Component {
+  handleSearch(event){
+    event.preventDefault();
+    
+  }
   render() {
     return (
       <header className="header">
@@ -18,10 +22,10 @@ class Header extends Component {
             height="42"
             width="42"
           />
-          {/* still need action */}
+
           <form>
             <input type="text" placeholder="Search Grocery" />
-            <button type="submit">Search</button>
+            <button type="submit" onClick={this.handleSearch}>Search</button>
           </form>
         </div>
         <div className="header_top_right">
@@ -36,21 +40,7 @@ class Header extends Component {
           </Link>
         </div>
         <div className="header_navigation">
-          <table>
-            <tbody>
-              <tr className="navigation_table">
-                <th className="navigation_link">
-                  <Link to="/">Home</Link>
-                </th>
-                <th className="navigation_link">
-                  <Link to="/Departments">Departments</Link>
-                </th>
-                <th className="navigation_link">
-                  <Link to="/stores">Stores</Link>
-                </th>
-              </tr>
-            </tbody>
-          </table>
+          <Link to="/">Home</Link>
         </div>
       </header>
     );
