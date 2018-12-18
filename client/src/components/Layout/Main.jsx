@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 import Home from '../PageViews/Home';
-import Department_show from '../PageViews/Department_show';
-import Product_show from '../PageViews/Product_show';
+import Department_show from '../PageViews/DepartmentContainer';
+import Product_show from '../PageViews/ProductContainer';
 
-import Category_show from '../PageViews/Category_show';
+import Category_show from '../PageViews/CategoryContainer';
 import User_new from '../PageViews/User_new';
 
 // import User_show from "./components/User_show";
