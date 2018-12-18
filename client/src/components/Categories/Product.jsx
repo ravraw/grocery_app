@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { addCartItemMutation } from '../../queries/queries';
 
 class Product extends Component {
   render() {

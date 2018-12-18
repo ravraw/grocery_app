@@ -16,7 +16,7 @@ class Product_show extends Component {
     };
   }
 
-  handleAdd() {
+  addProductHandler() {
     // Add this.state.productOfId to Cart in database.
   }
   displayProducts() {
@@ -41,7 +41,7 @@ class Product_show extends Component {
         <h2>Name: {currentProduct.name}</h2>
         <h2>Unit_Price: {currentProduct.price}</h2>
         <h2>Description: {currentProduct.description}</h2>
-        <button onClick={this.handleAdd}>Add To Cart</button>
+        <button onClick={this.addProductHandler}>Add To Cart</button>
       </React.Fragment>
     );
   }

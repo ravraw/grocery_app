@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Product extends Component {
   render() {
@@ -7,7 +7,10 @@ class Product extends Component {
     return (
       <Link id={id} product={this.props.product} to={`/product/${id}/show`}>
         <div key={id}>
-          <img src="http://fosterclark.com/wp-content/uploads/2016/06/Banana-150x150.png" />
+          <img
+            src="http://fosterclark.com/wp-content/uploads/2016/06/Banana-150x150.png"
+            alt="dummy"
+          />
           <h2>{name}</h2>
           <p>Description: {description}</p>
           <p>Price: {price}</p>
