@@ -5,12 +5,14 @@ type Query {
     departments(query:String,id:ID):[Department!]!
     categories(query:String,id:ID):[Category!]!
     products(query:String,id:ID):[Product!]!
-    shoppingCart(query:String):[Product]!
-    # userCartItems(query:ID):[Product!]!
+    # shoppingCart(query:String):[Product]!
+    # shoppingCart(query:String):[CartItem!]!
+    userCartItems(query:ID):[Product!]!
     # Single 
     department:Department!
     category: Category!
     product:Product!
+    cartItem:CartItem!
 }
 
 type Mutation {
@@ -76,9 +78,26 @@ type Product {
     description:String!
     price:Float! # to be chnaged to Int!
     quantity:Int!
+    # user_id:ID!
+    # product_id:ID!
     department:Department!
     category:Category!
 }
+
+type CartItem {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float! # to be chnaged to Int!
+  quantity: Int!
+  user_id:ID!
+  product_id:ID!
+  department: Department!
+  category: Category!
+}
+
+
+
 
 
 

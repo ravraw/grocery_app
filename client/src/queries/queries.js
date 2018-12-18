@@ -125,11 +125,17 @@ const getProductQuery = gql`
 // Mutations
 const addCartItemMutation = gql`
   mutation($quantity: Int!, $user_id: ID!, $product_id: ID!) {
-    addToCart(quantity: $quantity, user_id: $user_id, product_id: $product_id) {
+    addCartItem(
+      data: { quantity: $quantity, user_id: $user_id, product_id: $product_id }
+    ) {
       id
-      quantity
-      user_id
-      product_id
+    }
+  }
+`;
+const deleteCartItemMutation = gql`
+  mutation($user_id: ID!, $product_id: ID!) {
+    deleteCartItem(data: { user_id: $user_id, product_id: $product_id }) {
+      id
     }
   }
 `;
@@ -144,5 +150,6 @@ export {
   getCartQuery,
   getCategoryProductsQuery,
   getProductQuery,
-  addCartItemMutation
+  addCartItemMutation,
+  deleteCartItemMutation
 };

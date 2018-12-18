@@ -143,6 +143,7 @@ class Cart extends Component {
   }
 
   render() {
+    console.log('PROPS FROM CART', this.props);
     // return <React.Fragment>{this.renderCart()}</React.Fragment>;
     return <div>{this.displayCart()}</div>;
   }
@@ -151,7 +152,7 @@ class Cart extends Component {
 // export default Cart;
 export default graphql(getCartQuery, {
   options: props => {
-    console.log('from props:', props);
+    // console.log('from props:', props);
     return { variables: { id: props.match.params.id } };
   }
 })(Cart);

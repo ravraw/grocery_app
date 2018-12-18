@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Product extends Component {
   render() {
-    const {id,image,name,price,quantity} =this.props.product
+    const { id, image, name, price, quantity } = this.props.product;
     return (
       <div>
         <div>
@@ -15,15 +15,17 @@ class Product extends Component {
             type="text"
             name="quantity"
             placeholder={quantity}
-            onKeyPress={(event)=>this.props.onChangeQuantity(id, event.target.value)}
+            onKeyPress={event =>
+              this.props.onChangeQuantity(id, event.target.value)
+            }
           />
-          <button name="plus" onClick={()=>this.props.onPlus(id)}>
+          <button name="plus" onClick={() => this.props.onPlus(id)}>
             +
           </button>
-          <button name="minus" onClick={()=>this.props.onMinus(id)}>
+          <button name="minus" onClick={() => this.props.onMinus(id)}>
             -
           </button>
-          <button name="remove" onClick={()=>this.props.onRemove(id)}>
+          <button name="remove" onClick={() => this.props.onRemove(id)}>
             Remove
           </button>
         </div>
