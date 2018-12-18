@@ -5,56 +5,10 @@ import { getCategoryProductsQuery } from "../../queries/queries";
 import Product from "../Product";
 import Sidebar from "../Sidebar";
 
-//should take all categories that are available to that department
-
-const productsOfCategory = [
-  {
-    id: 1,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 2,
-    name: "orange",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 3,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 4,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 5,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  }
-];
-
 class Category_show extends Component {
   displayProducts() {
     let data = this.props.data;
-    // const { id, name, products } = ;
-    console.log("data from category_show", data);
+    // console.log("data from category_show", data);
     if (data.loading) {
       return <div>Loading Products...</div>;
     } else {

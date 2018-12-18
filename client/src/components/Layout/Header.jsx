@@ -1,9 +1,36 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 const id = 1;
 class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchPath: "/",
+      redirect: false
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange = event => {
+    const path = event.target.value;
+    console.log("searchpath", path);
+    this.setState({ searchPath: path });
+  };
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({ redirect: true });
+  }
+ 
   render() {
+    
+    if (this.state.redirect) {
+      this.setState({ redirect: false });
+      return <Redirect to={`/products/${this.state.searchPath}` }/>;
+      
+    }
     return (
       <header className="header">
         <div className="header__topleft">
@@ -18,9 +45,14 @@ class Header extends Component {
             height="42"
             width="42"
           />
-          {/* still need action */}
-          <form>
-            <input type="text" placeholder="Search Grocery" />
+
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="search"
+              placeholder="Search Grocery"
+              onChange={this.handleChange}
+            />
             <button type="submit">Search</button>
           </form>
         </div>
@@ -36,21 +68,7 @@ class Header extends Component {
           </Link>
         </div>
         <div className="header_navigation">
-          <table>
-            <tbody>
-              <tr className="navigation_table">
-                <th className="navigation_link">
-                  <Link to="/">Home</Link>
-                </th>
-                <th className="navigation_link">
-                  <Link to="/Departments">Departments</Link>
-                </th>
-                <th className="navigation_link">
-                  <Link to="/stores">Stores</Link>
-                </th>
-              </tr>
-            </tbody>
-          </table>
+          <Link to="/">Home</Link>
         </div>
       </header>
     );
