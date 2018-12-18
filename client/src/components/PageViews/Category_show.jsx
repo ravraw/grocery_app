@@ -1,51 +1,53 @@
-import React, { Component } from 'react';
-import Category from '../Categories/Category';
-import { graphql } from 'react-apollo';
-import { getCategoryProductsQuery } from '../../queries/queries';
-import Product from '../Category/Product';
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { getCategoryProductsQuery } from "../../queries/queries";
+
+import Category from "../Categories/Category";
+import Product from "../Category/Product";
+import Sidebar from "../Sidebar";
 
 //should take all categories that are available to that department
 
 const productsOfCategory = [
   {
     id: 1,
-    name: 'apple',
-    category: 'fruit',
+    name: "apple",
+    category: "fruit",
     price: 33,
-    description: 'This is delicious',
-    image: ''
+    description: "This is delicious",
+    image: ""
   },
   {
     id: 2,
-    name: 'orange',
-    category: 'fruit',
+    name: "orange",
+    category: "fruit",
     price: 33,
-    description: 'This is delicious',
-    image: ''
+    description: "This is delicious",
+    image: ""
   },
   {
     id: 3,
-    name: 'apple',
-    category: 'fruit',
+    name: "apple",
+    category: "fruit",
     price: 33,
-    description: 'This is delicious',
-    image: ''
+    description: "This is delicious",
+    image: ""
   },
   {
     id: 4,
-    name: 'apple',
-    category: 'fruit',
+    name: "apple",
+    category: "fruit",
     price: 33,
-    description: 'This is delicious',
-    image: ''
+    description: "This is delicious",
+    image: ""
   },
   {
     id: 5,
-    name: 'apple',
-    category: 'fruit',
+    name: "apple",
+    category: "fruit",
     price: 33,
-    description: 'This is delicious',
-    image: ''
+    description: "This is delicious",
+    image: ""
   }
 ];
 
@@ -53,7 +55,7 @@ class Category_show extends Component {
   displayProducts() {
     let data = this.props.data;
     // const { id, name, products } = ;
-    console.log('data from category_show', data);
+    console.log("data from category_show", data);
     if (data.loading) {
       return <div>Loading Products...</div>;
     } else {
@@ -63,14 +65,22 @@ class Category_show extends Component {
     }
   }
   render(props) {
-    return <div>{this.displayProducts()}</div>;
+    const categories = this.props.location.categories;
+    return (
+      <React.Fragment>
+        <div>
+          <Sidebar categories={categories} />
+        </div>
+        <div>{this.displayProducts()}</div>
+      </React.Fragment>
+    );
   }
 }
 
 // export default Category_show;
 export default graphql(getCategoryProductsQuery, {
   options: props => {
-    console.log('from props:', props);
+    console.log("from props:", props);
     return { variables: { id: props.match.params.id } };
   }
 })(Category_show);

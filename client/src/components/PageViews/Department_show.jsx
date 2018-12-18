@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import Category from '../Categories/Category';
-import { graphql } from 'react-apollo';
-import { getCategoriesQuery } from '../../queries/queries';
+import React, { Component } from "react";
+import Category from "../Categories/Category";
+import { graphql } from "react-apollo";
+import { getCategoriesQuery } from "../../queries/queries";
+import Sidebar from "../Sidebar";
 
 //should take all categories that are available to that department
 
@@ -11,6 +12,7 @@ class Department_show extends Component {
   };
   displayCategories() {
     let data = this.props.data;
+    console.log("data",data);
     if (data.loading) {
       return <div>Loading Categories...</div>;
     } else {
@@ -19,14 +21,28 @@ class Department_show extends Component {
       });
     }
   }
+  displaySidebar() {
+    let data = this.props.data;
+    if (!data.loading) {
+      return <Sidebar categories={data.departments[0].categories} />;
+    }
+  }
+
   render(props) {
-    return <div>{this.displayCategories()}</div>;
+    console.log("this props:", this.props.data.variables.id);
+
+    return (
+      <React.Fragment>
+        <div>{this.displaySidebar()}</div>
+        <div>{this.displayCategories()}</div>
+      </React.Fragment>
+    );
   }
 }
 
 export default graphql(getCategoriesQuery, {
   options: props => {
-    console.log('from props:', props);
+    console.log("from props:", props);
     return { variables: { id: props.match.params.id } };
   }
 })(Department_show);
