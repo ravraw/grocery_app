@@ -1,13 +1,33 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 const id = 1;
 class Header extends Component {
-  handleSearch(event){
+  constructor() {
+    super();
+    this.state = {
+      searchPath: "/",
+      redirect: false
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange = event => {
+    const path = event.target.value;
+    console.log("searchpath", path);
+    this.setState({ searchPath: path });
+  };
+  handleSubmit(event) {
     event.preventDefault();
-    
+    this.setState({ redirect: true });
   }
   render() {
+    if (this.state.redirect) {
+      
+      return <Redirect to={`/products/${this.state.searchPath}` }/>;
+    }
     return (
       <header className="header">
         <div className="header__topleft">
@@ -23,9 +43,14 @@ class Header extends Component {
             width="42"
           />
 
-          <form>
-            <input type="text" placeholder="Search Grocery" />
-            <button type="submit" onClick={this.handleSearch}>Search</button>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="search"
+              placeholder="Search Grocery"
+              onChange={this.handleChange}
+            />
+            <button type="submit">Search</button>
           </form>
         </div>
         <div className="header_top_right">
