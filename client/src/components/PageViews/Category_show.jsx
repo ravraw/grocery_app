@@ -4,6 +4,7 @@ import { graphql } from "react-apollo";
 import { getCategoriesQuery } from "../../queries/queries";
 import { applyEach } from "async";
 import Product from "../Category/Product";
+import Sidebar from "../Sidebar";
 
 //should take all categories that are available to that department
 
@@ -72,10 +73,20 @@ class Category_show extends Component {
   //   return <div>{this.displayCategories()}</div>;
   // }
   render() {
+    console.log("Passed Categories", this.props.location.categories);
+    const categories=this.props.location.categories;
+
     const Products = productsOfCategory.map(product => {
       return <Product product={product} />;
     });
-    return <React.Fragment>{Products}</React.Fragment>;
+    return (
+      <React.Fragment>
+        <div>
+          <Sidebar categories={categories}/>
+        </div>
+        <div>{Products}</div>
+      </React.Fragment>
+    );
   }
 }
 

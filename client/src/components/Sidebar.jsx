@@ -9,7 +9,7 @@ class Sidebar extends Component {
     const links = this.props.categories.map(category => {
       return (
         <React.Fragment>
-          <NavLink to={`/category/${category.id}/show`}>
+          <NavLink to={{ pathname: `/category/${category.id}/show`, categories:this.props.categories }}>
             {category.name}
           </NavLink>
           <br />
