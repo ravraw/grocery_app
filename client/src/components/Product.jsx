@@ -9,24 +9,30 @@ import {
 
 class Product extends Component {
   onAdd() {
-    this.props.addCartItemMutation({
-      variables: {
-        quantity: 1,
-        user_id: 1, // hardcoded
-        product_id: this.props.product.id
-      },
-      refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
-    });
+    this.props
+      .addCartItemMutation({
+        variables: {
+          quantity: 1,
+          user_id: 1, // hardcoded
+          product_id: this.props.product.id
+        } //,
+        //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
+      })
+      .then(data => this.props.refetch())
+      .catch(err => console.log(err));
   }
   onDelete() {
     console.log('PROPS FROM DELETE PRODUCT', this.props);
-    this.props.deleteCartItemMutation({
-      variables: {
-        user_id: 1, // hardcoded
-        product_id: this.props.product.product_id
-      },
-      refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
-    });
+    this.props
+      .deleteCartItemMutation({
+        variables: {
+          user_id: 1, // hardcoded
+          product_id: this.props.product.product_id
+        } //,
+        // refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
+      })
+      .then(data => this.props.refetch())
+      .catch(err => console.log(err));
   }
   render() {
     const data = this.props.data;

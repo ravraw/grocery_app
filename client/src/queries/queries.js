@@ -83,7 +83,7 @@ const getCategoriesAndProducts = gql`
   }
 `;
 const getCartQuery = gql`
-  query($id: ID) {
+  query getCartQuery($id: ID) {
     shoppingCart(id: $id) {
       id
       name

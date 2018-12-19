@@ -12,6 +12,38 @@ const Mutation = {
       })
       .then(result => {
         if (result.length) {
+          return (
+            knex('user_cart_items')
+              .returning('*')
+              .where({ user_id, product_id })
+              // .where( 'id',id )
+              .increment({ quantity })
+              .then(result => result[0])
+          );
+        } else {
+          return knex('user_cart_items')
+            .returning('*')
+            .insert({
+              quantity,
+              user_id,
+              product_id
+            })
+            .then(result => result[0]);
+        }
+      });
+  },
+
+  // updateCartItem
+  addCartItem(parent, args, { knex }, info) {
+    const { quantity, user_id, product_id } = args.data;
+    console.log('FROM ADD ITEM MUTATION:', quantity, user_id, product_id);
+    return knex('user_cart_items')
+      .where({
+        user_id: user_id,
+        product_id: product_id
+      })
+      .then(result => {
+        if (result.length) {
           return knex('user_cart_items')
             .returning('*')
             .where({ user_id, product_id })

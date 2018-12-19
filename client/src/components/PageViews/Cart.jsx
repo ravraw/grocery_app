@@ -28,11 +28,12 @@ import { getCartQuery } from '../../queries/queries';
 //   }
 // ];
 class Cart extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     cartProducts: cartProducts
-  //   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      cartProducts: this.props.data.shoppingCart
+    };
+  }
 
   //   this.handleChangeQuantity = this.handleChangeQuantity.bind(this);
   //   this.handlePlus = this.handlePlus.bind(this);
@@ -129,15 +130,24 @@ class Cart extends Component {
   //     return <h1>Your Cart Is Empty!!!</h1>;
   //   }
   // }
+
   displayCart() {
     let data = this.props.data;
     // const { shoppingCart } = data.users;
+
     console.log('data from display cart', data.users);
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
       return data.shoppingCart.map(product => {
-        return <Product product={product} />;
+        return (
+          <Product
+            refetch={data.refetch}
+            key={product.id}
+            onDelete={this.onDelete}
+            product={product}
+          />
+        );
       });
     }
   }
@@ -145,7 +155,14 @@ class Cart extends Component {
   render() {
     console.log('PROPS FROM CART', this.props);
     // return <React.Fragment>{this.renderCart()}</React.Fragment>;
-    return <div>{this.displayCart()}</div>;
+    return (
+      <div>
+        {this.displayCart()}
+        <button>
+          <strong>ORDER PAGE</strong>
+        </button>
+      </div>
+    );
   }
 }
 
@@ -153,9 +170,6 @@ class Cart extends Component {
 export default graphql(getCartQuery, {
   options: props => {
     // console.log('from props:', props);
-    return {
-      fetchPolicy: 'network-only',
-      variables: { id: props.match.params.id }
-    };
+    return { variables: { id: props.match.params.id } };
   }
 })(Cart);

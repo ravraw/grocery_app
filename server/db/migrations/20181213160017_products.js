@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
       table.increments('id');
       table.string('name');
       table.string('company');
+
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
@@ -12,6 +13,7 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.string('description');
       table.decimal('price');
+      table.image('string');
       table
         .integer('brand_id')
         .references('id')
