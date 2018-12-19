@@ -22,7 +22,7 @@ class Product extends Component {
       .catch(err => console.log(err));
   }
   onDelete() {
-    console.log('PROPS FROM DELETE PRODUCT', this.props);
+    // console.log('PROPS FROM DELETE PRODUCT', this.props);
     this.props
       .deleteCartItemMutation({
         variables: {

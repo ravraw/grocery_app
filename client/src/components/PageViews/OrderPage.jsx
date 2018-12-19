@@ -11,13 +11,26 @@ const storesId = [1, 2, 3, 4, 5];
 class OrderPage extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = { redirect: false, total: 0 };
     this.displayStores = this.displayStores.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+  }
+  handleCheckout(total) {
+    console.log("totalamount",total)
+    this.setState({ redirect: this.state, total:total});
+
+    //Takes subtotal and Redirect to checkout page
   }
   displayStores() {
     const products = this.props.location.products; //products from cart, which are compared of.
     return storesId.map(storeId => {
-      return <Store comparedProducts={products} storeId={storeId} />;
+      return (
+        <Store
+          comparedProducts={products}
+          storeId={storeId}
+          onCheckout={this.handleCheckout}
+        />
+      );
     });
     // let products = this.props.products;
     // console.log("data from OrderPage", products[0]);
@@ -29,8 +42,13 @@ class OrderPage extends Component {
     //   });
     // }
   }
+
   render() {
-    console.log("props from cart", this.props.location.products);
+    // if (this.state.redirect) {
+    //   return <Redirect to="/checkout" />;
+    // }
+
+    // console.log("props from cart", this.props.location.products);
 
     return (
       <React.Fragment>

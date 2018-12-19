@@ -12,7 +12,7 @@ class Cart extends Component {
     };
   }
 
-  
+
   displayCart() {
     let data = this.props.data;
     // const { shoppingCart } = data.users;
