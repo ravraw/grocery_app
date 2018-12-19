@@ -3,10 +3,22 @@ import { graphql } from "react-apollo";
 import { getCategoryProductsQuery } from "../../queries/queries";
 
 import Product from "../Product";
-import Sidebar from "../Sidebar";
+// import Sidebar from "../Sidebar";
+import Store from "../OrderPage/Store";
+
+const storesId = [1, 2, 3, 4, 5];
 
 class OrderPage extends Component {
-  displayProducts() {
+  constructor() {
+    super();
+    this.state = {};
+    this.displayStores = this.displayStores.bind(this);
+  }
+  displayStores() {
+    const products = this.props.location.products; //products from cart, which are compared of.
+    return storesId.map(storeId => {
+      return <Store comparedProducts={products} id={storeId} />;
+    });
     // let products = this.props.products;
     // console.log("data from OrderPage", products[0]);
     // if (data.loading) {
@@ -18,12 +30,11 @@ class OrderPage extends Component {
     // }
   }
   render() {
-    console.log("props from cart", this.props.products);
+    console.log("props from cart", this.props.location.products);
 
     return (
       <React.Fragment>
-        {/* <div>{this.displayProducts()}</div> */}
-        <div>{this.displayProducts()}</div>
+        <div>{this.displayStores()}</div>
       </React.Fragment>
     );
   }

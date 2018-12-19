@@ -148,7 +148,7 @@ class Cart extends Component {
     let data = this.props.data;
     if (!data.loading) {
       const productsProps = data.users[0].shoppingCart;
-      console.log("shoppingCart", productsProps);
+      // console.log("shoppingCart", productsProps);
 
       return (
         <div>
