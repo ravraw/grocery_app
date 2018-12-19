@@ -135,7 +135,6 @@ class Cart extends Component {
     let data = this.props.data;
     // const { shoppingCart } = data.users;
 
-    console.log('data from display cart', data.users);
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
@@ -166,7 +165,7 @@ class Cart extends Component {
   }
 }
 
-// export default Cart;
+// export default Cart;l;lkjk
 export default graphql(getCartQuery, {
   options: props => {
     // console.log('from props:', props);
