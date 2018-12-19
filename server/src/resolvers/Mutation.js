@@ -34,7 +34,7 @@ const Mutation = {
   },
 
   // updateCartItem
-  addCartItem(parent, args, { knex }, info) {
+  updateCartItem(parent, args, { knex }, info) {
     const { quantity, user_id, product_id } = args.data;
     console.log('FROM ADD ITEM MUTATION:', quantity, user_id, product_id);
     return knex('user_cart_items')

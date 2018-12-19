@@ -116,6 +116,7 @@ const getProductQuery = gql`
       name
       description
       price
+      image
     }
   }
 `;
@@ -126,6 +127,7 @@ const getSearchResults = gql`
       name
       description
       price
+      image
       department {
         id
         name

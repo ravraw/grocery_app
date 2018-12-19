@@ -48,7 +48,10 @@ const Query = {
     } else if (id) {
       return knex('products').where({ id });
     } else {
-      return knex.select('*').from('products');
+      return knex
+        .select('*')
+        .from('products')
+        .join('stores', 'stores.id', 'products.store_id');
     }
   },
   //shoppingCart

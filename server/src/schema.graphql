@@ -17,8 +17,9 @@ type Query {
 
 type Mutation {
     # shopping Cart
-    addCartItem(data:AddCartItemInput):Product!
-    deleteCartItem(data:DeleteCartItemInput):Product!
+    addCartItem(data:AddCartItemInput):CartItem!
+    deleteCartItem(data:DeleteCartItemInput):CartItem!
+    updateCartItem(data:UpdateCartItemInput):CartItem!
     # removeCartItem(id: ID!): Product!
     # updateCartItem(id: ID!, data: UpdateCartItemInput!): Product!
 }
@@ -31,6 +32,11 @@ input AddCartItemInput {
     quantity:Int!
     user_id:ID!
     product_id:ID!
+}
+input UpdateCartItemInput {
+  quantity:Int!
+  user_id: ID!
+  product_id: ID!
 }
 input DeleteCartItemInput{
     user_id:ID!
@@ -78,6 +84,8 @@ type Product {
     description:String!
     price:Float! # to be chnaged to Int!
     quantity:Int!
+    image:String!
+    # store_id:ID!
     # user_id:ID!
     # product_id:ID!
     department:Department!
@@ -90,6 +98,7 @@ type CartItem {
   description: String!
   price: Float! # to be chnaged to Int!
   quantity: Int!
+  image:String!
   user_id:ID!
   product_id:ID!
   department: Department!
