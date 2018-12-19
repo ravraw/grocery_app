@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import Product from '../Product';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
+import React, { Component } from "react";
+import Product from "../Product";
+import { graphql } from "react-apollo";
+import { getCartQuery } from "../../queries/queries";
+import { Link } from "react-router-dom";
 
 // let cartProducts = [
 //   {
@@ -132,7 +133,7 @@ class Cart extends Component {
   displayCart() {
     let data = this.props.data;
     // const { shoppingCart } = data.users;
-    console.log('data from display cart', data.users);
+    console.log("data from display cart", data.users);
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
@@ -142,10 +143,30 @@ class Cart extends Component {
     }
   }
 
+  displayOrderLink() {
+    let data = this.props.data;
+    if (!data.loading) {
+      return (
+        <Link
+          to={{
+            pathname: `/order`,
+            products: data.users[0].shoppingCart
+          }}
+        >
+          Compare Prices
+        </Link>
+      );
+    }
+  }
   render() {
-    console.log('PROPS FROM CART', this.props);
-    // return <React.Fragment>{this.renderCart()}</React.Fragment>;
-    return <div>{this.displayCart()}</div>;
+    console.log("PROPS FROM CART", this.props);
+    return (
+      <div>
+        <div>{this.displayCart()}</div>
+        <div>{this.displayOrderLink()}</div>>
+      </div>
+    );
+    // return <div>{this.displayCart()}</div>;
   }
 }
 
