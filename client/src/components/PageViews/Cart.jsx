@@ -136,7 +136,7 @@ class Cart extends Component {
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
-      return data.users[0].shoppingCart.map(product => {
+      return data.shoppingCart.map(product => {
         return <Product product={product} />;
       });
     }
@@ -153,6 +153,9 @@ class Cart extends Component {
 export default graphql(getCartQuery, {
   options: props => {
     // console.log('from props:', props);
-    return { variables: { id: props.match.params.id } };
+    return {
+      fetchPolicy: 'network-only',
+      variables: { id: props.match.params.id }
+    };
   }
 })(Cart);

@@ -6,7 +6,7 @@ type Query {
     categories(query:String,id:ID):[Category!]!
     products(query:String,id:ID):[Product!]!
     # shoppingCart(query:String):[Product]!
-    # shoppingCart(query:String):[CartItem!]!
+    shoppingCart(id:ID):[CartItem!]!
     userCartItems(query:ID):[Product!]!
     # Single 
     department:Department!

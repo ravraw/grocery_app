@@ -4,7 +4,7 @@ const Mutation = {
   // addCartItem
   addCartItem(parent, args, { knex }, info) {
     const { quantity, user_id, product_id } = args.data;
-    console.log({ quantity, user_id, product_id });
+    console.log('FROM ADD ITEM MUTATION:', quantity, user_id, product_id);
     return knex('user_cart_items')
       .where({
         user_id: user_id,
@@ -35,16 +35,12 @@ const Mutation = {
     console.log('VARIABLES:', user_id, product_id);
     return knex('user_cart_items')
       .returning('*')
-      .where(
-        // user_id,
-        'id',
-        product_id
-      )
+      .where({ user_id, product_id })
       .del()
       .then(result => {
-        console.log('FROM DELETE', result);
+        console.log('FROM DELETE', result[0]);
         if (!result[0]) {
-          console.log('FROM DELETE', result);
+          console.log('FROM DELETE', result[0]);
           //throw new Error('Item not found !!!!!!');
         } else {
           return result[0];

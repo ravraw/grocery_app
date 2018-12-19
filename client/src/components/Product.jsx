@@ -12,20 +12,20 @@ class Product extends Component {
     this.props.addCartItemMutation({
       variables: {
         quantity: 1,
-        user_id: 1,
+        user_id: 1, // hardcoded
         product_id: this.props.product.id
       },
-      refetchQueries: [{ query: getCartQuery }]
+      refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
     });
   }
   onDelete() {
     console.log('PROPS FROM DELETE PRODUCT', this.props);
     this.props.deleteCartItemMutation({
       variables: {
-        user_id: 1,
-        product_id: this.props.product.id
+        user_id: 1, // hardcoded
+        product_id: this.props.product.product_id
       },
-      refetchQueries: [{ query: getCartQuery }]
+      refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
     });
   }
   render() {

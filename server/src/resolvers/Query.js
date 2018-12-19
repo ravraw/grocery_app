@@ -41,6 +41,7 @@ const Query = {
   },
   // products
   products(parent, args, { knex }, info) {
+    console.log('FROM PRObbbbDUCTS', args);
     const { query, id } = args;
     if (query) {
       return knex('products').where('name', 'like', `%${query}%`);
@@ -49,14 +50,17 @@ const Query = {
     } else {
       return knex.select('*').from('products');
     }
-  }
+  },
   //shoppingCart
-  // userCartItems(parent, args, { knex }, info) {
-  //   if (!args.query) {
-  //     return knex.select('*').from('products');
-  //   }
-  //   return knex('products').where('name', 'like', `%${args.query}%`);
-  // }
+  shoppingCart(parent, args, { knex }, info) {
+    return (
+      knex('products')
+        .select('*')
+        .join('user_cart_items', 'products.id', 'user_cart_items.product_id')
+        // .join('users', 'user_cart_items.user_id', 'users.id')
+        .where('user_cart_items.user_id', args.id)
+    );
+  }
 };
 
 module.exports = Query;

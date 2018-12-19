@@ -1,81 +1,32 @@
-import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import { getCategoriesQuery } from "../../queries/queries";
-import Product from "../Product";
-
-const products=[
-  {
-    id: 1,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 2,
-    name: "orange",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 3,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 4,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  },
-  {
-    id: 5,
-    name: "apple",
-    category: "fruit",
-    price: 33,
-    description: "This is delicious",
-    image: ""
-  }
-]
-//should take all categories that are available to that department
-
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { getSearchResults } from '../../queries/queries';
+import Product from '../Product';
 class Products extends Component {
-  state = {
-    id: this.props.match.params.searchPath
-  };
   displayProducts() {
-    // let data = this.props.data;
-    
-    return products.map(product => {
-      return <Product product={product} />;
-    });
-    // console.log("data from category_show", data);
-    // if (data.loading) {
-    //   return <div>Loading Products...</div>;
-    // } else {
-      // return data.categories[0].products.map(product => {
-      //   return <Product product={product} />;
-      // });
-    // }
+    let data = this.props.data;
+    if (data.loading) {
+      return <div>Loading Products...</div>;
+    } else {
+      return data.products.map(product => {
+        if (product.name.includes(this.props.match.params.searchPath)) {
+          return <Product key={product.id} product={product} />;
+        }
+      });
+    }
   }
-
   render(props) {
-    console.log("this searchPath", this.state.id);
-
-    return (
-      <React.Fragment>
-        <div>{this.displayProducts()}</div>
-      </React.Fragment>
-    );
+    // const categories = this.props.location.categories;
+    return <div>{this.displayProducts()}</div>;
   }
 }
 
-export default Products
+export default graphql(getSearchResults, {
+  options: props => {
+    console.log(
+      'this gets called from props:',
+      JSON.stringify(props.match.params.searchPath)
+    );
+    return { variables: { query: props.match.params.searchPath } };
+  }
+})(Products);

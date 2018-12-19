@@ -29,15 +29,15 @@ class App extends Component {
 
   render() {
     return (
-      <ApolloProvider client={client}>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
           <React.Fragment>
             <Header />
             <Main />
             <Footer />
           </React.Fragment>
-        </BrowserRouter>
-      </ApolloProvider>
+        </ApolloProvider>
+      </BrowserRouter>
     );
   }
 }

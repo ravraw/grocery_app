@@ -84,16 +84,14 @@ const getCategoriesAndProducts = gql`
 `;
 const getCartQuery = gql`
   query($id: ID) {
-    users(id: $id) {
+    shoppingCart(id: $id) {
       id
-      email
-      shoppingCart {
-        id
-        name
-        description
-        price
-        quantity
-      }
+      name
+      description
+      price
+      quantity
+      user_id
+      product_id
     }
   }
 `;
@@ -118,6 +116,24 @@ const getProductQuery = gql`
       name
       description
       price
+    }
+  }
+`;
+const getSearchResults = gql`
+  query($string: String) {
+    products(query: $string) {
+      id
+      name
+      description
+      price
+      department {
+        id
+        name
+      }
+      category {
+        id
+        name
+      }
     }
   }
 `;
@@ -151,5 +167,6 @@ export {
   getCategoryProductsQuery,
   getProductQuery,
   addCartItemMutation,
-  deleteCartItemMutation
+  deleteCartItemMutation,
+  getSearchResults
 };
