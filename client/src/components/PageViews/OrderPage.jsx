@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getCategoryProductsQuery } from "../../queries/queries";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 import Product from "../Product";
 // import Sidebar from "../Sidebar";
@@ -16,9 +17,10 @@ class OrderPage extends Component {
     this.handleCheckout = this.handleCheckout.bind(this);
   }
   handleCheckout(total) {
-    console.log("totalamount",total)
-    this.setState({ redirect: this.state, total:total});
-
+    console.log("totalamount", total);
+    this.setState({total:total});
+    this.setState({ redirect: true});
+    
     //Takes subtotal and Redirect to checkout page
   }
   displayStores() {
@@ -44,9 +46,10 @@ class OrderPage extends Component {
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to="/checkout" />;
-    // }
+    if (this.state.redirect) {
+      return <Redirect to={{ pathname: "/checkout", total: this.state.total }} />;
+      this.setState({ redirect: false });
+    }
 
     // console.log("props from cart", this.props.location.products);
 
