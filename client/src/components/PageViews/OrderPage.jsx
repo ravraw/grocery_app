@@ -7,23 +7,22 @@ import Sidebar from "../Sidebar";
 
 class OrderPage extends Component {
   displayProducts() {
-    let data = this.props.data;
-    // console.log("data from OrderPage", data);
-    if (data.loading) {
-      return <div>Loading Products...</div>;
-    } else {
-      return data.categories[0].products.map(product => {
-        return <Product product={product} />;
-      });
-    }
+    // let products = this.props.products;
+    // console.log("data from OrderPage", products[0]);
+    // if (data.loading) {
+    //   return <div>Loading Products...</div>;
+    // } else {
+    //   return data.categories[0].products.map(product => {
+    //     return <Product product={product} />;
+    //   });
+    // }
   }
-  render(props) {
-    const categories = this.props.location.categories;
+  render() {
+    console.log("props from cart", this.props.products);
+
     return (
       <React.Fragment>
-        <div>
-          <Sidebar categories={categories} />
-        </div>
+        {/* <div>{this.displayProducts()}</div> */}
         <div>{this.displayProducts()}</div>
       </React.Fragment>
     );

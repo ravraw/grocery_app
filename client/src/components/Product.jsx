@@ -30,9 +30,9 @@ class Product extends Component {
   }
   render() {
     const data = this.props.data;
-    console.log('FROM PRODUCT', this.props);
+    // console.log('FROM PRODUCT', this.props);
     const { id, name, description, price, quantity } = this.props.product;
-    console.log('from product -----', id, name, description, price);
+    // console.log('from product -----', id, name, description, price);
     return (
       <div key={id}>
         <Link to={`/product/${id}/show`}>
