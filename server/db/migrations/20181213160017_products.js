@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.string('description');
       table.decimal('price');
-      table.image('string');
+      table.string('string');
       table
         .integer('brand_id')
         .references('id')
