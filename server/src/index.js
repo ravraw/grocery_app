@@ -44,6 +44,7 @@ app.post("/charge", async (req, res) => {
     } = await stripe.charges.create({
       amount: amount,
       currency: "usd",
+      // customer: 'cus_xxxx',
       description: description,
       source: token,
       // email:"dongyingname@yahoo.com",

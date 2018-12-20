@@ -12,15 +12,15 @@ const storesId = [1, 2, 3, 4, 5];
 class OrderPage extends Component {
   constructor() {
     super();
-    this.state = { redirect: false, total: 0 };
+    this.state = { redirect: false, total: 0, email: "useremail@yahoo.com" };
     this.displayStores = this.displayStores.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
   }
   handleCheckout(total) {
     console.log("totalamount", total);
-    this.setState({total:total});
-    this.setState({ redirect: true});
-    
+    this.setState({ total: total });
+    this.setState({ redirect: true });
+
     //Takes subtotal and Redirect to checkout page
   }
   displayStores() {
@@ -47,8 +47,10 @@ class OrderPage extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={{ pathname: "/checkout", total: this.state.total }} />;
       this.setState({ redirect: false });
+      return (
+        <Redirect to={{ pathname: "/checkout", total: this.state.total }} />
+      );
     }
 
     // console.log("props from cart", this.props.location.products);

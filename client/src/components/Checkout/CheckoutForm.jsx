@@ -15,7 +15,7 @@ class CheckoutForm extends Component {
       headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
         description: "a new purchase!",
-        token: "tok_amex",
+        token: "tok_visa",
         orderId: 11,
         amount: 99999,
         // customer: "Ying Dong"
