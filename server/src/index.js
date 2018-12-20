@@ -33,10 +33,6 @@ const accountSid = 'AC44c296aef0acfd3c9d89eb43323cc1c1';
 const authToken = 'a4213c0a7d60fe51572089a36504fb34'
 const client = require('twilio')(accountSid, authToken);
 
-
-
-
-
 app.use(require("body-parser").text());
 
 app.post("/charge", async (req, res) => {
@@ -54,10 +50,8 @@ app.post("/charge", async (req, res) => {
     } = await stripe.charges.create({
       amount: amount,
       currency: "usd",
-      // customer: 'cus_xxxx',
       description: description,
       source: token,
-      // email:"dongyingname@yahoo.com",
       metadata: {
         'order_id': orderId,
         'email': "dongyingname@yahoo.com",
@@ -74,7 +68,7 @@ app.post("/charge", async (req, res) => {
       .create({
         body: 'New purchase has been made! Please start to collect groceries!',
         from: '+15878530743',
-        to: '+1 780-708-4684'
+        to: '+1 780-708-4684',
       })
       .then(message => console.log("Message to the driver", message.sid))
       .done());;
@@ -85,7 +79,6 @@ app.post("/charge", async (req, res) => {
     switch (err.type) {
       case 'StripeCardError':
         console.log("A declined card error")
-        // console.log("Your card's expiration year is invalid.")
         break;
       case 'RateLimitError':
         console.log("Too many requests made to the API too quickly")
@@ -103,18 +96,14 @@ app.post("/charge", async (req, res) => {
         console.log('You probably used an incorrect API key')
         break;
       default:
-        // Handle any other types of unexpected errors
+        console.log('Twillo Message Error')
         break;
     }
-    // console.log(err);
     res.status(400).end();
   }
 });
 
-
-
 const faker = require('faker');
-// const db = require('./db');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 const Subscription = require('./resolvers/Subscription');
