@@ -1,12 +1,16 @@
 require('dotenv').config();
-const { ApolloServer, gql, PubSub } = require('apollo-server-express');
+const {
+  ApolloServer,
+  gql,
+  PubSub
+} = require('apollo-server-express');
 
 const PORT = 4000;
 const express = require('express');
 const app = express();
 
 const fs = require('fs');
-const typeDefs = gql`
+const typeDefs = gql `
   ${fs.readFileSync(__dirname.concat('/schema.graphql'), 'utf8')}
 `;
 
@@ -16,8 +20,60 @@ const pubSub = new PubSub();
 // const knex = require('knex')(knexConfig[ENV]);
 const knex = require('./knex');
 const knexLogger = require('knex-logger');
+const cors = require("cors");
+app.use(cors());
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+
+const stripe = require("stripe")("sk_test_KXx4rnWNLRVPWRpE1qpFbNZ2");
+
+app.use(require("body-parser").text());
+
+app.post("/charge", async (req, res) => {
+  try {
+    let {
+      status
+    } = await stripe.charges.create({
+      amount: 2000,
+      currency: "usd",
+      description: "An example charge",
+      source: req.body
+    });
+
+    res.json({
+      status
+    });
+  } catch (err) {
+    switch (err.type) {
+      case 'StripeCardError':
+        console.log("A declined card error")
+        // console.log("Your card's expiration year is invalid.")
+        break;
+      case 'RateLimitError':
+      console.log("Too many requests made to the API too quickly")
+        break;
+      case 'StripeInvalidRequestError':
+        console.log(" Invalid parameters were supplied to Stripe's API")
+        break;
+      case 'StripeAPIError':
+        console.log("An error occurred internally with Stripe's API")
+        break;
+      case 'StripeConnectionError':
+        console.log("Some kind of error occurred during the HTTPS communication")
+        break;
+      case 'StripeAuthenticationError':
+        console.log('You probably used an incorrect API key')
+        break;
+      default:
+        // Handle any other types of unexpected errors
+        break;
+    }
+    // console.log(err);
+    // res.status(500).end();
+  }
+});
+
+
 
 const faker = require('faker');
 // const db = require('./db');
@@ -40,10 +96,17 @@ const server = new ApolloServer({
     Category,
     Product
   },
-  context: { knex, pubSub }
+  context: {
+    knex,
+    pubSub
+  }
 });
-server.applyMiddleware({ app });
+server.applyMiddleware({
+  app
+});
 
-app.listen({ port: PORT }, () =>
+app.listen({
+    port: PORT
+  }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
