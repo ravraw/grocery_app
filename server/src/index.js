@@ -27,6 +27,16 @@ app.use(knexLogger(knex));
 
 const stripe = require("stripe")("sk_test_KXx4rnWNLRVPWRpE1qpFbNZ2");
 
+// const accountSid = process.env.DB_ACCOUNTSID;
+// const authToken = process.env.DB_AUTHTOKEN
+const accountSid = 'AC44c296aef0acfd3c9d89eb43323cc1c1';
+const authToken = 'a4213c0a7d60fe51572089a36504fb34'
+const client = require('twilio')(accountSid, authToken);
+
+
+
+
+
 app.use(require("body-parser").text());
 
 app.post("/charge", async (req, res) => {
@@ -53,9 +63,21 @@ app.post("/charge", async (req, res) => {
         'email': "dongyingname@yahoo.com",
       }
       // 
-    });
-
-
+    }).then(client.messages
+      .create({
+        body: 'New purchase has been made!Please prepare the grocery for the driver.',
+        from: '+15878530743',
+        to: '+1 403-903-9057'
+      })
+      .then(message => console.log("Message to the store", message.sid))
+      .done()).then(client.messages
+      .create({
+        body: 'New purchase has been made! Please start to collect groceries!',
+        from: '+15878530743',
+        to: '+1 780-708-4684'
+      })
+      .then(message => console.log("Message to the driver", message.sid))
+      .done());;
     res.json({
       status
     });
