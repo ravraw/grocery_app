@@ -49,6 +49,10 @@ class User_new extends Component {
             [name]: { value: "", error: true }
           });
         }
+      } else{
+        //encrypt the user password with bycrypt
+        //Register the userinformatio into the data base.
+        //Login the user into the session.
       }
     }
   }
