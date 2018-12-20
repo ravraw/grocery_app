@@ -30,9 +30,14 @@ const stripe = require("stripe")("sk_test_KXx4rnWNLRVPWRpE1qpFbNZ2");
 app.use(require("body-parser").text());
 
 app.post("/charge", async (req, res) => {
-  console.log("req.body",req.body);
-  // console.log("Type", typeof(JSON.parse(req.body)))
-  const {description,token,orderId,amount,customer} = JSON.parse(req.body);
+  console.log("req.body", req.body);
+  const {
+    description,
+    token,
+    orderId,
+    amount,
+    customer
+  } = JSON.parse(req.body);
   try {
     let {
       status
@@ -42,7 +47,10 @@ app.post("/charge", async (req, res) => {
       description: description,
       source: token,
       // email:"dongyingname@yahoo.com",
-      metadata: {'order_id': orderId,email:"dongyingname@yahoo.com",}
+      metadata: {
+        'order_id': orderId,
+        'email': "dongyingname@yahoo.com",
+      }
       // 
     });
 
@@ -57,7 +65,7 @@ app.post("/charge", async (req, res) => {
         // console.log("Your card's expiration year is invalid.")
         break;
       case 'RateLimitError':
-      console.log("Too many requests made to the API too quickly")
+        console.log("Too many requests made to the API too quickly")
         break;
       case 'StripeInvalidRequestError':
         console.log(" Invalid parameters were supplied to Stripe's API")
