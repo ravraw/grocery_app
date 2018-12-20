@@ -1,22 +1,22 @@
-import React, {Component} from 'react';
-import {CardElement, injectStripe} from 'react-stripe-elements';
+import React, { Component } from "react";
+import { CardElement, injectStripe } from "react-stripe-elements";
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = { complete: false };
     this.submit = this.submit.bind(this);
   }
 
   async submit(ev) {
-    let {token} = await this.props.stripe.createToken({name: "Name"});
+    let { token } = await this.props.stripe.createToken({ name: "Name" });
     let response = await fetch("http://localhost:4000/charge", {
       method: "POST",
-      headers: {"Content-Type": "text/plain"},
-      body: token.id
+      headers: { "Content-Type": "text/plain" },
+      body: { tokenId: token.id, amount: 40000, description: "" }
     });
-  
-    if (response.ok) console.log("Purchase Complete!")
+
+    if (response.ok) console.log("Purchase Complete!");
   }
 
   render() {

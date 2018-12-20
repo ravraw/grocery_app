@@ -30,6 +30,7 @@ const stripe = require("stripe")("sk_test_KXx4rnWNLRVPWRpE1qpFbNZ2");
 app.use(require("body-parser").text());
 
 app.post("/charge", async (req, res) => {
+  console.log("req.body",req.body);
   try {
     let {
       status
@@ -39,8 +40,9 @@ app.post("/charge", async (req, res) => {
       description: "An example charge",
       source: "tok_amex",
       metadata: {'order_id': '6735'}
-      // req.body
+      // 
     });
+
 
     res.json({
       status
@@ -71,7 +73,7 @@ app.post("/charge", async (req, res) => {
         break;
     }
     // console.log(err);
-    // res.status(500).end();
+    res.status(400).end();
   }
 });
 
