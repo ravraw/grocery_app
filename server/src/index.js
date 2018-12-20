@@ -37,7 +37,9 @@ app.post("/charge", async (req, res) => {
       amount: 2000,
       currency: "usd",
       description: "An example charge",
-      source: req.body
+      source: "tok_amex",
+      metadata: {'order_id': '6735'}
+      // req.body
     });
 
     res.json({
