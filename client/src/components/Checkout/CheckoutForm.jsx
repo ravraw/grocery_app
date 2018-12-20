@@ -13,7 +13,13 @@ class CheckoutForm extends Component {
     let response = await fetch("http://localhost:4000/charge", {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
-      body: { tokenId: token.id, amount: 40000, description: "" }
+      body: JSON.stringify({
+        description: "a new purchase!",
+        token: "tok_amex",
+        orderId: 11,
+        amount: 99999,
+        // customer: "Ying Dong"
+      })
     });
 
     if (response.ok) console.log("Purchase Complete!");

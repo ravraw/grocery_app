@@ -31,15 +31,18 @@ app.use(require("body-parser").text());
 
 app.post("/charge", async (req, res) => {
   console.log("req.body",req.body);
+  // console.log("Type", typeof(JSON.parse(req.body)))
+  const {description,token,orderId,amount,customer} = JSON.parse(req.body);
   try {
     let {
       status
     } = await stripe.charges.create({
-      amount: 2000,
+      amount: amount,
       currency: "usd",
-      description: "An example charge",
-      source: "tok_amex",
-      metadata: {'order_id': '6735'}
+      description: description,
+      source: token,
+      // email:"dongyingname@yahoo.com",
+      metadata: {'order_id': orderId,email:"dongyingname@yahoo.com",}
       // 
     });
 
