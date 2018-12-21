@@ -8,14 +8,17 @@ import {
 } from '../queries/queries';
 
 class Product extends Component {
+  // let product_id =  this.props.product._typename === 'CartItem'
+  //             ? this.props.product_id
+  //             : this.props.product.id;
   onAdd() {
-    console.log('FROM ADD IN PRODUCTS ___', this.props);
+    console.log('FROM ADD IN PRODUCTS ___', this.props.product);
     this.props
       .addCartItemMutation({
         variables: {
           quantity: 1,
           user_id: 1, // hardcoded
-          product_id: this.props.product.id
+          product_id: this.props.product.product_id || this.props.product.id
         } //,
         //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
       })
@@ -23,14 +26,14 @@ class Product extends Component {
       .catch(err => console.log(err));
   }
 
-  onUpdate() {
+  onDecrease() {
     console.log('FROM UPDATE IN PRODUCTS ___', this.props);
     this.props
       .addCartItemMutation({
         variables: {
-          quantity: 1,
+          quantity: -1,
           user_id: 1, // hardcoded
-          product_id: this.props.product.id
+          product_id: this.props.product.product_id
         } //,
         //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
       })
@@ -60,9 +63,20 @@ class Product extends Component {
       description,
       price,
       quantity,
-      image
+      image,
+      store
     } = this.props.product;
-    console.log('from product -----', id, name, description, price, image);
+    // const { id: store_id, name: store_name } = store;
+    console.log(
+      'from product -----',
+      id,
+      name,
+      description,
+      price,
+      image
+      // store_id,
+      // store_name
+    );
     return (
       <div key={id}>
         <Link to={`/product/${id}/show`}>
@@ -74,8 +88,14 @@ class Product extends Component {
         <h2>{name}</h2>
         <p>Description: {description}</p>
         <p>Price: {price}</p>
+        {store ? <p>Store: {store.name}</p> : ''}
         {quantity ? <p>Quantity: {quantity}</p> : ''}
-        <button onClick={this.onUpdate.bind(this)}>ADD</button>
+        {price ? <button onClick={this.onAdd.bind(this)}>+</button> : ''}
+        {quantity ? (
+          <button onClick={this.onDecrease.bind(this)}>-</button>
+        ) : (
+          ''
+        )}
         {quantity ? (
           <button onClick={this.onDelete.bind(this)}>DELETE</button>
         ) : (

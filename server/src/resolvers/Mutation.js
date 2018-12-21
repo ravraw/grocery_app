@@ -21,46 +21,23 @@ const Mutation = {
               .then(result => result[0])
           );
         } else {
-          return knex('user_cart_items')
-            .returning('*')
-            .insert({
-              quantity,
-              user_id,
-              product_id
-            })
-            .then(result => result[0]);
+          if (
+            knex('user_cart_items')
+              .select('quantity')
+              .where({
+                user_id: user_id,
+                product_id: product_id
+              })
+          ) {
+            return knex('user_cart_items')
+              .returning('*')
+              .insert({ quantity, user_id, product_id })
+              .then(result => result[0]);
+          }
         }
       });
   },
 
-  // updateCartItem
-  updateCartItem(parent, args, { knex }, info) {
-    const { quantity, user_id, product_id } = args.data;
-    console.log('FROM ADD ITEM MUTATION:', quantity, user_id, product_id);
-    return knex('user_cart_items')
-      .where({
-        user_id: user_id,
-        product_id: product_id
-      })
-      .then(result => {
-        if (result.length) {
-          return knex('user_cart_items')
-            .returning('*')
-            .where({ user_id, product_id })
-            .increment({ quantity })
-            .then(result => result[0]);
-        } else {
-          return knex('user_cart_items')
-            .returning('*')
-            .insert({
-              quantity,
-              user_id,
-              product_id
-            })
-            .then(result => result[0]);
-        }
-      });
-  },
   // deleteCartItem
   deleteCartItem(parent, args, { knex }, info) {
     const { user_id, product_id } = args.data;

@@ -12,6 +12,12 @@ const Product = {
       .returning('*')
       .where('id', `${parent.category_id}`)
       .then(result => result[0]);
+  },
+  store(parent, args, { knex }, info) {
+    return knex('stores')
+      .returning('*')
+      .where('id', `${parent.store_id}`)
+      .then(result => result[0]);
   }
 };
 

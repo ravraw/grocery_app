@@ -1,10 +1,11 @@
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
-import React, { Component } from "react";
-import Home from "../PageViews/Home";
-import Department_show from "../PageViews/DepartmentContainer";
-import Product_show from "../PageViews/ProductContainer";
-import Products from "../PageViews/Products";
-import OrderPage from "../PageViews/OrderPage";
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import Home from '../PageViews/Home';
+import Department_show from '../PageViews/DepartmentContainer';
+import Product_show from '../PageViews/ProductContainer';
+import Products from '../PageViews/Products';
+import OrderPage from '../PageViews/OrderPage';
 
 import Category_show from '../PageViews/CategoryContainer';
 import User_new from '../PageViews/User_new';
@@ -21,7 +22,7 @@ class Main extends Component {
         <Switch>
           <Route path="/products/:searchPath" component={Products} />
           <Route path="/" exact component={Home} />
-          
+
           <Route path="/user/new" component={User_new} />
           <Route path="/cart/:id" exact component={Cart} />
           <Route path="/category/:id/show" component={Category_show} />
@@ -42,4 +43,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

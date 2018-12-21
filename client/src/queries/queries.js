@@ -110,13 +110,17 @@ const getCategoryProductsQuery = gql`
   }
 `;
 const getProductQuery = gql`
-  query($id: ID) {
-    products(id: $id) {
+  query($id: ID, $selected: [SelectedProducts]) {
+    products(id: $id, selected: $selected) {
       id
       name
       description
       price
       image
+      store {
+        id
+        name
+      }
     }
   }
 `;

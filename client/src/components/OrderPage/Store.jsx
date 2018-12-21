@@ -1,46 +1,30 @@
-import React, { Component } from "react";
-
-import Product from "../Product";
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import Product from '../Product';
 
 class Store extends Component {
-  constructor() {
-    super();
-    this.state = { fetchedProducts: [] };
-    this.displayProducts = this.displayProducts.bind(this);
-  }
+  // constructor() {
+  //   super();
+  //   this.state = { fetchedProducts: [] };
+  //   this.displayProducts = this.displayProducts.bind(this);
+  // }
 
-  displayProducts() {
-    //use storeId to fetch products for that store.
-    const storeId = this.props.storeId;
-    const comparedProducts = this.props.comparedProducts;
-    console.log("storeId",storeId);
-    console.log("comparedProducts",comparedProducts);
-    
-    // use the names or ids to fetch products from database
-    const namesOfComparedProducts = comparedProducts.map(product => {
-      return product.name;
-    });
-    const idsOfComparedProducts = comparedProducts.map(product => {
-      return product.id;
-    });
-    console.log('names of compared products', namesOfComparedProducts);
-    console.log('ids of compared products', idsOfComparedProducts);
-
-
-    // const fetchedProducts = 'fetch, of store of id===storeId, products of names===namesOfComparedProducts'
-
-    // return fetchedProducts.map(product => {
-    //   return <Product product={product} />; //do we still need buttons?
-    // });
-  }
   render() {
-    // const total = this.state.fetchedProducts.reduce((a,b)=>{
-    //   return a+b;
-    // })
+    console.log('FROM STORE COMPONENT:', this.props);
+    const productList = this.props.storeProducts.map(product => {
+      return (
+        <React.Fragment>
+          <Product product={product} />
+        </React.Fragment>
+      );
+    });
     return (
       <div>
-        <div>{this.displayProducts()}</div>
-        <div>{/* <h2>Total: {total}</h2> */}</div>
+        <hr />
+        <h1>{this.props.storeProducts[0].store.name}</h1>
+        {productList}
+        <h1>Total Price : {this.props.total}</h1>
+        <hr />
       </div>
     );
   }

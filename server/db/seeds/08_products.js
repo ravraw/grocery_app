@@ -41,7 +41,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'Orange',
           description: '',
-          price: 0.38,
+          price: 0.5,
           department_id: 1, // produce
           category_id: 2, // fresh fruits
           brand_id: 1, // no name
@@ -63,7 +63,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'watermelon',
           description: '',
-          price: 5.38,
+          price: 6,
           department_id: 1, // produce
           category_id: 2, // fresh fruits
           brand_id: 1,
@@ -85,7 +85,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'white Onion',
           description: 'per kg',
-          price: 0.39,
+          price: 0.25,
           department_id: 1, // produce
           category_id: 3, // fresh fruits
           brand_id: 1, // no name
@@ -107,7 +107,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'yellow onion',
           description: '3 lbs',
-          price: 2.98,
+          price: 2.5,
           department_id: 1, // produce
           category_id: 3, // fresh vegetables
           brand_id: 1, // no name
@@ -118,7 +118,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'roma tomatos',
           description: '1 lbs',
-          price: 2.98,
+          price: 1.98,
           department_id: 1, // produce
           category_id: 3, // fresh vegetable
           brand_id: 1, // no name,
@@ -129,7 +129,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'roma tomatos',
           description: '1 lbs',
-          price: 2.98,
+          price: 2.4,
           department_id: 1, // produce
           category_id: 3, // fresh vegetable
           brand_id: 1, // no name
@@ -141,7 +141,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'red peppers',
           description: '1 lbs',
-          price: 2.98,
+          price: 2.1,
           department_id: 2, // produce
           category_id: 6, // fresh vegetable
           brand_id: 1,
@@ -163,7 +163,7 @@ exports.seed = function(knex, Promise) {
         {
           name: 'avocado',
           description: '1 lbs',
-          price: 2.98,
+          price: 3.9,
           department_id: 2, // produce
           category_id: 8, // fresh vegetable
           brand_id: 1,
