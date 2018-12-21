@@ -6,8 +6,16 @@ import Store from '../OrderPage/Store';
 class OrderPage extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = { redirect: false, total: 0, email: "useremail@yahoo.com" };
     this.displayStores = this.displayStores.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+  }
+  handleCheckout(total) {
+    console.log("totalamount", total);
+    this.setState({ total: total });
+    this.setState({ redirect: true });
+
+    //Takes subtotal and Redirect to checkout page
   }
 
   displayStores() {
@@ -47,6 +55,7 @@ class OrderPage extends Component {
     }
     return arr;
   }
+
   render() {
     return (
       <React.Fragment>

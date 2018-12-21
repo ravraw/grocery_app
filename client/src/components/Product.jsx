@@ -42,7 +42,7 @@ class Product extends Component {
   }
 
   onDelete() {
-    console.log('PROPS FROM DELETE PRODUCT', this.props);
+    // console.log('PROPS FROM DELETE PRODUCT', this.props);
     this.props
       .deleteCartItemMutation({
         variables: {

@@ -12,7 +12,6 @@ class Departments extends Component {
   }
   displayDepartments() {
     let data = this.props.data;
-    // console.log('data', this.props);
     if (data.loading) {
       return <div>Loading Departments...</div>;
     } else {
