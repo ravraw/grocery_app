@@ -12,7 +12,7 @@ class DepartmentContainer extends Component {
   };
   displayCategories() {
     let data = this.props.data;
-    console.log("data",data);
+    console.log("data", data);
     if (data.loading) {
       return <div>Loading Categories...</div>;
     } else {

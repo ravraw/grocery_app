@@ -10,7 +10,7 @@ import Category_show from '../PageViews/CategoryContainer';
 import User_new from '../PageViews/User_new';
 import Checkout from '../PageViews/Checkout'
 // import User_show from "./components/User_show";
-// import Login from "./components/Login";
+import Login from "../PageViews/Login";
 import Cart from '../PageViews/Cart';
 import Errors from '../PageViews/Errors';
 
@@ -28,10 +28,13 @@ class Main extends Component {
           <Route path="/checkout" component={Checkout} />
 
           {/* <Route path="/user/:user_id/show" component={User_show} /> */}
-          {/* <Route path="/login" component={Login} /> */}
 
-          <Route path="/product/:id/show" component={Product_show} />
           <Route path="/order" component={OrderPage} />
+
+          <Route path="/login" component={Login} />
+          
+          <Route path="/product/:id/show"  component={Product_show} />
+
 
           <Route path="/department/:id/show" component={Department_show} />
 
