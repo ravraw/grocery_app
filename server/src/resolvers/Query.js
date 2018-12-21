@@ -41,14 +41,39 @@ const Query = {
   },
   // products
   products(parent, args, { knex }, info) {
+    const { query, id, selected } = args;
     console.log('FROM PRObbbbDUCTS', args);
-    const { query, id } = args;
     if (query) {
       return knex('products').where('name', 'like', `%${query}%`);
     } else if (id) {
       return knex('products').where({ id });
+    } else if (selected) {
+      const productsNameArr = selected.map(product => {
+        return product.name;
+      });
+      return knex('products')
+        .join('stores', 'products.store_id', 'stores.id')
+        .select(
+          'stores.id as store_id',
+          'stores.name as store_name',
+          'products.id as id',
+          'products.name as name',
+          'products.description as description',
+          'products.price as price',
+          'products.image as image'
+          // 'products.quantity as product_quantity'
+        )
+        .whereIn('products.name', productsNameArr)
+        .then(result => {
+          console.log(result);
+          return result;
+        });
     } else {
-      return knex.select('*').from('products');
+      return knex
+        .select('*')
+        .from('products')
+        .join('stores', 'stores.id', 'products.store_id')
+        .min('product.price');
     }
   },
   //shoppingCart

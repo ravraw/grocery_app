@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Category from "../DepartmentContainer/Category";
-import { graphql } from "react-apollo";
-import { getCategoriesQuery } from "../../queries/queries";
-import Sidebar from "../Sidebar";
+import React, { Component } from 'react';
+import Category from '../DepartmentContainer/Category';
+import { graphql } from 'react-apollo';
+import { getCategoriesQuery } from '../../queries/queries';
+import Sidebar from '../Sidebar';
 
 //should take all categories that are available to that department
 
@@ -12,7 +12,7 @@ class DepartmentContainer extends Component {
   };
   displayCategories() {
     let data = this.props.data;
-    console.log("data", data);
+    console.log('data', data);
     if (data.loading) {
       return <div>Loading Categories...</div>;
     } else {
@@ -29,7 +29,7 @@ class DepartmentContainer extends Component {
   }
 
   render(props) {
-    console.log("this props:", this.props.data.variables.id);
+    console.log('this props:', this.props.data.variables.id);
 
     return (
       <React.Fragment>
@@ -42,7 +42,7 @@ class DepartmentContainer extends Component {
 
 export default graphql(getCategoriesQuery, {
   options: props => {
-    console.log("from props:", props);
+    console.log('from props:', props);
     return { variables: { id: props.match.params.id } };
   }
 })(DepartmentContainer);

@@ -4,7 +4,7 @@ type Query {
     stores(query:String):[Store!]!
     departments(query:String,id:ID):[Department!]!
     categories(query:String,id:ID):[Category!]!
-    products(query:String,id:ID):[Product!]!
+    products(query:String,id:ID,selected:[SelectedProducts]):[Product!]!
     # shoppingCart(query:String):[Product]!
     shoppingCart(id:ID):[CartItem!]!
     userCartItems(query:ID):[Product!]!
@@ -13,12 +13,14 @@ type Query {
     category: Category!
     product:Product!
     cartItem:CartItem!
+    store:Store!
 }
 
 type Mutation {
     # shopping Cart
-    addCartItem(data:AddCartItemInput):Product!
-    deleteCartItem(data:DeleteCartItemInput):Product!
+    addCartItem(data:AddCartItemInput):CartItem!
+    deleteCartItem(data:DeleteCartItemInput):CartItem!
+    updateCartItem(data:UpdateCartItemInput):CartItem!
     # removeCartItem(id: ID!): Product!
     # updateCartItem(id: ID!, data: UpdateCartItemInput!): Product!
 }
@@ -27,10 +29,19 @@ type Subscription{
     count:Int!
 }
 
+input SelectedProducts{
+    name: String!
+}
+
 input AddCartItemInput {
     quantity:Int!
     user_id:ID!
     product_id:ID!
+}
+input UpdateCartItemInput {
+  quantity:Int!
+  user_id: ID!
+  product_id: ID!
 }
 input DeleteCartItemInput{
     user_id:ID!
@@ -51,12 +62,12 @@ type User {
 type Store{
     id:ID!
     name:String!
-    building_number:String!
-    street:String!
-    city:String!
-    postal_code:String!
-    state:String!
-    country:String!
+    # building_number:String!
+    # street:String!
+    # city:String!
+    # postal_code:String!
+    # state:String!
+    # country:String!
 }
 
 type Department {
@@ -78,8 +89,12 @@ type Product {
     description:String!
     price:Float! # to be chnaged to Int!
     quantity:Int!
+    image:String!
+    # store_id:ID
+    # store_name:String
     # user_id:ID!
     # product_id:ID!
+    store:Store!
     department:Department!
     category:Category!
 }
@@ -90,11 +105,19 @@ type CartItem {
   description: String!
   price: Float! # to be chnaged to Int!
   quantity: Int!
+  image:String!
   user_id:ID!
   product_id:ID!
   department: Department!
   category: Category!
 }
+
+
+
+
+
+
+
 
 
 

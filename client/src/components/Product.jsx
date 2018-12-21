@@ -8,19 +8,39 @@ import {
 } from '../queries/queries';
 
 class Product extends Component {
+  // let product_id =  this.props.product._typename === 'CartItem'
+  //             ? this.props.product_id
+  //             : this.props.product.id;
   onAdd() {
+    console.log('FROM ADD IN PRODUCTS ___', this.props.product);
     this.props
       .addCartItemMutation({
         variables: {
           quantity: 1,
           user_id: 1, // hardcoded
-          product_id: this.props.product.id
+          product_id: this.props.product.product_id || this.props.product.id
         } //,
         //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
       })
       .then(data => this.props.refetch())
       .catch(err => console.log(err));
   }
+
+  onDecrease() {
+    console.log('FROM UPDATE IN PRODUCTS ___', this.props);
+    this.props
+      .addCartItemMutation({
+        variables: {
+          quantity: -1,
+          user_id: 1, // hardcoded
+          product_id: this.props.product.product_id
+        } //,
+        //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
+      })
+      .then(data => this.props.refetch())
+      .catch(err => console.log(err));
+  }
+
   onDelete() {
     // console.log('PROPS FROM DELETE PRODUCT', this.props);
     this.props
@@ -36,22 +56,46 @@ class Product extends Component {
   }
   render() {
     const data = this.props.data;
-    // console.log('FROM PRODUCT', this.props);
-    const { id, name, description, price, quantity } = this.props.product;
-    // console.log('from product -----', id, name, description, price);
+    console.log('FROM PRODUCT', this.props);
+    const {
+      id,
+      name,
+      description,
+      price,
+      quantity,
+      image,
+      store
+    } = this.props.product;
+    // const { id: store_id, name: store_name } = store;
+    console.log(
+      'from product -----',
+      id,
+      name,
+      description,
+      price,
+      image
+      // store_id,
+      // store_name
+    );
     return (
       <div key={id}>
         <Link to={`/product/${id}/show`}>
           <img
-            src="http://fosterclark.com/wp-content/uploads/2016/06/Banana-150x150.png"
+            src="http://www.pharmatips.in/images/2013.09/Banana-Pharmacognosy-Medicinal-Uses-300847474002225.png"
             alt="dummy"
           />
         </Link>
         <h2>{name}</h2>
         <p>Description: {description}</p>
         <p>Price: {price}</p>
+        {store ? <p>Store: {store.name}</p> : ''}
         {quantity ? <p>Quantity: {quantity}</p> : ''}
-        <button onClick={this.onAdd.bind(this)}>ADD</button>
+        {price ? <button onClick={this.onAdd.bind(this)}>+</button> : ''}
+        {quantity ? (
+          <button onClick={this.onDecrease.bind(this)}>-</button>
+        ) : (
+          ''
+        )}
         {quantity ? (
           <button onClick={this.onDelete.bind(this)}>DELETE</button>
         ) : (

@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import './App.scss';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 // componets
 import Header from './components/Layout/Header';

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Product from "../Product";
-import { graphql } from "react-apollo";
-import { getCartQuery } from "../../queries/queries";
-import { NavLink, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import Product from '../Product';
+import { graphql } from 'react-apollo';
+import { getCartQuery } from '../../queries/queries';
+import { NavLink, Link } from 'react-router-dom';
 
 class Cart extends Component {
   constructor(props) {
@@ -12,16 +12,20 @@ class Cart extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log('REFETCH----', this.props);
+    this.props.data.refetch();
+  }
 
   displayCart() {
     let data = this.props.data;
-    // const { shoppingCart } = data.users;
-    // console.log("data from display cart", data);
+    console.log('PROPS FROM CART --', this.props.data.shoppingCart);
 
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
       return data.shoppingCart.map(product => {
+        console.log('PRODUCT FROM CART', product);
         return (
           <Product
             refetch={data.refetch}
@@ -38,7 +42,7 @@ class Cart extends Component {
     let data = this.props.data;
     if (!data.loading) {
       const productsProps = data.shoppingCart;
-      // console.log("productsProps",productsProps)
+      console.log('productsProps', productsProps);
       return (
         <div>
           <Link to={{ pathname: `/order`, products: productsProps }}>
@@ -60,7 +64,7 @@ class Cart extends Component {
   }
 }
 
-// export default Cart;
+// export default Cart;l;lkjk
 export default graphql(getCartQuery, {
   options: props => {
     // console.log('from props:', props);

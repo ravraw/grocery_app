@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 const id = 1;
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      searchPath: "/",
+      searchPath: '/',
       redirect: false
     };
 
@@ -16,20 +16,18 @@ class Header extends Component {
   }
   handleChange = event => {
     const path = event.target.value;
-    console.log("searchpath", path);
+    console.log('searchpath', path);
     this.setState({ searchPath: path });
   };
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ redirect: true });
   }
- 
+
   render() {
-    
     if (this.state.redirect) {
       this.setState({ redirect: false });
-      return <Redirect to={`/products/${this.state.searchPath}` }/>;
-      
+      return <Redirect to={`/products/${this.state.searchPath}`} />;
     }
     return (
       <header className="header">

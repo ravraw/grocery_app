@@ -1,13 +1,7 @@
-import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import { getCategoryProductsQuery } from "../../queries/queries";
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-
-import Product from "../Product";
-// import Sidebar from "../Sidebar";
-import Store from "../OrderPage/Store";
-
-const storesId = [1, 2, 3, 4, 5];
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { getProductQuery } from '../../queries/queries';
+import Store from '../OrderPage/Store';
 
 class OrderPage extends Component {
   constructor() {
@@ -23,38 +17,46 @@ class OrderPage extends Component {
 
     //Takes subtotal and Redirect to checkout page
   }
+
   displayStores() {
+    const data = this.props.data;
+    console.log('DATA FROM ORDER PAGE', this.props);
     const products = this.props.location.products; //products from cart, which are compared of.
-    return storesId.map(storeId => {
-      return (
-        <Store
-          comparedProducts={products}
-          storeId={storeId}
-          onCheckout={this.handleCheckout}
-        />
-      );
+    const quantities = [];
+    const namesOfComparedProducts = products.map(product => {
+      quantities.push(product.quantity);
+      return { name: product.name };
     });
-    // let products = this.props.products;
-    // console.log("data from OrderPage", products[0]);
-    // if (data.loading) {
-    //   return <div>Loading Products...</div>;
-    // } else {
-    //   return data.categories[0].products.map(product => {
-    //     return <Product product={product} />;
-    //   });
-    // }
+    const storeWiseProducts = { store1: [], store2: [] };
+    if (data.loading) {
+      return <div>Loading store Products...</div>;
+    } else {
+      data.products.map((product, index) => {
+        if (product.store.id === '1') {
+          console.log('store1');
+          storeWiseProducts.store1.push(product);
+        }
+        if (product.store.id === '2') {
+          console.log('store2');
+          storeWiseProducts.store2.push(product);
+        }
+      });
+    }
+    const arr = [];
+    for (let store in storeWiseProducts) {
+      const total = storeWiseProducts[store].reduce((acc, cur, index) => {
+        console.log('from reduce', cur);
+        return acc + cur.price * quantities[index];
+      }, 0);
+      console.log('TOTAL PRICE ,', total);
+      arr.push(
+        <Store storeProducts={storeWiseProducts[store]} total={total} />
+      );
+    }
+    return arr;
   }
 
   render() {
-    if (this.state.redirect) {
-      this.setState({ redirect: false });
-      return (
-        <Redirect to={{ pathname: "/checkout", total: this.state.total }} />
-      );
-    }
-
-    // console.log("props from cart", this.props.location.products);
-
     return (
       <React.Fragment>
         <div>{this.displayStores()}</div>
@@ -63,10 +65,17 @@ class OrderPage extends Component {
   }
 }
 
-export default OrderPage;
-// export default graphql(getCategoryProductsQuery, {
-//   options: props => {
-//     console.log("from props:", props);
-//     return { variables: { id: props.match.params.id } };
-//   }
-// })(OrderPage);
+export default graphql(getProductQuery, {
+  options: props => {
+    console.log('FROM PROPS IN ORDERPAGE QUERY:', props);
+    return {
+      variables: {
+        selected: [
+          ...props.location.products.map(product => {
+            return { name: product.name };
+          })
+        ]
+      }
+    };
+  }
+})(OrderPage);
