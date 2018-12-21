@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.1.22",
+    "bcrypt": "^3.0.2",
     "graphql": "^14.0.2",
     "node-sass": "^4.11.0",
     "react": "^16.6.3",
