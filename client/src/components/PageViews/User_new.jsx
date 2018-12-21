@@ -53,6 +53,15 @@ class User_new extends Component {
         //encrypt the user password with bycrypt
         //Register the userinformatio into the data base.
         //Login the user into the session.
+        let response = await fetch("http://localhost:4000/register", {
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({
+           userInfo:this.state
+          })
+        });
+    
+        if (response.ok) console.log("Purchase Complete!");
       }
     }
   }
