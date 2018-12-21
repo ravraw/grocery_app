@@ -34,6 +34,8 @@ const authToken = 'a4213c0a7d60fe51572089a36504fb34'
 const client = require('twilio')(accountSid, authToken);
 
 app.use(require("body-parser").text());
+const bcrypt = require('bcrypt');
+
 
 app.post("/charge", async (req, res) => {
   console.log("req.body", req.body);
@@ -100,6 +102,27 @@ app.post("/charge", async (req, res) => {
         break;
     }
     res.status(400).end();
+  }
+});
+app.post("/register", async (req, res) => {
+  // console.log("req.body", req.body);
+  const {
+    email,
+    password,
+    username
+  } = JSON.parse(req.body);
+  console.log("email", email);
+  console.log("password", password);
+  console.log("username", username);
+
+  const hashPass = bcrypt.hashSync(password, 15);
+  console.log('hashed Password', hashPass);
+  if (hashPass) {
+    res.status(200).send("Status Code 200!! Registration succeeded!!!");
+
+    //send the user data into database
+
+
   }
 });
 
