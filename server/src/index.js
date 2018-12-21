@@ -4,6 +4,7 @@ const { ApolloServer, gql, PubSub } = require('apollo-server-express');
 const PORT = 4000;
 const express = require('express');
 const app = express();
+app.use(express.static('public'));
 
 const fs = require('fs');
 const typeDefs = gql`
