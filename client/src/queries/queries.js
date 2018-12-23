@@ -35,6 +35,7 @@ const getDepartmentsQuery = gql`
     departments {
       id
       name
+      image
     }
   }
 `;

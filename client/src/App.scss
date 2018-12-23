@@ -29,23 +29,25 @@ body {
 }
 
 .header{
-  background: #16a085;
+  // background: #55efc4;
   min-height:10vh;
 }
 
 .main{
   background: white;
   min-height:85vh;
+  border :1px solid green;
   div{
     height:100%;
   }
 }
 
 .footer{
-  background:#16a085;
+  // background:#55efc4;
   min-height:5vh;
 }
 img{
   height:150;
   width:150;
+ 
 }

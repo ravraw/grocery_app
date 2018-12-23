@@ -82,6 +82,7 @@ type Store{
 type Department {
   id: ID!
   name: String!
+  image:String!
   categories: [Category!]!
   products: [Product!]!
 }
