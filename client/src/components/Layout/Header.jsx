@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import SpeechRecognition from "../SpeechRecognition";
 
 const id = 1;
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      searchPath: '/',
+      searchPath: "/",
       redirect: false
     };
 
@@ -16,7 +17,7 @@ class Header extends Component {
   }
   handleChange = event => {
     const path = event.target.value;
-    console.log('searchpath', path);
+    console.log("searchpath", path);
     this.setState({ searchPath: path });
   };
   handleSubmit(event) {
@@ -57,7 +58,7 @@ class Header extends Component {
         <div className="header_top_right">
           <Link to={`/login`} className="login_link">
             Login
-          </Link> 
+          </Link>
           <Link to={`/user/new`} className="registration_link">
             Register
           </Link>
@@ -67,6 +68,9 @@ class Header extends Component {
         </div>
         <div className="header_navigation">
           <Link to="/">Home</Link>
+        </div>
+        <div>
+          <SpeechRecognition />
         </div>
       </header>
     );
