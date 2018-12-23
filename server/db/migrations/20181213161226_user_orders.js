@@ -13,13 +13,9 @@ exports.up = function(knex, Promise) {
     .createTable('user_orders', function(table) {
       table.increments('id');
       table
-        .integer('product_id')
+        .integer('user_id')
         .references('id')
         .inTable('users');
-      table
-        .integer('order_id')
-        .references('id')
-        .inTable('orders');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     });

@@ -1,30 +1,34 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getCategoryProductsQuery } from '../../queries/queries';
-import {Elements, StripeProvider} from 'react-stripe-elements';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '../Checkout/CheckoutForm';
-
 
 import Product from '../Product';
 import Sidebar from '../Sidebar';
 
 class Checkout extends Component {
- constructor(){
-   super();
-   this.state={};
-   
- }
+  constructor() {
+    super();
+    this.state = {};
+  }
   render(props) {
+    console.log('PROPS FROM CHECKOUT ---', this.props.location.products);
+    const total = this.props.match.params.total;
     return (
       <React.Fragment>
-          <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
-        <div className="example">
-          <h1>React Stripe Elements Example</h1>
-          <Elements>
-            <CheckoutForm />
-          </Elements>
-        </div>
-      </StripeProvider>
+        <p>Your total:${this.props.match.params.total}</p>
+        <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+          <div className="example">
+            <h1>React Stripe Elements Example</h1>
+            <Elements>
+              <CheckoutForm
+                total={total}
+                products={this.props.location.products}
+              />
+            </Elements>
+          </div>
+        </StripeProvider>
       </React.Fragment>
     );
   }

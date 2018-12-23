@@ -81,8 +81,9 @@ class Product extends Component {
       <div key={id}>
         <Link to={`/product/${id}/show`}>
           <img
-            src="http://www.pharmatips.in/images/2013.09/Banana-Pharmacognosy-Medicinal-Uses-300847474002225.png"
+            src={image}
             alt="dummy"
+            style={{ height: '150px', width: '150px' }}
           />
         </Link>
         <h2>{name}</h2>

@@ -10,6 +10,7 @@ const getUsersQuery = gql`
         name
         description
         price
+        image
       }
     }
   }
@@ -28,6 +29,7 @@ const getStoresQuery = gql`
     }
   }
 `;
+// used in home/departments
 const getDepartmentsQuery = gql`
   {
     departments {
@@ -36,6 +38,7 @@ const getDepartmentsQuery = gql`
     }
   }
 `;
+// used in PageViews/DepartmentContainer
 const getCategoriesQuery = gql`
   query($id: ID) {
     departments(id: $id) {
@@ -47,6 +50,7 @@ const getCategoriesQuery = gql`
         products {
           id
           name
+          image
           description
           price
         }
@@ -54,6 +58,7 @@ const getCategoriesQuery = gql`
     }
   }
 `;
+// used in PageViews/OrderPage
 const getProductsQuery = gql`
   {
     products {
@@ -61,6 +66,7 @@ const getProductsQuery = gql`
       name
       description
       price
+      image
       department
       category
     }
@@ -76,12 +82,14 @@ const getCategoriesAndProducts = gql`
         name
         description
         price
+        image
         department
         category
       }
     }
   }
 `;
+// used in PageViews/Cart
 const getCartQuery = gql`
   query getCartQuery($id: ID) {
     shoppingCart(id: $id) {
@@ -90,11 +98,13 @@ const getCartQuery = gql`
       description
       price
       quantity
+      image
       user_id
       product_id
     }
   }
 `;
+// used in PageView/CategoryContainer
 const getCategoryProductsQuery = gql`
   query($id: ID) {
     categories(id: $id) {
@@ -105,10 +115,12 @@ const getCategoryProductsQuery = gql`
         name
         description
         price
+        image
       }
     }
   }
 `;
+// used in PageViews/ProductContainer
 const getProductQuery = gql`
   query($id: ID, $selected: [SelectedProducts]) {
     products(id: $id, selected: $selected) {
@@ -124,6 +136,7 @@ const getProductQuery = gql`
     }
   }
 `;
+// used in PageViews/Products  serch results
 const getSearchResults = gql`
   query($string: String) {
     products(query: $string) {
@@ -145,6 +158,7 @@ const getSearchResults = gql`
 `;
 
 // Mutations
+// used in Products component
 const addCartItemMutation = gql`
   mutation($quantity: Int!, $user_id: ID!, $product_id: ID!) {
     addCartItem(
@@ -154,6 +168,7 @@ const addCartItemMutation = gql`
     }
   }
 `;
+// used in Products component
 const deleteCartItemMutation = gql`
   mutation($user_id: ID!, $product_id: ID!) {
     deleteCartItem(data: { user_id: $user_id, product_id: $product_id }) {
@@ -161,7 +176,45 @@ const deleteCartItemMutation = gql`
     }
   }
 `;
-
+// add Order in CheckoutForm component
+const addOrderMutation = gql`
+  mutation($user_id: ID!) {
+    addOrder(user_id: $user_id) {
+      id
+      user_id
+    }
+  }
+`;
+// add orderItem in checkoutform component
+const addOrderItemMutation = gql`
+  mutation($product_id: ID!, $quantity: Int!, $price: Float!, $order_id: ID!) {
+    addOrderItem(
+      data: {
+        product_id: $product_id
+        quantity: $quantity
+        price: $price
+        order_id: $order_id
+      }
+    ) {
+      id
+      product_id
+      quantity
+      price
+      order_id
+    }
+  }
+`;
+// emptyCart in CheckoutForm component
+const emptyCartMutation = gql`
+  mutation($user_id: ID!) {
+    emptyCart(user_id: $user_id) {
+      id
+      quantity
+      user_id
+      product_id
+    }
+  }
+`;
 export {
   getUsersQuery,
   getStoresQuery,
@@ -174,5 +227,8 @@ export {
   getProductQuery,
   addCartItemMutation,
   deleteCartItemMutation,
-  getSearchResults
+  getSearchResults,
+  addOrderMutation,
+  addOrderItemMutation,
+  emptyCartMutation
 };

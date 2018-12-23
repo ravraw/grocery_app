@@ -34,10 +34,7 @@ class Product_show extends Component {
     return (
       <React.Fragment>
         <div>This is Product_show Page</div>
-        <img
-          src="http://fosterclark.com/wp-content/uploads/2016/06/Banana-150x150.png"
-          alt="dummy"
-        />
+        <img src={currentProduct.image} alt="dummy" />
         <h2>Name: {currentProduct.name}</h2>
         <h2>Unit_Price: {currentProduct.price}</h2>
         <h2>Description: {currentProduct.description}</h2>

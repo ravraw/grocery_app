@@ -6,12 +6,12 @@ import Store from '../OrderPage/Store';
 class OrderPage extends Component {
   constructor() {
     super();
-    this.state = { redirect: false, total: 0, email: "useremail@yahoo.com" };
+    this.state = { redirect: false, total: 0, email: 'useremail@yahoo.com' };
     this.displayStores = this.displayStores.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
   }
   handleCheckout(total) {
-    console.log("totalamount", total);
+    console.log('totalamount', total);
     this.setState({ total: total });
     this.setState({ redirect: true });
 
@@ -32,13 +32,21 @@ class OrderPage extends Component {
       return <div>Loading store Products...</div>;
     } else {
       data.products.map((product, index) => {
+        let quantityIndex = Math.floor(index / 2);
         if (product.store.id === '1') {
           console.log('store1');
-          storeWiseProducts.store1.push(product);
+          storeWiseProducts.store1.push({
+            ...product,
+            quantity: quantities[quantityIndex]
+          });
         }
+
         if (product.store.id === '2') {
           console.log('store2');
-          storeWiseProducts.store2.push(product);
+          storeWiseProducts.store2.push({
+            ...product,
+            quantity: quantities[quantityIndex]
+          });
         }
       });
     }

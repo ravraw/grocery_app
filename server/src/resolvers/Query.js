@@ -1,6 +1,7 @@
 const Query = {
   // users
   users(parent, args, { knex }, info) {
+    console.log('FROM RESOLVER - QUERY/USERS');
     console.log('users args:', args.id);
     if (!args.id) {
       return knex.select('*').from('users');
@@ -12,6 +13,7 @@ const Query = {
   },
   // stores
   stores(parent, args, { knex }, info) {
+    console.log('FROM RESOLVER - QUERY/STORES');
     if (!args.query) {
       return knex.select('*').from('stores');
     }
@@ -19,6 +21,7 @@ const Query = {
   },
   // departments
   departments(parent, args, { knex }, info) {
+    console.log('FROM RESOLVER - QUERY/DEPARTMENTS');
     const { query, id } = args;
     if (query) {
       return knex('departments').where('name', 'like', `%${query}%`);
@@ -30,6 +33,7 @@ const Query = {
   },
   // categories
   categories(parent, args, { knex }, info) {
+    console.log('FROM RESOLVER - QUERY/CATEGORIES');
     const { query, id } = args;
     if (query) {
       return knex('categories').where('name', 'like', `%${query}%`);
@@ -41,13 +45,18 @@ const Query = {
   },
   // products
   products(parent, args, { knex }, info) {
+    console.log('FROM RESOLVER - QUERY/PRODUCTS');
     const { query, id, selected } = args;
     console.log('FROM PRObbbbDUCTS', args);
     if (query) {
+      console.log('ALL QUERY');
       return knex('products').where('name', 'like', `%${query}%`);
     } else if (id) {
+      console.log('ALL ID');
       return knex('products').where({ id });
     } else if (selected) {
+      console.log('ALL SELECTED');
+
       const productsNameArr = selected.map(product => {
         return product.name;
       });
@@ -69,15 +78,23 @@ const Query = {
           return result;
         });
     } else {
-      return knex
-        .select('*')
-        .from('products')
-        .join('stores', 'stores.id', 'products.store_id')
-        .min('product.price');
+      console.log('ALL CALLED');
+      return (
+        knex
+          .select('*')
+          .from('products')
+          .distinct('products.name')
+          // .join('stores', 'stores.id', 'products.store_id')
+          .then(result => {
+            console.log(result[0]);
+            return result;
+          })
+      );
     }
   },
   //shoppingCart
   shoppingCart(parent, args, { knex }, info) {
+    console.log('FROM RESOLVER - QUERY/SHOPPINGCART');
     console.log('FROM SHOPPING CART', args);
     return (
       knex('products')

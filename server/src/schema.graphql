@@ -20,7 +20,10 @@ type Mutation {
     # shopping Cart
     addCartItem(data:AddCartItemInput):CartItem!
     deleteCartItem(data:DeleteCartItemInput):CartItem!
+    emptyCart(user_id:ID!):CartItem!
     updateCartItem(data:UpdateCartItemInput):CartItem!
+    addOrder(user_id:ID!):Order!
+    addOrderItem(data:addOrderItemInput):OrderItem!
     # removeCartItem(id: ID!): Product!
     # updateCartItem(id: ID!, data: UpdateCartItemInput!): Product!
 }
@@ -46,6 +49,12 @@ input UpdateCartItemInput {
 input DeleteCartItemInput{
     user_id:ID!
     product_id:ID!
+}
+input addOrderItemInput{
+    product_id:ID!
+    quantity:Int!
+    price:Float!
+    order_id:ID!
 }
 # input UpdateUserInput {
 #     email: String!
@@ -110,6 +119,19 @@ type CartItem {
   product_id:ID!
   department: Department!
   category: Category!
+}
+
+type Order{
+    id:ID!
+    user_id:ID!
+}
+
+type OrderItem{
+    id:ID!
+    product_id:ID!
+    quantity:Float!
+    price:Float!
+    order_id:ID!
 }
 
 

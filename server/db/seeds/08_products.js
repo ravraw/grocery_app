@@ -13,8 +13,7 @@ exports.seed = function(knex, Promise) {
           category_id: 2, // fresh fruits
           brand_id: 1, // no name
           store_id: 1,
-          image:
-            'https://d2d8wwwkmhfcva.cloudfront.net/155x/filters:fill(FFF,true):format(jpg)/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_48f29b47-546c-488a-ad89-2413b6b1b1fa.png'
+          image: '/'
         },
         {
           name: 'banana',

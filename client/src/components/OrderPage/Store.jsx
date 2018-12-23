@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import Product from '../Product';
 
@@ -23,7 +24,16 @@ class Store extends Component {
         <hr />
         <h1>{this.props.storeProducts[0].store.name}</h1>
         {productList}
-        <h1>Total Price : {this.props.total}</h1>
+        <h1>Total Price : ${this.props.total.toFixed(2)}</h1>
+
+        <Link
+          to={{
+            pathname: `/checkout/${this.props.total}`,
+            products: this.props.storeProducts
+          }}
+        >
+          <button>ORDER</button>
+        </Link>
         <hr />
       </div>
     );
@@ -31,3 +41,5 @@ class Store extends Component {
 }
 
 export default Store;
+
+//  <Link to={`/checkout/${this.props.total}`}>
