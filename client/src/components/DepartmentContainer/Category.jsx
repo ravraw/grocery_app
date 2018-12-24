@@ -9,9 +9,9 @@ class Category extends Component {
       return <Product key={product.id} product={product} />;
     });
     return (
-      <div>
-        <h2>Category Name: {name}</h2>
-        {Products}
+      <div className="category_showcase">
+        <h3 className="category_showcase__name">{name}</h3>
+        <div className="category_showcase__products">{Products}</div>
       </div>
     );
   }

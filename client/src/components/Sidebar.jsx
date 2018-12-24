@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class Sidebar extends Component {
   render() {
@@ -8,19 +8,23 @@ class Sidebar extends Component {
 
     const links = this.props.categories.map(category => {
       return (
-        <React.Fragment>
-          <NavLink to={{ pathname: `/category/${category.id}/show`, categories:this.props.categories }}>
+        <li key={category.id}>
+          <NavLink
+            to={{
+              pathname: `/category/${category.id}/show`,
+              categories: this.props.categories
+            }}
+          >
             {category.name}
           </NavLink>
-          <br />
-        </React.Fragment>
+        </li>
       );
     });
     return (
-      <div>
-        <h4>Categories: </h4>
-        {links}
-      </div>
+      <nav className="sidebar_nav">
+        <h4>Categories</h4>
+        <ul>{links}</ul>
+      </nav>
     );
   }
 }

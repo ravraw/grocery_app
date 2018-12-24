@@ -27,7 +27,7 @@ class Departments extends Component {
     }
   }
   render() {
-    return <div>{this.displayDepartments()}</div>;
+    return <div className="departments">{this.displayDepartments()}</div>;
   }
 }
 

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor() {
@@ -34,11 +34,7 @@ class Login extends Component {
           <input type="text" name="email" />
           <lable>Password: </lable>
           <input type="text" name="password" />
-          <input
-            type="submit"
-            value="Submit"
-            onClick={this.handleSubmit}
-          />
+          <input type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>
       </main>
     );

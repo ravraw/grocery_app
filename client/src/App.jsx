@@ -32,11 +32,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <ApolloProvider client={client}>
-          <React.Fragment>
+          <div className="app">
             <Header />
             <Main />
             <Footer />
-          </React.Fragment>
+          </div>
         </ApolloProvider>
       </BrowserRouter>
     );

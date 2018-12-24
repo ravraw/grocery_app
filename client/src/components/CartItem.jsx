@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
+import { FaTrashAlt } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 import {
   addCartItemMutation,
   deleteCartItemMutation,
@@ -78,7 +80,7 @@ class Product extends Component {
       // store_name
     );
     return (
-      <div key={id} className="product">
+      <div key={id} className="cart_item">
         <Link to={`/product/${id}/show`}>
           <img
             src={image}
@@ -86,22 +88,30 @@ class Product extends Component {
             style={{ height: '150px', width: '150px' }}
           />
         </Link>
-        <h4>{name}</h4>
-        <p> {description || 'each'}</p>
-        <p>$ {price}</p>
-        {store ? <p>Store: {store.name}</p> : ''}
-        {quantity ? <p>Quantity: {quantity}</p> : ''}
-        {price ? <button onClick={this.onAdd.bind(this)}>Add</button> : ''}
-        {quantity ? (
-          <button onClick={this.onDecrease.bind(this)}>-</button>
-        ) : (
-          ''
-        )}
-        {quantity ? (
-          <button onClick={this.onDelete.bind(this)}>DELETE</button>
-        ) : (
-          ''
-        )}
+        <div className="cart_item__details">
+          <h4>{name}</h4>
+          <p> $ {price}</p>
+          <p>{description}</p>
+          {store ? <p>Store: {store.name}</p> : ''}
+        </div>
+        <div className="cart_item__update">
+          {price ? <button onClick={this.onAdd.bind(this)}>+</button> : ''}
+          {quantity ? <p>{quantity}</p> : ''}
+          {quantity ? (
+            <button onClick={this.onDecrease.bind(this)}>-</button>
+          ) : (
+            ''
+          )}
+          {quantity ? (
+            <button onClick={this.onDelete.bind(this)}>
+              <svg width="50px" height="50px">
+                <use xlinkHref="images/sprite.svg#trash" />
+              </svg>
+            </button>
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Home from '../PageViews/Home';
@@ -22,7 +22,6 @@ class Main extends Component {
         <Switch>
           <Route path="/products/:searchPath" component={Products} />
           <Route path="/" exact component={Home} />
-
           <Route path="/user/new" component={User_new} />
           <Route path="/cart/:id" exact component={Cart} />
           <Route path="/category/:id/show" component={Category_show} />

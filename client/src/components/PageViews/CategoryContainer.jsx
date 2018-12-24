@@ -20,12 +20,15 @@ class Category_show extends Component {
   render(props) {
     const categories = this.props.location.categories;
     return (
-      <React.Fragment>
-        <div>
+      <div className="single_category">
+        <aside className="sidebar">
           <Sidebar categories={categories} />
+        </aside>
+
+        <div className="single_category__products">
+          {this.displayProducts()}
         </div>
-        <div>{this.displayProducts()}</div>
-      </React.Fragment>
+      </div>
     );
   }
 }

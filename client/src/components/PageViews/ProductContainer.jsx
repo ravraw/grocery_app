@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { getProductQuery } from '../../queries/queries';
+import { graphql, compose } from 'react-apollo';
+import { getProductQuery, addCartItemMutation } from '../../queries/queries';
 
 class Product_show extends Component {
   constructor() {
     super();
-    this.state = {
-      // id: this.props.match.params.id,
-      // productOfId: {
-      //   //fetch that product of id.
-      //   name: 'PAPY',
-      //   price: 30,
-      //   description: 'it is super delicious'
-      // }
-    };
+    this.state = {};
   }
 
-  addProductHandler() {
-    // Add this.state.productOfId to Cart in database.
-  }
   displayProducts() {
     let data = this.props.data;
     console.log('data from category_show', data);
@@ -32,22 +21,31 @@ class Product_show extends Component {
     const currentProduct = this.displayProducts();
     // return <div>{this.displayProducts()}</div>;
     return (
-      <React.Fragment>
-        <div>This is Product_show Page</div>
-        <img src={currentProduct.image} alt="dummy" />
-        <h2>Name: {currentProduct.name}</h2>
-        <h2>Unit_Price: {currentProduct.price}</h2>
-        <h2>Description: {currentProduct.description}</h2>
-        <button onClick={this.addProductHandler}>Add To Cart</button>
-      </React.Fragment>
+      <section>
+        <img
+          src={currentProduct.image}
+          alt="dummy"
+          style={{ height: '35rem' }}
+        />
+        <h2>{currentProduct.name}</h2>
+        <h2>Price: ${currentProduct.price}</h2>
+        <h2>{currentProduct.description}</h2>
+        <button className="btn">Add</button>
+        <button className="btn" onClick={this.props.history.goBack}>
+          back
+        </button>
+      </section>
     );
   }
 }
 
 // export default Product_show;
-export default graphql(getProductQuery, {
-  options: props => {
-    console.log('from props:', props);
-    return { variables: { id: props.match.params.id } };
-  }
-})(Product_show);
+export default compose(
+  graphql(getProductQuery, {
+    options: props => {
+      console.log('from props:', props);
+      return { variables: { id: props.match.params.id } };
+    }
+  }),
+  graphql(addCartItemMutation, { name: 'addCartItemMutation' })
+)(Product_show);

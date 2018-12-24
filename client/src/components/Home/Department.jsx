@@ -6,8 +6,8 @@ class Department extends Component {
     const { id, name, image } = this.props.department;
 
     return (
-      <Link id={id} to={`/department/${id}/show`}>
-        <h1>{name}</h1>
+      <Link className="department" to={`/department/${id}/show`}>
+        <h2>{name}</h2>
         <img src={image} alt="dummy" style={{ height: '200px' }} />
       </Link>
     );

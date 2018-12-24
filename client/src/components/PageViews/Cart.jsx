@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Product from '../Product';
+import CartItem from '../CartItem';
 import { graphql } from 'react-apollo';
 import { getCartQuery } from '../../queries/queries';
 import { NavLink, Link } from 'react-router-dom';
@@ -27,7 +28,7 @@ class Cart extends Component {
       return data.shoppingCart.map(product => {
         console.log('PRODUCT FROM CART', product);
         return (
-          <Product
+          <CartItem
             refetch={data.refetch}
             key={product.id}
             onDelete={this.onDelete}

@@ -32,10 +32,12 @@ class DepartmentContainer extends Component {
     console.log('this props:', this.props.data.variables.id);
 
     return (
-      <React.Fragment>
-        <div>{this.displaySidebar()}</div>
-        <div>{this.displayCategories()}</div>
-      </React.Fragment>
+      <div className="single_department">
+        <aside className="sidebar">{this.displaySidebar()}</aside>
+        <div className="single_department__products">
+          {this.displayCategories()}
+        </div>
+      </div>
     );
   }
 }
