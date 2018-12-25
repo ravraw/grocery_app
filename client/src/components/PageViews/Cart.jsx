@@ -45,22 +45,18 @@ class Cart extends Component {
       const productsProps = data.shoppingCart;
       console.log('productsProps', productsProps);
       return (
-        <div>
-          <Link to={{ pathname: `/order`, products: productsProps }}>
-            Compare Prices
-          </Link>
-        </div>
+        <Link to={{ pathname: `/order`, products: productsProps }}>
+          Compare Prices
+        </Link>
       );
     }
   }
   render() {
-    // console.log("PROPS FROM CART", this.props);
-    // return <React.Fragment>{this.renderCart()}</React.Fragment>;
     return (
-      <div>
-        <div>{this.displayCart()}</div>
-        <div>{this.displayOrderLink()}</div>
-      </div>
+      <React.Fragment>
+        <div className="cart">{this.displayCart()}</div>
+        <div className="compare_price">{this.displayOrderLink()}</div>
+      </React.Fragment>
     );
   }
 }

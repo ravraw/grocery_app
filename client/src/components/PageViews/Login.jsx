@@ -27,16 +27,19 @@ class Login extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <main className="home home_main">
-        <div>This is Login Page</div>
-        <form>
-          <lable>Email: </lable>
-          <input type="text" name="email" />
-          <lable>Password: </lable>
-          <input type="text" name="password" />
-          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+      <div className="login_container">
+        <form className="login_form">
+          <label>Login</label>
+          <input type="text" name="email" placeholder="Email " />
+          <input type="text" name="password" placeholder="Password" />
+          <input
+            className="form_btn"
+            type="submit"
+            value="Submit"
+            onClick={this.handleSubmit}
+          />
         </form>
-      </main>
+      </div>
     );
   }
 }

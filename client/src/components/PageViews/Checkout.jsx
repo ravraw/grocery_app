@@ -16,11 +16,12 @@ class Checkout extends Component {
     console.log('PROPS FROM CHECKOUT ---', this.props.location.products);
     const total = this.props.match.params.total;
     return (
-      <React.Fragment>
-        <p>Your total:${this.props.match.params.total}</p>
+      <div className="checkout">
+        <h3>Thank you for shopping with us.</h3>
+        <p>Please complete the payment</p>{' '}
+        <h4>Your total:${this.props.match.params.total}</h4>
         <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
           <div className="example">
-            <h1>React Stripe Elements Example</h1>
             <Elements>
               <CheckoutForm
                 total={total}
@@ -29,7 +30,7 @@ class Checkout extends Component {
             </Elements>
           </div>
         </StripeProvider>
-      </React.Fragment>
+      </div>
     );
   }
 }

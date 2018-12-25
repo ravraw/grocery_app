@@ -24,7 +24,7 @@ class Products extends Component {
   }
   render(props) {
     // const categories = this.props.location.categories;
-    return <div>{this.displayProducts()}</div>;
+    return <div className="search_results">{this.displayProducts()}</div>;
   }
 }
 

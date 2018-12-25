@@ -78,8 +78,8 @@ class Product extends Component {
       // store_id,
       // store_name
     );
-    return (
-      <div key={id} className="cart_item">
+    return <div className="store_price">$ {price}</div>;
+    /*<div key={id} className="cart_item">
         <Link to={`/product/${id}/show`}>
           <img
             src={image}
@@ -103,8 +103,7 @@ class Product extends Component {
             <button onClick={this.onDelete.bind(this)}>x</button>
           ) : null}
         </div>
-      </div>
-    );
+        </div>*/
   }
 }
 

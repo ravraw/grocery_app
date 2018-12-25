@@ -25,7 +25,18 @@ class OrderPage extends Component {
     const quantities = [];
     const namesOfComparedProducts = products.map(product => {
       quantities.push(product.quantity);
-      return { name: product.name };
+      return (
+        <div>
+          <img
+            src={`${product.image}`}
+            alt="some"
+            style={{ height: '50px', width: '50px' }}
+          />
+          <p>{product.name}</p>
+          <p>{product.quantity}</p>
+          <p>{product.description}</p>
+        </div>
+      );
     });
     const storeWiseProducts = { store1: [], store2: [] };
     if (data.loading) {
@@ -53,23 +64,27 @@ class OrderPage extends Component {
     const arr = [];
     for (let store in storeWiseProducts) {
       const total = storeWiseProducts[store].reduce((acc, cur, index) => {
-        console.log('from reduce', cur);
         return acc + cur.price * quantities[index];
       }, 0);
-      console.log('TOTAL PRICE ,', total);
       arr.push(
         <Store storeProducts={storeWiseProducts[store]} total={total} />
       );
     }
-    return arr;
+    return [
+      <div className="store_wrapper">
+        <div className="compaired_products">
+          <h2>Items</h2>
+          {namesOfComparedProducts}
+          <h2>Total</h2>
+        </div>
+        <div className="place_order">Place order</div>
+      </div>,
+      arr
+    ];
   }
 
   render() {
-    return (
-      <React.Fragment>
-        <div>{this.displayStores()}</div>
-      </React.Fragment>
-    );
+    return <div className="compare_stores">{this.displayStores()}</div>;
   }
 }
 

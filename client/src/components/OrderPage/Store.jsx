@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import Product from '../Product';
+import CartItem from '../CartItem';
+import CompareItem from '../CompareItem';
 
 class Store extends Component {
   // constructor() {
@@ -15,26 +17,26 @@ class Store extends Component {
     const productList = this.props.storeProducts.map(product => {
       return (
         <React.Fragment>
-          <Product product={product} />
+          <CompareItem product={product} />
         </React.Fragment>
       );
     });
     return (
-      <div>
+      <div className="store_wrapper">
+        <div className="store">
+          <h2>{this.props.storeProducts[0].store.name || 'Items'}</h2>
+          {productList}
+          <h2>${this.props.total.toFixed(2)}</h2>
+        </div>
         <hr />
-        <h1>{this.props.storeProducts[0].store.name}</h1>
-        {productList}
-        <h1>Total Price : ${this.props.total.toFixed(2)}</h1>
-
         <Link
           to={{
             pathname: `/checkout/${this.props.total}`,
             products: this.props.storeProducts
           }}
         >
-          <button>ORDER</button>
+          <div className="order_btn">ORDER</div>
         </Link>
-        <hr />
       </div>
     );
   }
