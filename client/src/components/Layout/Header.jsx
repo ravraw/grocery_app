@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import logo from '../../assets/images/logo.png';
 
 const id = 1;
 class Header extends Component {
@@ -33,20 +34,18 @@ class Header extends Component {
       <header className="header">
         <div className="header__logo">
           <a href="/" className="home_link">
-            Grocery App
+            <img className="logo" src={logo} alt="logo" />
           </a>
         </div>
-        <div className="header__search">
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="text"
-              name="search"
-              placeholder="Search Grocery"
-              onChange={this.handleChange}
-            />
-            <button type="submit">Search</button>
-          </form>
-        </div>
+        <form className="header__search" onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search Grocery"
+            onChange={this.handleChange}
+          />
+          <button type="submit">Search</button>
+        </form>
         <div className="header__nav">
           <Link to="/">Home</Link>
           <Link to={`/login`} className="login_link">
