@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import { getCartQuery } from '../../queries/queries';
 import logo from '../../assets/images/logo.png';
+import cart from '../../assets/images/cart.svg';
 
 const id = 1;
 class Header extends Component {
@@ -8,11 +11,10 @@ class Header extends Component {
     super();
     this.state = {
       searchPath: '/',
-      redirect: false
+      redirect: false,
+      count: null
     };
-
     this.handleChange = this.handleChange.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange = event => {
@@ -23,6 +25,20 @@ class Header extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ redirect: true });
+  }
+  displayCartCount() {
+    let data = this.props.data;
+    if (data.loading) {
+      return <spn>0</spn>;
+    } else {
+      // this.setState({ count: data.shoppingCart.length });
+      return <span>{data.shoppingCart.length}</span>;
+    }
+  }
+  componentDidMount() {
+    console.log('REFETCH----', this.props);
+    this.props.data.refetch();
+    this.displayCartCount();
   }
 
   render() {
@@ -55,7 +71,12 @@ class Header extends Component {
             Register
           </Link>
           <Link to={`/cart/${id}`} className="cart_link">
-            Cart
+            <span className="cart_count">{this.displayCartCount()}</span>
+            <img
+              src={cart}
+              alt="delete"
+              style={{ height: '35px', width: '35px' }}
+            />
           </Link>
         </div>
       </header>
@@ -63,4 +84,9 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default graphql(getCartQuery, {
+  options: props => {
+    // console.log('from props:', props);
+    return { variables: { id: 1 } };
+  }
+})(Header);

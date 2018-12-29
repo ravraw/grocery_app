@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
+import logo from '../assets/images/rubbish-bin.svg';
+import plus from '../assets/images/plus.svg';
+import minus from '../assets/images/minus.svg';
 
 import {
   addCartItemMutation,
@@ -94,13 +97,35 @@ class Product extends Component {
           {store ? <p>Store: {store.name}</p> : null}
         </div>
         <div className="cart_item__update">
-          {price ? <button onClick={this.onAdd.bind(this)}>+</button> : null}
+          {price ? (
+            <button onClick={this.onAdd.bind(this)}>
+              {' '}
+              <img
+                src={plus}
+                alt="add"
+                style={{ height: '25px', width: '25px' }}
+              />
+            </button>
+          ) : null}
           {quantity ? <p>{quantity}</p> : null}
           {quantity ? (
-            <button onClick={this.onDecrease.bind(this)}>-</button>
+            <button onClick={this.onDecrease.bind(this)}>
+              <img
+                src={minus}
+                alt="minus"
+                style={{ height: '25px', width: '25px' }}
+              />
+            </button>
           ) : null}
           {quantity ? (
-            <button onClick={this.onDelete.bind(this)}>x</button>
+            <button onClick={this.onDelete.bind(this)}>
+              {' '}
+              <img
+                src={logo}
+                alt="delete"
+                style={{ height: '25px', width: '25px' }}
+              />
+            </button>
           ) : null}
         </div>
       </div>
