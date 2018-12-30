@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       // Inserts seed entries
       return knex('products').insert([
-        // produce --- packaged
+        //produce --- packaged
         {
           name: 'Brown Mushrooms',
           description: '454 g',

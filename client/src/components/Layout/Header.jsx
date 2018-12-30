@@ -29,19 +29,20 @@ class Header extends Component {
   displayCartCount() {
     let data = this.props.data;
     if (data.loading) {
-      return <spn>0</spn>;
+      return <span>0</span>;
     } else {
       // this.setState({ count: data.shoppingCart.length });
       return <span>{data.shoppingCart.length}</span>;
     }
   }
-  componentDidMount() {
-    console.log('REFETCH----', this.props);
-    this.props.data.refetch();
-    this.displayCartCount();
-  }
+  // componentDidMount() {
+  //   console.log('REFETCH----', this.props);
+  //   this.props.data.refetch();
+  //   this.displayCartCount();
+  // }
 
   render() {
+    console.log('FROM HEADER', this.props);
     if (this.state.redirect) {
       this.setState({ redirect: false });
       return <Redirect to={`/products/${this.state.searchPath}`} />;
