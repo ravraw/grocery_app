@@ -4,7 +4,15 @@ import { graphql } from "react-apollo";
 import { getCartQuery } from "../../queries/queries";
 import logo from "../../assets/images/logo.png";
 import cart from "../../assets/images/cart.svg";
-import SpeechRecognition from "../SpeechRecognition";
+// import SpeechRecognition from "../SpeechRecognition";
+import SpeechRecognition from "react-speech-recognition";
+import PropTypes from "prop-types";
+const propTypes = {
+  // Props injected by SpeechRecognition
+  transcript: PropTypes.string,
+  resetTranscript: PropTypes.func,
+  browserSupportsSpeechRecognition: PropTypes.bool
+};
 
 const id = 1;
 class Header extends Component {
@@ -43,6 +51,13 @@ class Header extends Component {
   // }
 
   render() {
+    const {
+      transcript,
+      resetTranscript,
+      startListening,
+      stopListening,
+      browserSupportsSpeechRecognition
+    } = this.props;
     console.log("FROM HEADER", this.props);
     if (this.state.redirect) {
       this.setState({ redirect: false });
@@ -50,6 +65,12 @@ class Header extends Component {
     }
     return (
       <header className="header">
+        <div>
+          <button onClick={startListening}>Start</button>
+          <button onClick={stopListening}>Stop</button>
+          <button onClick={resetTranscript}>Reset</button>
+          <div>{transcript}</div>
+        </div>
         <div className="header__logo">
           <a href="/" className="home_link">
             <img className="logo" src={logo} alt="logo" />
@@ -92,9 +113,15 @@ class Header extends Component {
   }
 }
 
+Header.propTypes = propTypes;
+
 export default graphql(getCartQuery, {
   options: props => {
     // console.log('from props:', props);
     return { variables: { id: 1 } };
   }
-})(Header);
+})(
+  SpeechRecognition({
+    autoStart: false
+  })(Header)
+);
