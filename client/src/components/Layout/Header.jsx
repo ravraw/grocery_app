@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
-import logo from '../../assets/images/logo.png';
-import cart from '../../assets/images/cart.svg';
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { graphql } from "react-apollo";
+import { getCartQuery } from "../../queries/queries";
+import logo from "../../assets/images/logo.png";
+import cart from "../../assets/images/cart.svg";
+import SpeechRecognition from "../SpeechRecognition";
 
 const id = 1;
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      searchPath: '/',
+      searchPath: "/",
       redirect: false,
       count: null
     };
@@ -19,7 +20,7 @@ class Header extends Component {
   }
   handleChange = event => {
     const path = event.target.value;
-    console.log('searchpath', path);
+    console.log("searchpath", path);
     this.setState({ searchPath: path });
   };
   handleSubmit(event) {
@@ -42,7 +43,7 @@ class Header extends Component {
   // }
 
   render() {
-    console.log('FROM HEADER', this.props);
+    console.log("FROM HEADER", this.props);
     if (this.state.redirect) {
       this.setState({ redirect: false });
       return <Redirect to={`/products/${this.state.searchPath}`} />;
@@ -76,9 +77,15 @@ class Header extends Component {
             <img
               src={cart}
               alt="delete"
-              style={{ height: '35px', width: '35px' }}
+              style={{ height: "35px", width: "35px" }}
             />
           </Link>
+        </div>
+        <div className="header_navigation">
+          <Link to="/">Home</Link>
+        </div>
+        <div>
+          <SpeechRecognition />
         </div>
       </header>
     );
