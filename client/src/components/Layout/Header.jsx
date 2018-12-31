@@ -4,16 +4,8 @@ import { graphql } from "react-apollo";
 import { getCartQuery } from "../../queries/queries";
 import logo from "../../assets/images/logo.png";
 import cart from "../../assets/images/cart.svg";
-// import SpeechRecognition from "../SpeechRecognition";
-import SpeechRecognition from "react-speech-recognition";
-import PropTypes from "prop-types";
-const propTypes = {
-  // Props injected by SpeechRecognition
-  transcript: PropTypes.string,
-  resetTranscript: PropTypes.func,
-  browserSupportsSpeechRecognition: PropTypes.bool
-};
-
+// import webkitSpeechRecognition from "webkitSpeechRecognition";
+// var recognition = new webkitSpeechRecognition(); //get new instance
 const id = 1;
 class Header extends Component {
   constructor() {
@@ -25,6 +17,7 @@ class Header extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleStartRecording = this.handleStartRecording.bind(this);
   }
   handleChange = event => {
     const path = event.target.value;
@@ -44,6 +37,26 @@ class Header extends Component {
       return <span>{data.shoppingCart.length}</span>;
     }
   }
+
+  handleStartRecording() {
+    var SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.continuous = false;
+    recognition.start();
+    recognition.onstart = function() {
+      console.log("Recieving research command!!!!!!");
+    };
+
+    recognition.onresult = function(event) {
+      console.log("Result!!!", event.results[0][0].transcript);
+    };
+    recognition.onspeechend = function() {
+      recognition.stop();
+    };
+  }
   // componentDidMount() {
   //   console.log('REFETCH----', this.props);
   //   this.props.data.refetch();
@@ -51,26 +64,21 @@ class Header extends Component {
   // }
 
   render() {
-    const {
-      transcript,
-      resetTranscript,
-      startListening,
-      stopListening,
-      browserSupportsSpeechRecognition
-    } = this.props;
-    console.log("FROM HEADER", this.props);
+    if (!("webkitSpeechRecognition" in window)) {
+      throw new Error(
+        "This browser doesn't support speech recognition. Try Google Chrome."
+      );
+    }
+
+    // const recognition = new SpeechRecognition();
+    // var recognition = new webkitSpeechRecognition();
+
     if (this.state.redirect) {
       this.setState({ redirect: false });
       return <Redirect to={`/products/${this.state.searchPath}`} />;
     }
     return (
       <header className="header">
-        <div>
-          <button onClick={startListening}>Start</button>
-          <button onClick={stopListening}>Stop</button>
-          <button onClick={resetTranscript}>Reset</button>
-          <div>{transcript}</div>
-        </div>
         <div className="header__logo">
           <a href="/" className="home_link">
             <img className="logo" src={logo} alt="logo" />
@@ -83,6 +91,10 @@ class Header extends Component {
             placeholder="Search Grocery"
             onChange={this.handleChange}
           />
+          <button type="button" onClick={this.handleStartRecording}>
+            Start
+          </button>
+          {/* <button type="button">Start</button> */}
           <button type="submit">Search</button>
         </form>
         <div className="header__nav">
@@ -105,23 +117,17 @@ class Header extends Component {
         <div className="header_navigation">
           <Link to="/">Home</Link>
         </div>
-        <div>
-          <SpeechRecognition />
-        </div>
+        <div>{/* <SpeechRecognition /> */}</div>
       </header>
     );
   }
 }
 
-Header.propTypes = propTypes;
+// Header.propTypes = propTypes;
 
 export default graphql(getCartQuery, {
   options: props => {
     // console.log('from props:', props);
     return { variables: { id: 1 } };
   }
-})(
-  SpeechRecognition({
-    autoStart: false
-  })(Header)
-);
+})(Header);

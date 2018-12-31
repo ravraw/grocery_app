@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { graphql, compose } from 'react-apollo';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { graphql, compose } from "react-apollo";
 
 import {
   addCartItemMutation,
   deleteCartItemMutation,
   getCartQuery
-} from '../queries/queries';
+} from "../queries/queries";
 
 class Product extends Component {
   // let product_id =  this.props.product._typename === 'CartItem'
   //             ? this.props.product_id
   //             : this.props.product.id;
   onAdd() {
-    console.log('FROM ADD IN PRODUCTS ___', this.props.product);
+    console.log("FROM ADD IN PRODUCTS ___", this.props.product);
     this.props
       .addCartItemMutation({
         variables: {
@@ -28,7 +28,7 @@ class Product extends Component {
   }
 
   onDecrease() {
-    console.log('FROM UPDATE IN PRODUCTS ___', this.props);
+    console.log("FROM UPDATE IN PRODUCTS ___", this.props);
     this.props
       .addCartItemMutation({
         variables: {
@@ -57,7 +57,7 @@ class Product extends Component {
   }
   render() {
     const data = this.props.data;
-    console.log('FROM PRODUCT', this.props);
+    // console.log('FROM PRODUCT', this.props);
     const {
       id,
       name,
@@ -68,16 +68,16 @@ class Product extends Component {
       store
     } = this.props.product;
     // const { id: store_id, name: store_name } = store;
-    console.log(
-      'from product -----',
-      id,
-      name,
-      description,
-      price,
-      image
-      // store_id,
-      // store_name
-    );
+    // console.log(
+    //   'from product -----',
+    //   id,
+    //   name,
+    //   description,
+    //   price,
+    //   image
+    //   // store_id,
+    //   // store_name
+    // );
     return <div className="store_price">$ {price}</div>;
     /*<div key={id} className="cart_item">
         <Link to={`/product/${id}/show`}>
@@ -108,6 +108,6 @@ class Product extends Component {
 }
 
 export default compose(
-  graphql(addCartItemMutation, { name: 'addCartItemMutation' }),
-  graphql(deleteCartItemMutation, { name: 'deleteCartItemMutation' })
+  graphql(addCartItemMutation, { name: "addCartItemMutation" }),
+  graphql(deleteCartItemMutation, { name: "deleteCartItemMutation" })
 )(Product);
