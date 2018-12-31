@@ -54,49 +54,10 @@ class User_new extends Component {
       this.setState({ confirmPassword: { value: "", error: true } });
     }
 
-    let usernameError = state.username.error;
-    let emailError = state.email.error;
-    let passwordError = state.password.error;
-    let confirmError = state.confirmPassword.error;
-
-    // for (let name in this.state) {
-    // let inputValue = this.state[name].value;
-    // let inputLength = inputValue.length;
-    // console.log("name", name);
-    // if (name === "username" && inputLength < 9) {
-    //   console.log("username Error!!!");
-    //   this.setState({
-    //     [name]: { value: "", error: true }
-    //   });
-    //   console.log("state after email error", this.state);
-    // }
-    // if (name === "password" && !validPassword.test(inputValue)) {
-    //   console.log("Password Error!!!");
-    //   this.setState({
-    //     [name]: { value: "", error: true }
-    //   });
-    // }
-    // if (name === "email" && !validEmail.test(inputValue)) {
-    //   console.log("Email Error!!!");
-
-    //   this.setState({
-    //     [name]: { value: "", error: true }
-    //   });
-    // }
-    // if (name === "confirmPassword") {
-    //   const passwordMatch =
-    //     this.state.password.value === this.state.confirmPassword.value &&
-    //     this.state.password.value;
-    //   console.log("passwordMatch? ", passwordMatch);
-    //   console.log("this.state", this.state);
-    //   if (!passwordMatch) {
-    //     console.log("Confirm password Error!!!");
-    //     this.setState({
-    //       [name]: { value: "", error: true }
-    //     });
-    //   }
-    // }
-    // }
+    const usernameError = state.username.error;
+    const emailError = state.email.error;
+    const passwordError = state.password.error;
+    const confirmError = state.confirmPassword.error;
 
     const noError =
       !usernameError && !emailError && !passwordError && !confirmError;
@@ -107,9 +68,9 @@ class User_new extends Component {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
-          username: state.username.value,
-          email: state.email.value,
-          password: state.password.value
+          username: usernameValue,
+          email: emailValue,
+          password: passwordValue
         })
       }).then(response => {
         console.log("response", response);
