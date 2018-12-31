@@ -19,7 +19,7 @@ class Checkout extends Component {
       <div className="checkout">
         <h3>Thank you for shopping with us.</h3>
         <p>Please complete the payment</p>{' '}
-        <h4>Your total:${this.props.match.params.total}</h4>
+        <h4>Your total:${(+this.props.match.params.total).toFixed(2)}</h4>
         <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
           <div className="example">
             <Elements>
