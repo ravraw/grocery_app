@@ -560,12 +560,11 @@ footer{
       div{
         width:100%;
         display:flex;
-        //  border:1px solid red;
          justify-content: flex-start;
          align-items: center;
          flex-wrap:wrap;
-        //  flex:1 ;
-         text-align:center;
+         flex:1 ;
+         
       }
       h2{
         text-align:center;
@@ -621,12 +620,14 @@ footer{
    margin:5px 0 5px 0;
    padding:10px;
    flex:1 ;
+  text-align:center;
    
    > div{
      display:flex;
+     width:100%;
+     justify-content:space-around;
      align-items: center;
-      // border:1px solid red;
-      flex:1;
+     flex:1 1 auto;  
    }
   }
 
@@ -720,4 +721,11 @@ svg{
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+// cahtbot
+
+#kommunicate-widget-iframe{
+ height:300px;
 }
