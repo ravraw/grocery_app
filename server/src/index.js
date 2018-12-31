@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { ApolloServer, gql, PubSub } = require('apollo-server-express');
+const http = require('http');
 
 const PORT = 4000;
 const express = require('express');
@@ -148,10 +149,21 @@ server.applyMiddleware({
   app
 });
 
-app.listen(
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen(
   {
     port: PORT
   },
-  () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  () => {
+    console.log(
+      `🚀 Server ready at http://localhost:4000${server.graphqlPath}`
+    );
+    console.log(
+      `🚀 Subscriptions ready at ws://localhost:${PORT}${
+        server.subscriptionsPath
+      }`
+    );
+  }
 );

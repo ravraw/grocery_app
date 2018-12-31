@@ -2,40 +2,45 @@ const faker = require('faker');
 
 const Mutation = {
   // addCartItem
-  addCartItem(parent, args, { knex }, info) {
+  addCartItem(parent, args, { knex, pubSub }, info) {
     const { quantity, user_id, product_id } = args.data;
     console.log('FROM ADD ITEM MUTATION:', quantity, user_id, product_id);
-    return knex('user_cart_items')
-      .where({
-        user_id: user_id,
-        product_id: product_id
-      })
-      .then(result => {
-        if (result.length) {
-          return (
-            knex('user_cart_items')
-              .returning('*')
-              .where({ user_id, product_id })
-              // .where( 'id',id )
-              .increment({ quantity })
-              .then(result => result[0])
-          );
-        } else {
-          if (
-            knex('user_cart_items')
-              .select('quantity')
-              .where({
-                user_id: user_id,
-                product_id: product_id
-              })
-          ) {
+    return (
+      knex('user_cart_items')
+        .where({ user_id: user_id, product_id: product_id })
+        .then(result => {
+          if (result.length) {
             return knex('user_cart_items')
               .returning('*')
-              .insert({ quantity, user_id, product_id })
-              .then(result => result[0]);
+              .where({ user_id, product_id })
+              .increment({ quantity });
+          } else {
+            return knex('user_cart_items')
+              .returning('*')
+              .insert({ quantity, user_id, product_id });
           }
-        }
-      });
+        })
+        //.then(result => result[0])
+        .then(result => {
+          knex('products')
+            //.select('*')
+            .returning('*')
+            .join(
+              'user_cart_items',
+              'products.id',
+              'user_cart_items.product_id'
+            )
+            //.join('users', 'user_cart_items.user_id', 'users.id')
+            .where('user_cart_items.user_id', user_id)
+            .then(cart => {
+              console.log('FROM PUBSUB', cart);
+              pubSub.publish(`cartInfo ${user_id}`, {
+                cartInfo: cart
+              });
+            });
+          return result[0];
+        })
+    );
   },
 
   // deleteCartItem

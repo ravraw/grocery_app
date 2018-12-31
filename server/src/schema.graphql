@@ -30,7 +30,7 @@ type Mutation {
 
 type Subscription{
     count:Int!
-    cartInfo(user_id:ID!):[Product!]!
+    cartInfo(userId:ID!):[CartItem!]!
 }
 
 input SelectedProducts{
