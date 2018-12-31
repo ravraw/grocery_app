@@ -38,7 +38,7 @@ class Header extends Component {
     }
   }
 
-  handleStartRecording() {
+  handleStartRecording(event) {
     var SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
@@ -50,8 +50,11 @@ class Header extends Component {
       console.log("Recieving research command!!!!!!");
     };
 
-    recognition.onresult = function(event) {
-      console.log("Result!!!", event.results[0][0].transcript);
+    recognition.onresult = e => {
+      const transcript = e.results[0][0].transcript;
+      console.log("Result!!!", transcript);
+      console.log("event", event);
+      this.setState({ searchPath: transcript, redirect: true });
     };
     recognition.onspeechend = function() {
       recognition.stop();
@@ -92,7 +95,7 @@ class Header extends Component {
             onChange={this.handleChange}
           />
           <button type="button" onClick={this.handleStartRecording}>
-            Start
+            Speak
           </button>
           {/* <button type="button">Start</button> */}
           <button type="submit">Search</button>
