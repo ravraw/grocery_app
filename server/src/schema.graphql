@@ -20,7 +20,7 @@ type Mutation {
     # shopping Cart
     addCartItem(data:AddCartItemInput):CartItem!
     deleteCartItem(data:DeleteCartItemInput):CartItem!
-    emptyCart(user_id:ID!):CartItem!
+    emptyCart(user_id:ID!):[CartItem!]
     updateCartItem(data:UpdateCartItemInput):CartItem!
     addOrder(user_id:ID!):Order!
     addOrderItem(data:addOrderItemInput):OrderItem!

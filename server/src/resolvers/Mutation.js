@@ -33,7 +33,7 @@ const Mutation = {
             //.join('users', 'user_cart_items.user_id', 'users.id')
             .where('user_cart_items.user_id', user_id)
             .then(cart => {
-              console.log('FROM PUBSUB', cart);
+              //console.log('FROM PUBSUB', cart);
               pubSub.publish(`cartInfo ${user_id}`, {
                 cartInfo: cart
               });
@@ -44,7 +44,7 @@ const Mutation = {
   },
 
   // deleteCartItem
-  deleteCartItem(parent, args, { knex }, info) {
+  deleteCartItem(parent, args, { knex, pubSub }, info) {
     const { user_id, product_id } = args.data;
     console.log('VARIABLES:', user_id, product_id);
     return knex('user_cart_items')
@@ -57,19 +57,51 @@ const Mutation = {
           console.log('FROM DELETE', result[0]);
           //throw new Error('Item not found !!!!!!');
         } else {
+          knex('products')
+            //.select('*')
+            .returning('*')
+            .join(
+              'user_cart_items',
+              'products.id',
+              'user_cart_items.product_id'
+            )
+            //.join('users', 'user_cart_items.user_id', 'users.id')
+            .where('user_cart_items.user_id', user_id)
+            .then(cart => {
+              //console.log('FROM PUBSUB', cart);
+              pubSub.publish(`cartInfo ${user_id}`, {
+                cartInfo: cart
+              });
+            });
+
           return result[0];
         }
       });
   },
   //empty cart
-  emptyCart(parent, args, { knex }, info) {
+  emptyCart(parent, args, { knex, pubSub }, info) {
     console.log('FROM MUTATION - EMPTY CART');
     const { user_id } = args;
     return knex('user_cart_items')
       .returning('*')
       .where({ user_id })
       .del()
-      .then(result => result[0]);
+      .then(result => {
+        knex('products')
+          //.select('*')
+          .returning('*')
+          .join('user_cart_items', 'products.id', 'user_cart_items.product_id')
+          //.join('users', 'user_cart_items.user_id', 'users.id')
+          .where('user_cart_items.user_id', user_id)
+          .then(cart => {
+            //console.log('FROM PUBSUB', cart);
+            pubSub.publish(`cartInfo ${user_id}`, {
+              cartInfo: cart
+            });
+          });
+        console.log('FROM EMPTY CART', result);
+        return result;
+      });
   },
   // add new order
   addOrder(parent, args, { knex }, info) {
