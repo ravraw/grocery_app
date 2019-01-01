@@ -64,6 +64,9 @@ class User_new extends Component {
     console.log("state", this.state);
     console.log("noErrror?", noError);
     if (noError) {
+      //fetch new user data to the database
+
+      //send email from backend
       fetch("http://localhost:4000/register", {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
@@ -75,6 +78,12 @@ class User_new extends Component {
       }).then(response => {
         console.log("response", response);
         if (response.ok) console.log("Registraiton Complete!");
+        if (response.data.msg === "success") {
+          alert("Message Sent.");
+          this.resetForm();
+        } else if (response.data.msg === "fail") {
+          alert("Message failed to send.");
+        }
         //then put user into session and redirect to home page
       });
     }

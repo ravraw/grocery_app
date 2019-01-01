@@ -23,6 +23,7 @@
     "knex": "^0.16.2",
     "knex-csv-seeder": "^0.4.1",
     "knex-logger": "^0.1.0",
+    "nodemailer": "^5.0.0",
     "pg": "^7.7.1",
     "stripe": "^6.19.0",
     "twilio": "^3.26.0"
