@@ -32,6 +32,55 @@ const client = require("twilio")(accountSid, authToken);
 
 app.use(require("body-parser").text());
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const transport = {
+  host: "smtp.gmail.com",
+  auth: {
+    user: "cross.aisle.app@gmail.com",
+    pass: "1234567890Kk"
+  }
+};
+const transporter = nodemailer.createTransport(transport);
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(
+      "Server is ready to send messages from cross.aisle.app@gmail.com!"
+    );
+  }
+});
+app.post("/register", async (req, res) => {
+  // console.log("req.body", req.body);
+  // const { email, password, username } = JSON.parse(req.body);
+  const { email } = JSON.parse(req.body);
+
+  console.log("email", email);
+  const line1 = `<h2>Welcome to Cross Aisle!</h2></br>`;
+  const line2 = "<h2>Your registration is successful.</h2></br>";
+  const line3 =
+    "<h2>Now you can start ordering groceries from anywhere.</h2></br>";
+  const line4 = "<h1><a href='http://localhost:3000'>Cross Aisle</a></h1>";
+  const content = line1 + line2 + line3 + line4;
+  const mail = {
+    from: "cross.aisle.app@gmail.com",
+    to: email, //Change to email address that you want to receive messages on
+    subject: "Welcome to Cross Aisle!",
+    html: content
+  };
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.status(400).send("Failed to send email!!");
+    } else {
+      res.status(200).send("Registration confirmation has been sent");
+    }
+  });
+  if (email && password) {
+    res.status(200).send("Status Code 200!! Registration succeeded!!!");
+
+    //send the user data into database
+  }
+});
 
 app.post("/charge", async (req, res) => {
   console.log("req.body", req.body);
@@ -70,7 +119,29 @@ app.post("/charge", async (req, res) => {
           })
           .then(message => console.log("Message to the driver", message.sid))
           .done()
-      );
+      )
+      .then(() => {
+        const line1 = `<h2>Thank you for your purchase in Cross Aisle!</h2></br>`;
+        const line2 = `<h2>Order ID: ${orderId}!</h2></br>`;
+        const line3 = `<h2>The total: ${amount}.</h2></br>`;
+        const line4 = `<h2> ${description}.</h2></br>`;
+        const line5 =
+          "<h2>Go to <a href='http://localhost:3000'>Cross Aisle</a> to see your order history</h2>";
+        const content = line1 + line2 + line3 + line4 + line5;
+        const mail = {
+          from: "cross.aisle.app@gmail.com",
+          to: "dongyingname@yahoo.com", //Change to email address that you want to receive messages on
+          subject: "Order confirmation from Cross Aisle!",
+          html: content
+        };
+        transporter.sendMail(mail, (err, data) => {
+          if (err) {
+            res.status(400).send("Failed to send email!!");
+          } else {
+            res.status(200).send("Registration confirmation has been sent");
+          }
+        });
+      });
     res.json({
       status
     });
@@ -101,56 +172,6 @@ app.post("/charge", async (req, res) => {
         break;
     }
     res.status(400).end();
-  }
-});
-
-const nodemailer = require("nodemailer");
-var transport = {
-  host: "smtp.gmail.com",
-  auth: {
-    user: "cross.aisle.app@gmail.com",
-    pass: "1234567890Kk"
-  }
-};
-var transporter = nodemailer.createTransport(transport);
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(
-      "Server is ready to send messages from cross.aisle.app@gmail.com!"
-    );
-  }
-});
-app.post("/register", async (req, res) => {
-  // console.log("req.body", req.body);
-  // const { email, password, username } = JSON.parse(req.body);
-  const { email } = JSON.parse(req.body);
-
-  console.log("email", email);
-  const line1 = `<h2>Welcome to Cross Aisle!</h2></br>`;
-  const line2 = "<h2>Your registration is successful.</h2></br>";
-  const line3 =
-    "<h2>Now you can start ordering groceries from anywhere.</h2></br>";
-  const line4 = "<h1><a href='http://localhost:3000'>Cross Aisle</a></h1>";
-  const content = line1 + line2 + line3 + line4;
-  var mail = {
-    from: "cross.aisle.app@gmail.com",
-    to: email, //Change to email address that you want to receive messages on
-    subject: "Welcome to Cross Aisle!",
-    html: content
-  };
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.status(400).send("Failed to send email!!");
-    } else {
-      res.status(200).send("Registration confirmation has been sent");
-    }
-  });
-  if (email && password) {
-    res.status(200).send("Status Code 200!! Registration succeeded!!!");
-
-    //send the user data into database
   }
 });
 
