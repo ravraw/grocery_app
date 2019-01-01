@@ -108,7 +108,7 @@ const nodemailer = require("nodemailer");
 var transport = {
   host: "smtp.gmail.com",
   auth: {
-    user: "dongyingname@gmail.com",
+    user: "cross.aisle.app@gmail.com",
     pass: "1234567890Kk"
   }
 };
@@ -117,33 +117,37 @@ transporter.verify((error, success) => {
   if (error) {
     console.log(error);
   } else {
-    console.log("Server is ready to send messages");
+    console.log(
+      "Server is ready to send messages from cross.aisle.app@gmail.com!"
+    );
   }
 });
 app.post("/register", async (req, res) => {
   // console.log("req.body", req.body);
-  const { email, password, username } = JSON.parse(req.body);
+  // const { email, password, username } = JSON.parse(req.body);
+  const { email } = JSON.parse(req.body);
+
   console.log("email", email);
-  console.log("password", password);
-  console.log("username", username);
+  const line1 = `<h2>Welcome to Cross Aisle!</h2></br>`;
+  const line2 = "<h2>Your registration is successful.</h2></br>";
+  const line3 =
+    "<h2>Now you can start ordering groceries from anywhere.</h2></br>";
+  const line4 = "<h1><a href='http://localhost:3000'>Cross Aisle</a></h1>";
+  const content = line1 + line2 + line3 + line4;
   var mail = {
-    from: name,
-    to: "RECEIVING_EMAIL_ADDRESS_GOES_HERE", //Change to email address that you want to receive messages on
-    subject: "New Message from Contact Form",
-    text: content
+    from: "cross.aisle.app@gmail.com",
+    to: email, //Change to email address that you want to receive messages on
+    subject: "Welcome to Cross Aisle!",
+    html: content
   };
   transporter.sendMail(mail, (err, data) => {
     if (err) {
-      res.json({
-        msg: "fail"
-      });
+      res.status(400).send("Failed to send email!!");
     } else {
-      res.json({
-        msg: "success"
-      });
+      res.status(200).send("Registration confirmation has been sent");
     }
   });
-  if (email && password && username) {
+  if (email && password) {
     res.status(200).send("Status Code 200!! Registration succeeded!!!");
 
     //send the user data into database
