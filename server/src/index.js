@@ -141,6 +141,7 @@ app.post("/distances", async (req, res) => {
       return console.log("no distances");
     }
     if (distances.status == "OK") {
+      const distanceArr = [];
       for (var i = 0; i < origins.length; i++) {
         for (var j = 0; j < destinations.length; j++) {
           var origin = distances.origin_addresses[i];
@@ -155,6 +156,14 @@ app.post("/distances", async (req, res) => {
                 " is " +
                 distance
             );
+            distanceArr.push(
+              "Distance from " +
+                origin +
+                " to " +
+                destination +
+                " is " +
+                distance
+            );
           } else {
             console.log(
               destination + " is not reachable by land from " + origin
@@ -162,6 +171,7 @@ app.post("/distances", async (req, res) => {
           }
         }
       }
+      res.status(200).send(distanceArr);
     }
   });
   // const hashPass = bcrypt.hashSync(password, 15);

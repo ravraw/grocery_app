@@ -23,6 +23,11 @@ class Cart extends Component {
         superstore: "3575 20 Ave NE, Calgary, Alberta,Canada",
         saveonfood: "8855 Macleod Trail SW, Calgary, Alberta,Canada"
       })
+    }).then(res => {
+      res.json().then(data => {
+        console.log("data", data);
+        // console.log("response :", res);
+      });
     });
   }
 
