@@ -121,13 +121,14 @@ app.post("/register", async (req, res) => {
 
 app.post("/distances", async (req, res) => {
   // console.log("req.body", req.body);
-  const { walmart, superstore, saveonfood } = JSON.parse(req.body);
+  const { myLocation, walmart, superstore, saveonfood } = JSON.parse(req.body);
+  console.log("myLocation", myLocation);
   console.log("walmart", walmart);
   console.log("superstore", superstore);
   console.log("saveonfood", saveonfood);
   var distance = require("google-distance-matrix");
 
-  var origins = ["1812 8st SE, calgary,alberta,canada"];
+  var origins = [myLocation];
   var destinations = [walmart, superstore, saveonfood];
 
   distance.key("AIzaSyD5tIgFoKnBfLJb5a0ao2CHcEYdYiQME_c");
