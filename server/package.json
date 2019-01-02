@@ -19,6 +19,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "faker": "^4.1.0",
+    "google-distance-matrix": "^1.1.1",
     "graphql": "^14.0.2",
     "knex": "^0.16.2",
     "knex-csv-seeder": "^0.4.1",
