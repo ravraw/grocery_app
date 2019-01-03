@@ -21,9 +21,8 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    // console.log("Month", this.props.month);
-    // console.log("day", this.props.day);
-    // console.log("address", this.props.address);
+    console.log(this.props.deliveryDate);
+    console.log(this.props.deliveryTime);
 
     let { token } = await this.props.stripe.createToken({ name: "Name" });
     let response = await fetch("http://localhost:4000/charge", {
@@ -38,7 +37,6 @@ class CheckoutForm extends Component {
         customer: "Ying Dong"
       })
     });
-
     if (response.ok) {
       console.log("Purchase Complete!");
       console.log("ORDER ------", this.props.orders);
@@ -79,6 +77,13 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
         <CardElement className="card_element" />
+        <label for="cname">Name on Card</label>
+        <input
+          type="text"
+          id="cname"
+          name="cardname"
+          placeholder="John More Doe"
+        />
         <button onClick={this.submit}>Submit</button>
       </div>
     );

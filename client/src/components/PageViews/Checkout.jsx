@@ -51,9 +51,6 @@ class Checkout extends Component {
     const currentDate = new Date();
     const currentDate1 = currentDate.toISOString().split("T")[0];
 
-    // let month = document.getElementById("month");
-    // let day = document.getElementById("day");
-    // let address = document.getElementById("address");
     return (
       <div className="checkout">
         <h3>Thank you for shopping with us.</h3>
@@ -89,10 +86,8 @@ class Checkout extends Component {
                 total={allTotal}
                 products={this.props.location.products}
                 storeName={storeName}
-                // month={month}
-                // day={day}
-                // address={address}
-                // onSubmit={this.handleSubmit}
+                deliveryTime={this.state.time}
+                deliveryDate={this.state.date}
               />
             </Elements>
           </div>
