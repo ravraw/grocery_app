@@ -1,37 +1,47 @@
-import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
-import { graphql, compose } from 'react-apollo';
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+
+import { CardElement, injectStripe } from "react-stripe-elements";
+import { graphql, compose } from "react-apollo";
 import {
   addOrderMutation,
   addOrderItemMutation,
   emptyCartMutation
-} from '../../queries/queries';
+} from "../../queries/queries";
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: false, products: this.props.products };
+    this.state = {
+      complete: false,
+      products: this.props.products,
+      redirect: false
+    };
     this.submit = this.submit.bind(this);
   }
 
   async submit(ev) {
-    let { token } = await this.props.stripe.createToken({ name: 'Name' });
-    let response = await fetch('http://localhost:4000/charge', {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+    // console.log("Month", this.props.month);
+    // console.log("day", this.props.day);
+    // console.log("address", this.props.address);
+
+    let { token } = await this.props.stripe.createToken({ name: "Name" });
+    let response = await fetch("http://localhost:4000/charge", {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
-        description: 'a new purchase!',
-        token: 'tok_visa',
+        description: "a new purchase!",
+        token: "tok_visa",
         orderId: 11,
         // amount: parseInt(this.props.total),
         amount: 1111,
-        customer: 'Ying Dong'
+        customer: "Ying Dong"
       })
     });
 
     if (response.ok) {
-      console.log('Purchase Complete!');
-      console.log('ORDER ------', this.props.orders);
+      console.log("Purchase Complete!");
+      console.log("ORDER ------", this.props.orders);
       //add order
       // hard coded user
       const user_id = 1;
@@ -52,13 +62,19 @@ class CheckoutForm extends Component {
         })
         .then(result => {
           this.props.emptyCartMutation({ variables: { user_id } });
+          // this.setState({ redirect: true });
         });
     }
   }
 
   render() {
-    console.log('PARAMS FROM THE CHECKOUTFORM', this.props);
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+    console.log("PARAMS FROM THE CHECKOUTFORM", this.props);
+    // if (this.state.complete) return <h1>Purchase Complete</h1>;
+
+    if (this.state.redirect) {
+      this.setState({ redirect: false });
+      return <Redirect to="/" />;
+    }
 
     return (
       <div className="checkout">
@@ -71,8 +87,8 @@ class CheckoutForm extends Component {
 
 export default injectStripe(
   compose(
-    graphql(addOrderMutation, { name: 'addOrderMutation' }),
-    graphql(addOrderItemMutation, { name: 'addOrderItemMutation' }),
-    graphql(emptyCartMutation, { name: 'emptyCartMutation' })
+    graphql(addOrderMutation, { name: "addOrderMutation" }),
+    graphql(addOrderItemMutation, { name: "addOrderItemMutation" }),
+    graphql(emptyCartMutation, { name: "emptyCartMutation" })
   )(CheckoutForm)
 );

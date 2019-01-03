@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { graphql } from 'react-apollo';
-import Product from '../Product';
-import CartItem from '../CartItem';
-import CompareItem from '../CompareItem';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { graphql } from "react-apollo";
+import Product from "../Product";
+import CartItem from "../CartItem";
+import CompareItem from "../CompareItem";
 
 class Store extends Component {
   // constructor() {
@@ -13,7 +13,7 @@ class Store extends Component {
   // }
 
   render() {
-    console.log('FROM STORE COMPONENT:', this.props);
+    console.log("FROM STORE COMPONENT:", this.props);
     const productList = this.props.storeProducts.map(product => {
       return (
         <React.Fragment>
@@ -24,7 +24,7 @@ class Store extends Component {
     return (
       <div className="store_wrapper">
         <div className="store">
-          <h2>{this.props.storeProducts[0].store.name || 'Items'}</h2>
+          <h2>{this.props.storeProducts[0].store.name || "Items"}</h2>
           {productList}
           <h2>${this.props.total.toFixed(2)}</h2>
         </div>
@@ -32,7 +32,8 @@ class Store extends Component {
         <Link
           to={{
             pathname: `/checkout/${this.props.total}`,
-            products: this.props.storeProducts
+            products: this.props.storeProducts,
+            storeName: this.props.storeProducts[0].store.name
           }}
         >
           <div className="order_btn">ORDER</div>
