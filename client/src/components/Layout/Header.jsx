@@ -4,6 +4,10 @@ import { graphql, compose, Subscription } from 'react-apollo';
 import { getCartQuery, cartInfoSubscription } from '../../queries/queries';
 import logo from '../../assets/images/logo.png';
 import cart from '../../assets/images/cart.svg';
+import loupe from '../../assets/images/loupe.png';
+import microphone from '../../assets/images/microphone.png';
+// import webkitSpeechRecognition from "webkitSpeechRecognition";
+// var recognition = new webkitSpeechRecognition(); //get new instance
 
 const id = 1;
 class Header extends Component {
@@ -16,6 +20,7 @@ class Header extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleStartRecording = this.handleStartRecording.bind(this);
   }
   handleChange = event => {
     const path = event.target.value;
@@ -35,9 +40,46 @@ class Header extends Component {
       return <span>{data.shoppingCart.length}</span>;
     }
   }
+
+  handleStartRecording(event) {
+    var SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.continuous = false;
+    recognition.start();
+    recognition.onstart = function() {
+      console.log('Recieving research command!!!!!!');
+    };
+
+    recognition.onresult = e => {
+      const transcript = e.results[0][0].transcript;
+      console.log('Result!!!', transcript);
+      console.log('event', event);
+      this.setState({ searchPath: transcript, redirect: true });
+    };
+    recognition.onspeechend = function() {
+      recognition.stop();
+    };
+  }
+  // componentDidMount() {
+  //   console.log('REFETCH----', this.props);
+  //   this.props.data.refetch();
+  //   this.displayCartCount();
+  // }
+
   render() {
     console.log('FROM HEADER ', this.props.data.shoppingCart);
     this.props.data.refetch();
+    if (!('webkitSpeechRecognition' in window)) {
+      throw new Error(
+        "This browser doesn't support speech recognition. Try Google Chrome."
+      );
+    }
+
+    // const recognition = new SpeechRecognition();
+    // var recognition = new webkitSpeechRecognition();
     if (this.state.redirect) {
       this.setState({ redirect: false });
       return <Redirect to={`/products/${this.state.searchPath}`} />;
@@ -56,7 +98,25 @@ class Header extends Component {
             placeholder="Search Grocery"
             onChange={this.handleChange}
           />
-          <button type="submit">Search</button>
+          <button className="magnifier" type="submit">
+            <img
+              src={loupe}
+              alt="search"
+              style={{ height: '35px', width: '35px' }}
+            />
+          </button>
+          <button
+            className="speak"
+            type="button"
+            onClick={this.handleStartRecording}
+          >
+            <img
+              src={microphone}
+              alt="speak"
+              style={{ height: '35px', width: '35px' }}
+            />
+          </button>
+          {/* <button type="button">Start</button> */}
         </form>
         <div className="header__nav">
           <Link to="/">Home</Link>
@@ -75,6 +135,7 @@ class Header extends Component {
             />
           </Link>
         </div>
+        <div>{/* <SpeechRecognition /> */}</div>
       </header>
     );
   }
