@@ -216,6 +216,17 @@ const emptyCartMutation = gql`
     }
   }
 `;
+
+// subscriptions
+// cartInfo
+const cartInfoSubscription = gql`
+  subscription($userId: ID!) {
+    cartInfo(userId: $userId) {
+      id
+    }
+  }
+`;
+
 export {
   getUsersQuery,
   getStoresQuery,
@@ -231,5 +242,6 @@ export {
   getSearchResults,
   addOrderMutation,
   addOrderItemMutation,
-  emptyCartMutation
+  emptyCartMutation,
+  cartInfoSubscription
 };

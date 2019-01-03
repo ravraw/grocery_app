@@ -266,10 +266,10 @@ footer{
   flex-wrap: wrap;
   overflow:scroll;
   .department{
-    // max-width:400px;
+  //max-width:400px;
   display: flex;
   flex-flow: column;
-   flex:1 1 250px;
+  flex:1 0 220px;
   justify-content: space-around;
   align-items: center;
   border:2px solid $tertiary-color;
@@ -282,6 +282,11 @@ footer{
     color:green;
     text-transform:capitalize;
   }
+  // img{
+  //   height:100%;
+  //   width:auto;
+  //   max-width: 300px;
+  // }
 
 }
 }

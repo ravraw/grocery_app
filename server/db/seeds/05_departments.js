@@ -23,6 +23,15 @@ exports.seed = function(knex, Promise) {
         {
           name: 'beverages',
           image: 'https://www.canadiansprings.com/img/img-coffee-tea.png'
+        },
+        {
+          name: 'bakery',
+          image:
+            'https://www.pngarts.com/files/4/Bakery-Biscuit-PNG-High-Quality-Image.png'
+        },
+        {
+          name: 'pantry',
+          image: 'http://onebloc.org/wp-content/uploads/2017/12/drygoods.png'
         }
       ]);
     });

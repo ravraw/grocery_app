@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
+import { graphql, compose, Subscription } from 'react-apollo';
+import { getCartQuery, cartInfoSubscription } from '../../queries/queries';
 import logo from '../../assets/images/logo.png';
 import cart from '../../assets/images/cart.svg';
 
@@ -35,14 +35,9 @@ class Header extends Component {
       return <span>{data.shoppingCart.length}</span>;
     }
   }
-  // componentDidMount() {
-  //   console.log('REFETCH----', this.props);
-  //   this.props.data.refetch();
-  //   this.displayCartCount();
-  // }
-
   render() {
-    console.log('FROM HEADER', this.props);
+    console.log('FROM HEADER ', this.props.data.shoppingCart);
+    this.props.data.refetch();
     if (this.state.redirect) {
       this.setState({ redirect: false });
       return <Redirect to={`/products/${this.state.searchPath}`} />;
@@ -85,9 +80,18 @@ class Header extends Component {
   }
 }
 
-export default graphql(getCartQuery, {
-  options: props => {
-    // console.log('from props:', props);
-    return { variables: { id: 1 } };
-  }
-})(Header);
+export default compose(
+  graphql(getCartQuery, {
+    options: props => {
+      // console.log('from props:', props);
+      return { variables: { id: 1 } };
+    }
+  }),
+  graphql(cartInfoSubscription, {
+    options: props => {
+      // console.log('from props:', props);
+      return { variables: { userId: 1 } };
+    },
+    name: 'cartInfoSubscription'
+  })
+)(Header);
