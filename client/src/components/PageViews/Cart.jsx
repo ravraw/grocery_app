@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Product from '../Product';
-import CartItem from '../CartItem';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
-import { NavLink, Link } from 'react-router-dom';
+import React, { Component } from "react";
+import Product from "../Product";
+import CartItem from "../CartItem";
+import { graphql } from "react-apollo";
+import { getCartQuery } from "../../queries/queries";
+import { NavLink, Link } from "react-router-dom";
 
 class Cart extends Component {
   constructor(props) {
@@ -11,22 +11,60 @@ class Cart extends Component {
     this.state = {
       cartProducts: this.props.data.shoppingCart
     };
+
+    this.getDistances = this.getDistances.bind(this);
+    this.getMyLocation = this.getMyLocation.bind(this);
   }
 
+  getDistances() {
+    if (!navigator.geolocation) {
+      alert("The browser doesn't support geolocation api!");
+    } else {
+      let myLocation = "";
+      navigator.geolocation.getCurrentPosition(position => {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        console.log("latitude", latitude);
+        console.log("longitude", longitude);
+        myLocation = latitude + "," + longitude;
+        fetch("http://localhost:4000/distances", {
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({
+            myLocation: myLocation,
+            walmart: "3800 Memorial Dr, Calgary,Alberta,Canada",
+            superstore: "3575 20 Ave NE, Calgary, Alberta,Canada",
+            saveonfood: "8855 Macleod Trail SW, Calgary, Alberta,Canada"
+          })
+        }).then(res => {
+          res.json().then(data => {
+            console.log("data", data);
+            // console.log("response :", res);
+          });
+        });
+      });
+      console.log("myLocation", myLocation);
+    }
+  }
+
+  getMyLocation() {}
+
   componentDidMount() {
-    console.log('REFETCH----', this.props);
+    console.log("REFETCH----", this.props);
     this.props.data.refetch();
+    this.getDistances();
+    // this.getMyLocation();
   }
 
   displayCart() {
     let data = this.props.data;
-    console.log('PROPS FROM CART --', this.props.data.shoppingCart);
+    console.log("PROPS FROM CART --", this.props.data.shoppingCart);
 
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
       return data.shoppingCart.map(product => {
-        console.log('PRODUCT FROM CART', product);
+        console.log("PRODUCT FROM CART", product);
         return (
           <CartItem
             refetch={data.refetch}
@@ -43,7 +81,7 @@ class Cart extends Component {
     let data = this.props.data;
     if (!data.loading) {
       const productsProps = data.shoppingCart;
-      console.log('productsProps', productsProps);
+      console.log("productsProps", productsProps);
       return (
         <Link to={{ pathname: `/order`, products: productsProps }}>
           Compare Prices

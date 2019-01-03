@@ -1,6 +1,6 @@
-require('dotenv').config();
-const { ApolloServer, gql, PubSub } = require('apollo-server-express');
-const http = require('http');
+require("dotenv").config();
+const { ApolloServer, gql, PubSub } = require("apollo-server-express");
+const http = require("http");
 
 const PORT = 4000;
 const express = require("express");
@@ -174,6 +174,86 @@ app.post("/charge", async (req, res) => {
     }
     res.status(400).end();
   }
+});
+app.post("/register", async (req, res) => {
+  // console.log("req.body", req.body);
+  const { email, password, username } = JSON.parse(req.body);
+  console.log("email", email);
+  console.log("password", password);
+  console.log("username", username);
+
+  const hashPass = bcrypt.hashSync(password, 15);
+  console.log("hashed Password", hashPass);
+  if (hashPass) {
+    res.status(200).send("Status Code 200!! Registration succeeded!!!");
+
+    //send the user data into database
+  }
+});
+
+app.post("/distances", async (req, res) => {
+  // console.log("req.body", req.body);
+  const { myLocation, walmart, superstore, saveonfood } = JSON.parse(req.body);
+  console.log("myLocation", myLocation);
+  console.log("walmart", walmart);
+  console.log("superstore", superstore);
+  console.log("saveonfood", saveonfood);
+  var distance = require("google-distance-matrix");
+
+  var origins = [myLocation];
+  var destinations = [walmart, superstore, saveonfood];
+
+  distance.key("AIzaSyD5tIgFoKnBfLJb5a0ao2CHcEYdYiQME_c");
+  distance.units("imperial");
+
+  distance.matrix(origins, destinations, function(err, distances) {
+    if (err) {
+      return console.log(err);
+    }
+    if (!distances) {
+      return console.log("no distances");
+    }
+    if (distances.status == "OK") {
+      const distanceArr = [];
+      for (var i = 0; i < origins.length; i++) {
+        for (var j = 0; j < destinations.length; j++) {
+          var origin = distances.origin_addresses[i];
+          var destination = distances.destination_addresses[j];
+          if (distances.rows[0].elements[j].status == "OK") {
+            var distance = distances.rows[i].elements[j].distance.text;
+            console.log(
+              "Distance from " +
+                origin +
+                " to " +
+                destination +
+                " is " +
+                distance
+            );
+            distanceArr.push(
+              "Distance from " +
+                origin +
+                " to " +
+                destination +
+                " is " +
+                distance
+            );
+          } else {
+            console.log(
+              destination + " is not reachable by land from " + origin
+            );
+          }
+        }
+      }
+      res.status(200).send(distanceArr);
+    }
+  });
+  // const hashPass = bcrypt.hashSync(password, 15);
+  // console.log("hashed Password", hashPass);
+  // if (hashPass) {
+  //   res.status(200).send("Status Code 200!! Registration succeeded!!!");
+
+  //   //send the user data into database
+  // }
 });
 
 const faker = require("faker");
