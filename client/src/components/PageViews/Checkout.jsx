@@ -40,6 +40,7 @@ class Checkout extends Component {
       <div className="checkout">
         <h3>Thank you for shopping with us.</h3>
         <h4>DELIVER DATE: </h4>
+
         {/* <textarea
           id="month"
           name="month"
