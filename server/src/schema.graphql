@@ -18,12 +18,14 @@ type Query {
 
 type Mutation {
     # shopping Cart
+    addUser(data:addUserInput):User!
     addCartItem(data:AddCartItemInput):CartItem!
     deleteCartItem(data:DeleteCartItemInput):CartItem!
     emptyCart(user_id:ID!):[CartItem!]
     updateCartItem(data:UpdateCartItemInput):CartItem!
     addOrder(user_id:ID!):Order!
     addOrderItem(data:addOrderItemInput):OrderItem!
+    
     # removeCartItem(id: ID!): Product!
     # updateCartItem(id: ID!, data: UpdateCartItemInput!): Product!
 }
@@ -57,17 +59,20 @@ input addOrderItemInput{
     price:Float!
     order_id:ID!
 }
-# input UpdateUserInput {
+input addUserInput {
+    email: String!
+    username:String!
+    password:String!
+}
+
+# type defs
+
+# type User {
+#     id: ID!
 #     email: String!
 #     password:String!
+#     shoppingCart:[Product!]!
 # }
-
-type User {
-    id: ID!
-    email: String!
-    password:String!
-    shoppingCart:[Product!]!
-}
 
 type Store{
     id:ID!
@@ -134,6 +139,13 @@ type OrderItem{
     quantity:Float!
     price:Float!
     order_id:ID!
+}
+
+type User{
+    id:ID!
+    email:String!
+    username:String!
+    password:String!
 }
 
 

@@ -104,21 +104,21 @@ app.post('/charge', async (req, res) => {
     res.status(400).end();
   }
 });
-app.post('/register', async (req, res) => {
-  // console.log("req.body", req.body);
-  const { email, password, username } = JSON.parse(req.body);
-  console.log('email', email);
-  console.log('password', password);
-  console.log('username', username);
+// app.post('/register', async (req, res) => {
+//   // console.log("req.body", req.body);
+//   const { email, password, username } = JSON.parse(req.body);
+//   console.log('email', email);
+//   console.log('password', password);
+//   console.log('username', username);
 
-  const hashPass = bcrypt.hashSync(password, 15);
-  console.log('hashed Password', hashPass);
-  if (hashPass) {
-    res.status(200).send('Status Code 200!! Registration succeeded!!!');
+//   const hashPass = bcrypt.hashSync(password, 15);
+//   console.log('hashed Password', hashPass);
+//   if (hashPass) {
+//     res.status(200).send('Status Code 200!! Registration succeeded!!!');
 
-    //send the user data into database
-  }
-});
+//     //send the user data into database
+//   }
+// });
 
 const faker = require('faker');
 const Query = require('./resolvers/Query');

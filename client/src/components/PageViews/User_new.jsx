@@ -1,20 +1,20 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class User_new extends Component {
   constructor() {
     super();
     this.state = {
-      username: { value: "", error: false },
-      email: { value: "", error: false },
-      password: { value: "", error: false },
-      confirmPassword: { value: "", error: false }
+      username: { value: '', error: false },
+      email: { value: '', error: false },
+      password: { value: '', error: false },
+      confirmPassword: { value: '', error: false }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     const { value, name } = event.target;
-    if (name !== "confirmPassword") {
+    if (name !== 'confirmPassword') {
       this.setState({
         [name]: { value: value, error: false }
       });
@@ -37,21 +37,21 @@ class User_new extends Component {
     let confirmValue = state.confirmPassword.value;
 
     if (usernameValue.length < 9) {
-      console.log(console.log("username Error!!!"));
-      this.setState({ username: { value: "", error: true } });
+      console.log(console.log('username Error!!!'));
+      this.setState({ username: { value: '', error: true } });
     }
     if (!validEmail.test(emailValue)) {
-      console.log(console.log("email Error!!!"));
-      this.setState({ email: { value: "", error: true } });
+      console.log(console.log('email Error!!!'));
+      this.setState({ email: { value: '', error: true } });
     }
     if (!validPassword.test(passwordValue)) {
-      console.log(console.log("Password Error!!!"));
-      this.setState({ password: { value: "", error: true } });
+      console.log(console.log('Password Error!!!'));
+      this.setState({ password: { value: '', error: true } });
     }
     const passwordMatch = passwordValue === confirmValue && passwordValue;
     if (passwordMatch) {
-      console.log(console.log("Confirm-Password Error!!!"));
-      this.setState({ confirmPassword: { value: "", error: true } });
+      console.log(console.log('Confirm-Password Error!!!'));
+      this.setState({ confirmPassword: { value: '', error: true } });
     }
 
     const usernameError = state.username.error;
@@ -61,20 +61,20 @@ class User_new extends Component {
 
     const noError =
       !usernameError && !emailError && !passwordError && !confirmError;
-    console.log("state", this.state);
-    console.log("noErrror?", noError);
+    console.log('state', this.state);
+    console.log('noErrror?', noError);
     if (noError) {
-      fetch("http://localhost:4000/register", {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
+      fetch('http://localhost:4000/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           username: usernameValue,
           email: emailValue,
           password: passwordValue
         })
       }).then(response => {
-        console.log("response", response);
-        if (response.ok) console.log("Registraiton Complete!");
+        console.log('response', response);
+        if (response.ok) console.log('Registraiton Complete!');
         //then put user into session and redirect to home page
       });
     }
@@ -91,7 +91,7 @@ class User_new extends Component {
             onChange={this.handleChange}
             placeholder="Email"
           />
-          {this.state.email.error ? <div>Incorrect Email</div> : ""}
+          {this.state.email.error ? <div>Incorrect Email</div> : ''}
 
           <input
             type="text"
@@ -99,7 +99,7 @@ class User_new extends Component {
             onChange={this.handleChange}
             placeholder="Username"
           />
-          {this.state.username.error ? <div>At least 8 characters!</div> : ""}
+          {this.state.username.error ? <div>At least 8 characters!</div> : ''}
 
           <input
             type="text"
@@ -113,7 +113,7 @@ class User_new extends Component {
               one upper-case letter!
             </div>
           ) : (
-            ""
+            ''
           )}
 
           <input
@@ -125,7 +125,7 @@ class User_new extends Component {
           {this.state.confirmPassword.error ? (
             <div>Password and confirmPassword don't match!</div>
           ) : (
-            ""
+            ''
           )}
 
           <button className="form_btn" type="submit">

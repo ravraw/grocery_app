@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
       .string('email')
       .unique()
       .notNullable();
+    table.string('username').notNullable();
     table.string('password').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
   });

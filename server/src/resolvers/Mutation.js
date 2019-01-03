@@ -1,6 +1,24 @@
 const faker = require('faker');
 
 const Mutation = {
+  // addUser
+  addUser(parent, args, { knex, pubSub }, info) {
+    const { email, username, password } = args.data;
+    console.log('FROM REGISTER', email, password);
+    return knex('users')
+      .where({ email })
+      .then(result => {
+        if (result[0]) {
+          throw new Error('email not available');
+        } else {
+          return knex('users')
+            .returning('*')
+            .insert({ email, username, password });
+        }
+      })
+      .then(result => result[0])
+      .catch(err => err);
+  },
   // addCartItem
   addCartItem(parent, args, { knex, pubSub }, info) {
     const { quantity, user_id, product_id } = args.data;
