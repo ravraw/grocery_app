@@ -11,27 +11,30 @@ import Sidebar from "../Sidebar";
 class Checkout extends Component {
   constructor() {
     super();
-    this.state = { startDate: new Date() };
+    this.state = { date: "", time: "" };
     this.handleChange = this.handleDateChange.bind(this);
     this.displayTimeSelection = this.displayTimeSelection.bind(this);
   }
-  handleDateChange = date => {
-    // const name = event.target.name;
-    // const value = event.target.value;
-    // console.log("name", name);
-    // console.log("value", value);
-    this.setState({
-      startDate: date
-    });
+  handleDateChange = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({ [name]: value });
   };
   // componentDidMount() {
   displayTimeSelection() {
     const timeArr = [];
     for (let time = 9; time <= 21; time++) {
-      timeArr.push(<option value="saab">{time}:00</option>);
+      timeArr.push(
+        <option>
+          {time}:00 - {time + 1}:00
+        </option>
+      );
     }
-
-    return <select>{timeArr}</select>;
+    return (
+      <select name="time" onChange={this.handleChange}>
+        {timeArr}
+      </select>
+    );
   }
   // }
   render(props) {
@@ -55,7 +58,13 @@ class Checkout extends Component {
       <div className="checkout">
         <h3>Thank you for shopping with us.</h3>
         <h4>DELIVER DATE: </h4>
-        <input type="date" name="date" id="date" min={currentDate1} />
+        <input
+          type="date"
+          name="date"
+          id="date"
+          min={currentDate1}
+          onChange={this.handleChange}
+        />
         <h4>DELIVER Time: </h4>
         {this.displayTimeSelection()}
         <h4>BILLING ADDRESS: </h4>
