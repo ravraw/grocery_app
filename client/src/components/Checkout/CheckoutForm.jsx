@@ -39,7 +39,6 @@ class CheckoutForm extends Component {
     });
     if (response.ok) {
       console.log("Purchase Complete!");
-      console.log("ORDER ------", this.props.orders);
       //add order
       // hard coded user
       const user_id = 1;
@@ -60,7 +59,7 @@ class CheckoutForm extends Component {
         })
         .then(result => {
           this.props.emptyCartMutation({ variables: { user_id } });
-          // this.setState({ redirect: true });
+          this.setState({ redirect: true });
         });
     }
   }
@@ -77,7 +76,7 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
         <CardElement className="card_element" />
-        <label for="cname">Name on Card</label>
+        <label>Name on Card</label>
         <input
           type="text"
           id="cname"

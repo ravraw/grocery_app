@@ -1,19 +1,20 @@
-import { Route, Switch } from 'react-router-dom';
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import Home from '../PageViews/Home';
-import Department_show from '../PageViews/DepartmentContainer';
-import Product_show from '../PageViews/ProductContainer';
-import Products from '../PageViews/Products';
-import OrderPage from '../PageViews/OrderPage';
+import { Route, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import { withRouter } from "react-router";
+import Home from "../PageViews/Home";
+import Department_show from "../PageViews/DepartmentContainer";
+import Product_show from "../PageViews/ProductContainer";
+import Products from "../PageViews/Products";
+import OrderPage from "../PageViews/OrderPage";
 
-import Category_show from '../PageViews/CategoryContainer';
-import User_new from '../PageViews/User_new';
-import Checkout from '../PageViews/Checkout';
+import Category_show from "../PageViews/CategoryContainer";
+import User_new from "../PageViews/User_new";
+import Checkout from "../PageViews/Checkout";
 // import User_show from "./components/User_show";
-import Login from '../PageViews/Login';
-import Cart from '../PageViews/Cart';
-import Errors from '../PageViews/Errors';
+import Login from "../PageViews/Login";
+import Cart from "../PageViews/Cart";
+import Errors from "../PageViews/Errors";
+import Account from "../PageViews/Account";
 
 class Main extends Component {
   render() {
@@ -26,6 +27,7 @@ class Main extends Component {
           <Route path="/cart/:id" exact component={Cart} />
           <Route path="/category/:id/show" component={Category_show} />
           <Route path="/checkout/:total" component={Checkout} />
+          <Route path="/account" component={Account} />
 
           {/* <Route path="/user/:user_id/show" component={User_show} /> */}
 

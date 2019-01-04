@@ -120,29 +120,30 @@ app.post("/charge", async (req, res) => {
           })
           .then(message => console.log("Message to the driver", message.sid))
           .done()
-      )
-      .then(() => {
-        const line1 = `<h2>Thank you for your purchase in Cross Aisle!</h2></br>`;
-        const line2 = `<h2>Order ID: ${orderId}!</h2></br>`;
-        const line3 = `<h2>The total: ${amount}.</h2></br>`;
-        const line4 = `<h2> ${description}.</h2></br>`;
-        const line5 =
-          "<h2>Go to <a href='http://localhost:3000'>Cross Aisle</a> to see your order history</h2>";
-        const content = line1 + line2 + line3 + line4 + line5;
-        const mail = {
-          from: "cross.aisle.app@gmail.com",
-          to: "dongyingname@yahoo.com", //Change to email address that you want to receive messages on
-          subject: "Order confirmation from Cross Aisle!",
-          html: content
-        };
-        transporter.sendMail(mail, (err, data) => {
-          if (err) {
-            res.status(400).send("Failed to send email!!");
-          } else {
-            res.status(200).send("Registration confirmation has been sent");
-          }
-        });
+      );
+
+    console.log("status PLEASE", status);
+    if (status === "succeeded") {
+      const line1 = `<h2>Thank you for your purchase in Cross Aisle!</h2></br>`;
+      const line2 = `<h2>Order ID: ${orderId}!</h2></br>`;
+      const line3 = `<h2>The total: ${amount}.</h2></br>`;
+      const line4 =
+        "<h2>Go to <a href='http://localhost:3000'>Cross Aisle</a> to see your order history</h2>";
+      const content = line1 + line2 + line3 + line4;
+      const mail = {
+        from: "cross.aisle.app@gmail.com",
+        to: "dongyingname@yahoo.com", //Change to email address that you want to receive messages on
+        subject: "Order confirmation from Cross Aisle!",
+        html: content
+      };
+      transporter.sendMail(mail, (err, data) => {
+        if (err) {
+          res.status(400).send("Failed to send email!!");
+        } else {
+          res.status(200).send("Purchase confirmation has been sent");
+        }
       });
+    }
     res.json({
       status
     });
