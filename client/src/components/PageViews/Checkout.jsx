@@ -4,8 +4,13 @@ import { getCategoryProductsQuery } from '../../queries/queries';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '../Checkout/CheckoutForm';
 
+<<<<<<< HEAD
 import Product from '../Product';
 import Sidebar from '../Sidebar';
+=======
+import Product from "../Product";
+import Sidebar from "../Sidebar";
+>>>>>>> 9bdf0ad8faf0bd16c29b6aa05ced64f3006af7bf
 
 class Checkout extends Component {
   constructor() {
