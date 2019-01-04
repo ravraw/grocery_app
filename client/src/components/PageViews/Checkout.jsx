@@ -11,7 +11,7 @@ import Sidebar from "../Sidebar";
 class Checkout extends Component {
   constructor() {
     super();
-    this.state = { date: "", time: "" };
+    this.state = { date: "", time: "", address: "" };
     this.handleChange = this.handleDateChange.bind(this);
     this.displayTimeSelection = this.displayTimeSelection.bind(this);
   }
@@ -65,12 +65,13 @@ class Checkout extends Component {
         <h4>DELIVER Time: </h4>
         {this.displayTimeSelection()}
         <h4>BILLING ADDRESS: </h4>
-        {/* <textarea
+        <input
+          type="text"
           id="address"
           name="address"
           placeholder="Calgary Address Only"
           onChange={this.handleChange}
-        /> */}
+        />
 
         <p>Please complete the payment</p>
         <h4>SUBTOTAL: ${total1}</h4>
@@ -88,6 +89,7 @@ class Checkout extends Component {
                 storeName={storeName}
                 deliveryTime={this.state.time}
                 deliveryDate={this.state.date}
+                deliveryAddress={this.state.address}
               />
             </Elements>
           </div>

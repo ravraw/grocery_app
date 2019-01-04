@@ -14,7 +14,7 @@ import Checkout from "../PageViews/Checkout";
 import Login from "../PageViews/Login";
 import Cart from "../PageViews/Cart";
 import Errors from "../PageViews/Errors";
-import Account from "../PageViews/Account";
+import LastOrder from "../PageViews/LastOrder";
 
 class Main extends Component {
   render() {
@@ -27,7 +27,7 @@ class Main extends Component {
           <Route path="/cart/:id" exact component={Cart} />
           <Route path="/category/:id/show" component={Category_show} />
           <Route path="/checkout/:total" component={Checkout} />
-          <Route path="/account" component={Account} />
+          <Route path="/lastOrder" component={LastOrder} />
 
           {/* <Route path="/user/:user_id/show" component={User_show} /> */}
 
