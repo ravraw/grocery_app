@@ -180,23 +180,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-const stores = {
-  superstore: [
-    "5858 Signal Hill Centre SW, Calgary, Alberta, Canada",
-    "20 Heritage Meadows Way SE, Calgary, Alberta, Canada",
-    "3575 20 Ave NE, Calgary, Alberta, Canada",
-    "100 Country Village Rd NE, Calgary, Alberta, Canada",
-    "4700 130 Ave SE, Calgary, Alberta, Canada"
-  ],
-  walmart: [
-    "1212 37 St SW, Calgary, Alberta, Canada",
-    "9650 Macleod Trail, Calgary, Alberta, Canada",
-    "3800 Memorial Dr, Calgary, Alberta, Canada",
-    "1110 57 Ave NE, Calgary, Alberta, Canada",
-    "5005 Northland Dr NW, Calgary, Alberta, Canada",
-    "4705 130 Ave SE, Calgary, Alberta, Canada"
-  ]
-};
 // const distance = require("google-distance-matrix");
 const distanceCallback = require("./callback/distanceMatrix.js");
 app.post("/distances", async (req, res) => {
