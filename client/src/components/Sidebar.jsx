@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 class Sidebar extends Component {
   render() {
     const categories = this.props.categories;
-    // console.log("categories props", categories);
-
-    const links = this.props.categories.map(category => {
+    const links = categories.map(category => {
       return (
         <li key={category.id}>
           <NavLink
