@@ -12,7 +12,7 @@ transporter.verify((error, success) => {
     console.log(error);
   } else {
     console.log(
-      "Server is ready to send messages from cross.aisle.app@gmail.com!"
+      "/register is ready to send messages from cross.aisle.app@gmail.com!"
     );
   }
 });
