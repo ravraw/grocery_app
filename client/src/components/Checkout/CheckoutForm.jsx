@@ -29,7 +29,7 @@ class CheckoutForm extends Component {
       total
     } = this.props;
     if (deliveryDate && deliveryTime && deliveryAddress) {
-      let { token } = await this.props.stripe.createToken({ name: "Name" });
+      // let { token } = await this.props.stripe.createToken({ name: "Name" });
       let response = await fetch("http://localhost:4000/charge", {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
@@ -37,8 +37,7 @@ class CheckoutForm extends Component {
           description: "a new purchase!",
           token: "tok_visa",
           amount: parseInt(this.props.total),
-          // amount: 1111,
-          email: "dongyingname@yahoo.com"
+          email: "dongyingname@yahoo.com" //needs to be replaced with user's email who is logged in
         })
       });
       if (response.ok) {
@@ -77,9 +76,6 @@ class CheckoutForm extends Component {
 
   render() {
     console.log("PARAMS FOR THE CHECKOUTFORM", this.props);
-    // if (this.state.complete) return <h1>Purchase Complete</h1>;
-    // console.log(this.props.deliveryDate);
-    // console.log(this.props.deliveryTime);
     const {
       deliveryDate,
       deliveryTime,

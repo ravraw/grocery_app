@@ -64,11 +64,11 @@ module.exports = async function chargeCallback(req, res) {
     console.log("status PLEASE", status);
     if (status === "succeeded") {
       const line1 = `<h2>Thank you for your purchase in Cross Aisle!</h2></br>`;
-      const line2 = `<h2>Order ID: ${orderId}!</h2></br>`;
+      // const line2 = `<h2>Order ID: ${orderId}!</h2></br>`;
       const line3 = `<h2>The total: ${amount}.</h2></br>`;
       const line4 =
         "<h2>Go to <a href='http://localhost:3000'>Cross Aisle</a> to see your order history</h2>";
-      const content = line1 + line2 + line3 + line4;
+      const content = line1 + line3 + line4;
       const mail = {
         from: "cross.aisle.app@gmail.com",
         to: email,
