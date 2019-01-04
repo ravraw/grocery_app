@@ -12,39 +12,8 @@ class Cart extends Component {
       cartProducts: this.props.data.shoppingCart
     };
 
-    this.getDistances = this.getDistances.bind(this);
+    // this.getDistances = this.getDistances.bind(this);
     this.getMyLocation = this.getMyLocation.bind(this);
-  }
-
-  getDistances() {
-    if (!navigator.geolocation) {
-      alert("The browser doesn't support geolocation api!");
-    } else {
-      let myLocation = "";
-      navigator.geolocation.getCurrentPosition(position => {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        console.log("latitude", latitude);
-        console.log("longitude", longitude);
-        myLocation = latitude + "," + longitude;
-        fetch("http://localhost:4000/distances", {
-          method: "POST",
-          headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify({
-            myLocation: myLocation,
-            walmart: "3800 Memorial Dr, Calgary,Alberta,Canada",
-            superstore: "3575 20 Ave NE, Calgary, Alberta,Canada",
-            saveonfood: "8855 Macleod Trail SW, Calgary, Alberta,Canada"
-          })
-        }).then(res => {
-          res.json().then(data => {
-            console.log("data", data);
-            // console.log("response :", res);
-          });
-        });
-      });
-      console.log("myLocation", myLocation);
-    }
   }
 
   getMyLocation() {}
@@ -52,7 +21,7 @@ class Cart extends Component {
   componentDidMount() {
     console.log("REFETCH----", this.props);
     this.props.data.refetch();
-    this.getDistances();
+    // this.getDistances();
     // this.getMyLocation();
   }
 
