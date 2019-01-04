@@ -4,7 +4,6 @@ import { getCategoryProductsQuery } from "../../queries/queries";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../Checkout/CheckoutForm";
 
-import "react-datepicker/dist/react-datepicker.css";
 import Product from "../Product";
 import Sidebar from "../Sidebar";
 
