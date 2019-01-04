@@ -11,16 +11,11 @@ const fs = require("fs");
 const typeDefs = gql`
   ${fs.readFileSync(__dirname.concat("/schema.graphql"), "utf8")}
 `;
-
 const pubSub = new PubSub();
-// const ENV = process.env.ENV || 'development';
-// const knexConfig = require('../knexfile');
-// const knex = require('knex')(knexConfig[ENV]);
 const knex = require("./knex");
 const knexLogger = require("knex-logger");
 const cors = require("cors");
 app.use(cors());
-// Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
 const stripe = require("stripe")("sk_test_KXx4rnWNLRVPWRpE1qpFbNZ2");
@@ -52,8 +47,6 @@ transporter.verify((error, success) => {
   }
 });
 app.post("/register", async (req, res) => {
-  // console.log("req.body", req.body);
-  // const { email, password, username } = JSON.parse(req.body);
   const { email } = JSON.parse(req.body);
 
   console.log("email", email);
@@ -65,7 +58,7 @@ app.post("/register", async (req, res) => {
   const content = line1 + line2 + line3 + line4;
   const mail = {
     from: "cross.aisle.app@gmail.com",
-    to: email, //Change to email address that you want to receive messages on
+    to: email,
     subject: "Welcome to Cross Aisle!",
     html: content
   };
@@ -78,8 +71,6 @@ app.post("/register", async (req, res) => {
   });
   if (email && password) {
     res.status(200).send("Status Code 200!! Registration succeeded!!!");
-
-    //send the user data into database
   }
 });
 
@@ -132,7 +123,7 @@ app.post("/charge", async (req, res) => {
       const content = line1 + line2 + line3 + line4;
       const mail = {
         from: "cross.aisle.app@gmail.com",
-        to: "dongyingname@yahoo.com", //Change to email address that you want to receive messages on
+        to: "dongyingname@yahoo.com",
         subject: "Order confirmation from Cross Aisle!",
         html: content
       };
@@ -177,7 +168,6 @@ app.post("/charge", async (req, res) => {
   }
 });
 app.post("/register", async (req, res) => {
-  // console.log("req.body", req.body);
   const { email, password, username } = JSON.parse(req.body);
   console.log("email", email);
   console.log("password", password);
@@ -187,8 +177,6 @@ app.post("/register", async (req, res) => {
   console.log("hashed Password", hashPass);
   if (hashPass) {
     res.status(200).send("Status Code 200!! Registration succeeded!!!");
-
-    //send the user data into database
   }
 });
 
@@ -209,80 +197,10 @@ const stores = {
     "4705 130 Ave SE, Calgary, Alberta, Canada"
   ]
 };
-var distance = require("google-distance-matrix");
-
+// const distance = require("google-distance-matrix");
+const distanceCallback = require("./callback/distanceMatrix.js");
 app.post("/distances", async (req, res) => {
-  // console.log("req.body", req.body);
-  const { deliveryAddress, storeName } = JSON.parse(req.body);
-  console.log("deliveryAddress", deliveryAddress);
-
-  var origins = [deliveryAddress];
-  var destinations = stores[storeName];
-
-  // var destinations = [walmart, superstore, saveonfood];
-
-  distance.key("AIzaSyD5tIgFoKnBfLJb5a0ao2CHcEYdYiQME_c");
-  distance.units("imperial");
-
-  distance.matrix(origins, destinations, function(err, distances) {
-    if (err) {
-      return console.log(err);
-    }
-    if (!distances) {
-      return console.log("no distances");
-    }
-    if (distances.status == "OK") {
-      let shortestDistance = Infinity;
-      let shortestAddress = "";
-      const distanceArr = [];
-      for (var i = 0; i < origins.length; i++) {
-        for (var j = 0; j < destinations.length; j++) {
-          var origin = distances.origin_addresses[i];
-          var destination = distances.destination_addresses[j];
-          if (distances.rows[0].elements[j].status == "OK") {
-            var distance = distances.rows[i].elements[j].distance.text;
-            var numberDistance = Number(distance.slice(0, -2));
-            if (shortestDistance > numberDistance) {
-              shortestDistance = numberDistance;
-              shortestAddress = destination;
-            }
-            console.log("distance", distance);
-            console.log("numberDistance", numberDistance);
-            console.log("shortestDistance", shortestDistance);
-
-            console.log(
-              "Distance from " +
-                origin +
-                " to " +
-                destination +
-                " is " +
-                distance
-            );
-            distanceArr.push(
-              "Distance from " +
-                origin +
-                " to " +
-                destination +
-                " is " +
-                distance
-            );
-          } else {
-            console.log(
-              destination + " is not reachable by land from " + origin
-            );
-          }
-        }
-      }
-      res.status(200).send({ shortestAddress, shortestDistance });
-    }
-  });
-  // const hashPass = bcrypt.hashSync(password, 15);
-  // console.log("hashed Password", hashPass);
-  // if (hashPass) {
-  //   res.status(200).send("Status Code 200!! Registration succeeded!!!");
-
-  //   //send the user data into database
-  // }
+  distanceCallback(req, res);
 });
 
 const faker = require("faker");
