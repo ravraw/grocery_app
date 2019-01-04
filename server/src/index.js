@@ -232,6 +232,8 @@ app.post("/distances", async (req, res) => {
       return console.log("no distances");
     }
     if (distances.status == "OK") {
+      let shortestDistance = Infinity;
+      let shortestAddress = "";
       const distanceArr = [];
       for (var i = 0; i < origins.length; i++) {
         for (var j = 0; j < destinations.length; j++) {
@@ -239,6 +241,15 @@ app.post("/distances", async (req, res) => {
           var destination = distances.destination_addresses[j];
           if (distances.rows[0].elements[j].status == "OK") {
             var distance = distances.rows[i].elements[j].distance.text;
+            var numberDistance = Number(distance.slice(0, -2));
+            if (shortestDistance > numberDistance) {
+              shortestDistance = numberDistance;
+              shortestAddress = destination;
+            }
+            console.log("distance", distance);
+            console.log("numberDistance", numberDistance);
+            console.log("shortestDistance", shortestDistance);
+
             console.log(
               "Distance from " +
                 origin +
@@ -262,7 +273,7 @@ app.post("/distances", async (req, res) => {
           }
         }
       }
-      res.status(200).send(distanceArr);
+      res.status(200).send({ shortestAddress, shortestDistance });
     }
   });
   // const hashPass = bcrypt.hashSync(password, 15);

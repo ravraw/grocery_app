@@ -8,6 +8,8 @@ import { NavLink, Link } from "react-router-dom";
 class LastOrder extends Component {
   constructor() {
     super();
+    this.state = { shortestAddress: "", shortestDistance: "" };
+    super();
     this.getDistances = this.getDistances.bind(this);
   }
   getDistances() {
@@ -29,10 +31,18 @@ class LastOrder extends Component {
     }).then(res => {
       res.json().then(data => {
         console.log("data", data);
+        const { shortestDistance, shortestAddress } = data;
+        // console.log("shortestDistance", shortestDistance);
+        // console.log("shortestAddress", shortestAddress);
+        // const shortest = { shortestAddress, shortestDistance };
+        this.setState({ shortestAddress, shortestDistance });
+
+        // return shortest;
       });
     });
   }
   componentDidMount() {
+    // console.log("ahahahahahah", this.getDistances());
     this.getDistances();
   }
   render() {
@@ -49,11 +59,18 @@ class LastOrder extends Component {
       <div>
         <h1>Thank You For Your Purchase!</h1>
 
-        <h2>DELIVERY DATE: {deliveryDate}</h2>
-        <h2>DELIVERY TIME: {deliveryTime}</h2>
-        <h2>DELIVERY ADDRESS: {deliveryAddress}</h2>
-        <h2>STORE: {storeName}</h2>
-        <h2>TOTAL: ${total}</h2>
+        <h3>DELIVERY DATE: {deliveryDate}</h3>
+        <h3>DELIVERY TIME: {deliveryTime}</h3>
+        <h3>DELIVERY ADDRESS: {deliveryAddress}</h3>
+        <h3>STORE: {storeName}</h3>
+        <h3>TOTAL: ${total}</h3>
+        <h3>
+          The groceries will be delivered from {this.state.shortestAddress}
+        </h3>
+        <h3>
+          The distance from your shipping address is{" "}
+          {this.state.shortestDistance} miles.
+        </h3>
       </div>
     );
   }
