@@ -1,3 +1,4 @@
+//acquire nodemailer for sending email upon successful payment
 const nodemailer = require("nodemailer");
 const transport = {
   host: "smtp.gmail.com",
@@ -17,27 +18,25 @@ transporter.verify((error, success) => {
   }
 });
 const stripe = require("stripe")("sk_test_KXx4rnWNLRVPWRpE1qpFbNZ2");
-
 // const accountSid = process.env.DB_ACCOUNTSID;
 // const authToken = process.env.DB_AUTHTOKEN
 const accountSid = "AC44c296aef0acfd3c9d89eb43323cc1c1";
 const authToken = "a4213c0a7d60fe51572089a36504fb34";
 const client = require("twilio")(accountSid, authToken);
+
 module.exports = async function chargeCallback(req, res) {
   console.log("req.body", req.body);
-  const { description, token, orderId, amount, customer } = JSON.parse(
-    req.body
-  );
+  const { description, token, orderId, amount, email } = JSON.parse(req.body);
   try {
     let { status } = await stripe.charges
       .create({
-        amount: amount,
+        amount: amount * 100,
         currency: "usd",
         description: description,
         source: token,
         metadata: {
           order_id: orderId,
-          email: "dongyingname@yahoo.com"
+          email: email
         }
         //
       })
@@ -72,7 +71,7 @@ module.exports = async function chargeCallback(req, res) {
       const content = line1 + line2 + line3 + line4;
       const mail = {
         from: "cross.aisle.app@gmail.com",
-        to: "dongyingname@yahoo.com",
+        to: email,
         subject: "Order confirmation from Cross Aisle!",
         html: content
       };

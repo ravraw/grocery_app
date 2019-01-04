@@ -36,10 +36,9 @@ class CheckoutForm extends Component {
         body: JSON.stringify({
           description: "a new purchase!",
           token: "tok_visa",
-          orderId: 11,
-          // amount: parseInt(this.props.total),
-          amount: 1111,
-          customer: "Ying Dong"
+          amount: parseInt(this.props.total),
+          // amount: 1111,
+          email: "dongyingname@yahoo.com"
         })
       });
       if (response.ok) {
@@ -77,7 +76,7 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    console.log("PARAMS FROM THE CHECKOUTFORM", this.props);
+    console.log("PARAMS FOR THE CHECKOUTFORM", this.props);
     // if (this.state.complete) return <h1>Purchase Complete</h1>;
     // console.log(this.props.deliveryDate);
     // console.log(this.props.deliveryTime);

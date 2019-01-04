@@ -26,14 +26,14 @@ app.use(cors());
 app.use(knexLogger(knex));
 app.use(require("body-parser").text());
 
+//call routes that handles Stripe payment, twilio messages, and nodemailer email.
 routes(app);
 
+//initiate ApolloServer
 const typeDefs = gql`
   ${fs.readFileSync(__dirname.concat("/schema.graphql"), "utf8")}
 `;
 const pubSub = new PubSub();
-
-//initiate ApolloServer
 const server = new ApolloServer({
   typeDefs,
   resolvers: {

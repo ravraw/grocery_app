@@ -38,7 +38,7 @@ class Checkout extends Component {
   }
   // }
   render(props) {
-    console.log("PROPS FROM CHECKOUT ---", this.props.location.products);
+    console.log("PROPS FOR CHECKOUT ---", this.props.location.products);
     const storeName = this.props.location.storeName;
     const total = Number(this.props.match.params.total);
     const total1 = total.toFixed(2);
