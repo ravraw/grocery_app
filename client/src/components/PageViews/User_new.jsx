@@ -53,8 +53,8 @@ class User_new extends Component {
     const confirmError = state.confirmPassword.error;
 
     const noError = !emailError && !passwordError && !confirmError;
-    console.log("state", this.state);
-    console.log("noErrror?", noError);
+    // console.log("state", this.state);
+    // console.log("noErrror?", noError);
     if (noError) {
       //fetch new user data to the database
 
@@ -67,9 +67,9 @@ class User_new extends Component {
           password: passwordValue
         })
       }).then(response => {
-        console.log("response", response);
-        if (response.ok) console.log("Registraiton Complete!");
-        console.log();
+        // console.log("response", response);
+        if (response.ok) console.log("Registraton Complete!");
+        // console.log(response );
         // if (response.data.msg === "success") {
         //   alert("Message Sent.");
 

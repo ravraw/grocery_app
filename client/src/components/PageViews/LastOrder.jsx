@@ -30,7 +30,7 @@ class LastOrder extends Component {
       })
     }).then(res => {
       res.json().then(data => {
-        console.log("data", data);
+        // console.log("data", data);
         const { shortestDistance, shortestAddress } = data;
         // console.log("shortestDistance", shortestDistance);
         // console.log("shortestAddress", shortestAddress);
@@ -46,7 +46,7 @@ class LastOrder extends Component {
     this.getDistances();
   }
   render() {
-    console.log("lastOrder", this.props.location.lastOrder);
+    // console.log("lastOrder", this.props.location.lastOrder);
     const {
       deliveryDate,
       deliveryTime,

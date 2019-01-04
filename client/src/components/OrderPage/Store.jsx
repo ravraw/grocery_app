@@ -13,13 +13,10 @@ class Store extends Component {
   // }
 
   render() {
-    console.log("FROM STORE COMPONENT:", this.props);
+    // console.log("FROM STORE COMPONENT:", this.props);
     const productList = this.props.storeProducts.map(product => {
-      return (
-        <React.Fragment>
-          <CompareItem product={product} />
-        </React.Fragment>
-      );
+      // console.log("Product", product);
+      return <CompareItem key={product.id} product={product} />;
     });
     return (
       <div className="store_wrapper">

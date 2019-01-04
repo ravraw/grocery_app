@@ -1,38 +1,23 @@
-import React, { Component } from 'react';
-// apollo client
-import { ApolloProvider } from 'react-apollo';
-//import ApolloClient from 'apollo-boost';
-import ApolloClient from 'apollo-client';
-// Setup the network "links"
-// import { WebSocketLink } from 'apollo-link-ws';
-// import { HttpLink } from 'apollo-link-http';
-// import { split } from 'apollo-link';
-// import { getMainDefinition } from 'apollo-utilities';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { ApolloLink, split } from 'apollo-link';
-import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
+import React, { Component } from "react";
+import { ApolloProvider } from "react-apollo";
+import ApolloClient from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { HttpLink } from "apollo-link-http";
+import { ApolloLink, split } from "apollo-link";
+import { WebSocketLink } from "apollo-link-ws";
+import { getMainDefinition } from "apollo-utilities";
 
-//
-import './App.scss';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import "./App.scss";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { withRouter } from "react-router";
 
-// componets
-import Header from './components/Layout/Header';
-import Main from './components/Layout/Main';
-import Footer from './components/Layout/Footer';
-
-// Apollo client setup
-// const client = new ApolloClient({
-//   uri: 'http://localhost:4000/graphql'
-// });
+import Header from "./components/Layout/Header";
+import Main from "./components/Layout/Main";
+import Footer from "./components/Layout/Footer";
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql'
+  uri: "http://localhost:4000/graphql"
 });
 
 // Create a WebSocket link:
@@ -43,31 +28,10 @@ const wsLink = new WebSocketLink({
   }
 });
 
-// const client = new ApolloClient({
-//   link: ApolloLink.from([
-//     onError(({ graphQLErrors, networkError }) => {
-//       if (graphQLErrors)
-//         graphQLErrors.map(({ message, locations, path }) =>
-//           console.log(
-//             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-//           )
-//         );
-//       if (networkError) console.log(`[Network error]: ${networkError}`);
-//     }),
-//     // new HttpLink({
-//     //   uri: 'http://localhost:4000/graphql',
-//     //   credentials: 'same-origin'
-//     // })
-//     httpLink,
-//     wsLink
-//   ]),
-//   cache: new InMemoryCache()
-// });
 const link = split(
-  // split based on operation type
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query);
-    return kind === 'OperationDefinition' && operation === 'subscription';
+    return kind === "OperationDefinition" && operation === "subscription";
   },
   wsLink,
   httpLink
@@ -81,14 +45,7 @@ const client = new ApolloClient({
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      current_user: {
-        //session['user_id']?
-        //session['user_email']?
-        id: 1,
-        email: 'imbirdy@yahoo.com'
-      }
-    };
+    this.state = {};
   }
 
   render() {

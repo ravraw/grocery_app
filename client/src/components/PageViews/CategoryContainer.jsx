@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { getCategoryProductsQuery } from '../../queries/queries';
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { getCategoryProductsQuery } from "../../queries/queries";
 
-import Product from '../Product';
-import Sidebar from '../Sidebar';
+import Product from "../Product";
+import Sidebar from "../Sidebar";
 
 class Category_show extends Component {
   displayProducts() {
@@ -36,7 +36,7 @@ class Category_show extends Component {
 // export default Category_show;
 export default graphql(getCategoryProductsQuery, {
   options: props => {
-    console.log('from props:', props);
+    // console.log('from props:', props);
     return { variables: { id: props.match.params.id } };
   }
 })(Category_show);
