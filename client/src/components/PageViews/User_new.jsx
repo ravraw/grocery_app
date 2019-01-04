@@ -68,8 +68,8 @@ class User_new extends Component {
         })
       }).then(response => {
         console.log("response", response);
-        if (response.ok) console.log("Registraiton Complete!");
-        console.log();
+        if (response.ok) console.log("Registraton Complete!");
+        // console.log(response );
         // if (response.data.msg === "success") {
         //   alert("Message Sent.");
 

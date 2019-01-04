@@ -27,52 +27,6 @@ const authToken = "a4213c0a7d60fe51572089a36504fb34";
 const client = require("twilio")(accountSid, authToken);
 
 app.use(require("body-parser").text());
-const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
-const transport = {
-  host: "smtp.gmail.com",
-  auth: {
-    user: "cross.aisle.app@gmail.com",
-    pass: "1234567890Kk"
-  }
-};
-const transporter = nodemailer.createTransport(transport);
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(
-      "Server is ready to send messages from cross.aisle.app@gmail.com!"
-    );
-  }
-});
-app.post("/register", async (req, res) => {
-  const { email } = JSON.parse(req.body);
-
-  console.log("email", email);
-  const line1 = `<h2>Welcome to Cross Aisle!</h2></br>`;
-  const line2 = "<h2>Your registration is successful.</h2></br>";
-  const line3 =
-    "<h2>Now you can start ordering groceries from anywhere.</h2></br>";
-  const line4 = "<h1><a href='http://localhost:3000'>Cross Aisle</a></h1>";
-  const content = line1 + line2 + line3 + line4;
-  const mail = {
-    from: "cross.aisle.app@gmail.com",
-    to: email,
-    subject: "Welcome to Cross Aisle!",
-    html: content
-  };
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.status(400).send("Failed to send email!!");
-    } else {
-      res.status(200).send("Registration confirmation has been sent");
-    }
-  });
-  if (email && password) {
-    res.status(200).send("Status Code 200!! Registration succeeded!!!");
-  }
-});
 
 app.post("/charge", async (req, res) => {
   console.log("req.body", req.body);
@@ -167,20 +121,13 @@ app.post("/charge", async (req, res) => {
     res.status(400).end();
   }
 });
-app.post("/register", async (req, res) => {
-  const { email, password, username } = JSON.parse(req.body);
-  console.log("email", email);
-  console.log("password", password);
-  console.log("username", username);
 
-  const hashPass = bcrypt.hashSync(password, 15);
-  console.log("hashed Password", hashPass);
-  if (hashPass) {
-    res.status(200).send("Status Code 200!! Registration succeeded!!!");
-  }
+const registerCallback = require("./callbacks/registerCallback.js");
+app.post("/register", async (req, res) => {
+  registerCallback(req, res);
 });
 
-const distanceCallback = require("./callback/distanceCallback.js");
+const distanceCallback = require("./callbacks/distanceCallback.js");
 app.post("/distances", async (req, res) => {
   distanceCallback(req, res);
 });
