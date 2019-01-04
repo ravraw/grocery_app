@@ -13,9 +13,9 @@ class Store extends Component {
   // }
 
   render() {
-    console.log("FROM STORE COMPONENT:", this.props);
+    // console.log("FROM STORE COMPONENT:", this.props);
     const productList = this.props.storeProducts.map(product => {
-      console.log("Product", product);
+      // console.log("Product", product);
       return <CompareItem key={product.id} product={product} />;
     });
     return (

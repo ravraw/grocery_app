@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
-import { getProductQuery, addCartItemMutation } from '../../queries/queries';
+import React, { Component } from "react";
+import { graphql, compose } from "react-apollo";
+import { getProductQuery, addCartItemMutation } from "../../queries/queries";
 
 class Product_show extends Component {
   constructor() {
@@ -10,7 +10,7 @@ class Product_show extends Component {
 
   displayProducts() {
     let data = this.props.data;
-    console.log('data from category_show', data);
+    // console.log('data from category_show', data);
     if (data.loading) {
       return <div>Loading Products...</div>;
     } else {
@@ -25,7 +25,7 @@ class Product_show extends Component {
         <img
           src={currentProduct.image}
           alt="dummy"
-          style={{ height: '35rem' }}
+          style={{ height: "35rem" }}
         />
         <h2>{currentProduct.name}</h2>
         <h2>Price: ${currentProduct.price}</h2>
@@ -43,9 +43,9 @@ class Product_show extends Component {
 export default compose(
   graphql(getProductQuery, {
     options: props => {
-      console.log('from props:', props);
+      // console.log('from props:', props);
       return { variables: { id: props.match.params.id } };
     }
   }),
-  graphql(addCartItemMutation, { name: 'addCartItemMutation' })
+  graphql(addCartItemMutation, { name: "addCartItemMutation" })
 )(Product_show);

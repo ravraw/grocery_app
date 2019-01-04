@@ -48,7 +48,6 @@ class CheckoutForm extends Component {
           .addOrderMutation({ variables: { user_id } })
           .then(data => {
             this.props.products.map(product => {
-              console.log(typeof product.price);
               this.props.addOrderItemMutation({
                 variables: {
                   product_id: product.id,
@@ -74,7 +73,7 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    console.log("PARAMS FOR THE CHECKOUTFORM", this.props);
+    // console.log("PARAMS FOR THE CHECKOUTFORM", this.props);
     const {
       deliveryDate,
       deliveryTime,

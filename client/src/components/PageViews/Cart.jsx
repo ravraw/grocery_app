@@ -19,7 +19,7 @@ class Cart extends Component {
   getMyLocation() {}
 
   componentDidMount() {
-    console.log("REFETCH----", this.props);
+    // console.log("REFETCH----", this.props);
     this.props.data.refetch();
     // this.getDistances();
     // this.getMyLocation();
@@ -27,13 +27,13 @@ class Cart extends Component {
 
   displayCart() {
     let data = this.props.data;
-    console.log("PROPS FROM CART --", this.props.data.shoppingCart);
+    // console.log("PROPS FROM CART --", this.props.data.shoppingCart);
 
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
       return data.shoppingCart.map(product => {
-        console.log("PRODUCT FROM CART", product);
+        // console.log("PRODUCT FROM CART", product);
         return (
           <CartItem
             refetch={data.refetch}
@@ -50,7 +50,7 @@ class Cart extends Component {
     let data = this.props.data;
     if (!data.loading) {
       const productsProps = data.shoppingCart;
-      console.log("productsProps", productsProps);
+      // console.log("productsProps", productsProps);
       return (
         <Link to={{ pathname: `/order`, products: productsProps }}>
           Compare Prices

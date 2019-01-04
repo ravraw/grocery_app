@@ -11,7 +11,7 @@ class OrderPage extends Component {
     this.handleCheckout = this.handleCheckout.bind(this);
   }
   handleCheckout(total) {
-    console.log("totalamount", total);
+    // console.log("totalamount", total);
     this.setState({ total: total });
     this.setState({ redirect: true });
 
@@ -20,7 +20,7 @@ class OrderPage extends Component {
 
   displayStores() {
     const data = this.props.data;
-    console.log("DATA FROM ORDER PAGE", this.props);
+    // console.log("DATA FROM ORDER PAGE", this.props);
     const products = this.props.location.products; //products from cart, which are cd of.
     const quantities = [];
     const namesOfComparedProducts = products.map(product => {
@@ -45,7 +45,7 @@ class OrderPage extends Component {
       data.products.map((product, index) => {
         let quantityIndex = Math.floor(index / 2);
         if (product.store.id === "1") {
-          console.log("store1");
+          // console.log("store1");
           storeWiseProducts.store1.push({
             ...product,
             quantity: quantities[quantityIndex]
@@ -53,7 +53,7 @@ class OrderPage extends Component {
         }
 
         if (product.store.id === "2") {
-          console.log("store2");
+          // console.log("store2");
           storeWiseProducts.store2.push({
             ...product,
             quantity: quantities[quantityIndex]

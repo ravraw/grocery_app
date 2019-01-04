@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { getSearchResults } from '../../queries/queries';
-import Product from '../Product';
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { getSearchResults } from "../../queries/queries";
+import Product from "../Product";
 class Products extends Component {
   // componentDidMount() {
   //   this.props.refetch();
@@ -30,10 +30,10 @@ class Products extends Component {
 
 export default graphql(getSearchResults, {
   options: props => {
-    console.log(
-      'this gets called from props:',
-      JSON.stringify(props.match.params.searchPath)
-    );
+    // console.log(
+    //   'this gets called from props:',
+    //   JSON.stringify(props.match.params.searchPath)
+    // );
     return { variables: { query: props.match.params.searchPath } };
   }
 })(Products);
