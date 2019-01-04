@@ -29,7 +29,6 @@ class CheckoutForm extends Component {
       total
     } = this.props;
     if (deliveryDate && deliveryTime && deliveryAddress) {
-      // let { token } = await this.props.stripe.createToken({ name: "Name" });
       let response = await fetch("http://localhost:4000/charge", {
         method: "POST",
         headers: { "Content-Type": "text/plain" },

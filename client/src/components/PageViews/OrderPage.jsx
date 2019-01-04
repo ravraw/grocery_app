@@ -21,12 +21,12 @@ class OrderPage extends Component {
   displayStores() {
     const data = this.props.data;
     console.log("DATA FROM ORDER PAGE", this.props);
-    const products = this.props.location.products; //products from cart, which are compared of.
+    const products = this.props.location.products; //products from cart, which are cd of.
     const quantities = [];
     const namesOfComparedProducts = products.map(product => {
       quantities.push(product.quantity);
       return (
-        <div>
+        <div key={product.id.toString()}>
           <img
             src={`${product.image}`}
             alt="some"
@@ -67,11 +67,15 @@ class OrderPage extends Component {
         return acc + cur.price * quantities[index];
       }, 0);
       arr.push(
-        <Store storeProducts={storeWiseProducts[store]} total={total} />
+        <Store
+          key={storeWiseProducts[store][0].store.id}
+          storeProducts={storeWiseProducts[store]}
+          total={total}
+        />
       );
     }
     return [
-      <div className="store_wrapper">
+      <div key="1" className="store_wrapper">
         <div className="compaired_products">
           <h2>Items</h2>
           {namesOfComparedProducts}
