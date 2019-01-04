@@ -180,8 +180,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// const distance = require("google-distance-matrix");
-const distanceCallback = require("./callback/distanceMatrix.js");
+const distanceCallback = require("./callback/distanceCallback.js");
 app.post("/distances", async (req, res) => {
   distanceCallback(req, res);
 });
