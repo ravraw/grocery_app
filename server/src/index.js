@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { ApolloServer, gql, PubSub } = require('apollo-server-express');
 const http = require('http');
+const jwt = require('jsonwebtoken');
 
 const PORT = 4000;
 const express = require('express');
@@ -129,6 +130,20 @@ const Department = require('./resolvers/Department');
 const Category = require('./resolvers/Category');
 const Product = require('./resolvers/Product');
 
+//auth
+const SECRET = process.env.HASH_SECRET;
+const addUser = async req => {
+  const token = req.headers.authorization;
+  console.log('TOKEN', token);
+  try {
+    const user = await jwt.verify(token, SECRET);
+  } catch (err) {
+    console.log(err.message);
+  }
+  req.next();
+};
+app.use(addUser);
+
 const server = new ApolloServer({
   typeDefs,
   resolvers: {
@@ -142,9 +157,11 @@ const server = new ApolloServer({
   },
   context: {
     knex,
-    pubSub
+    pubSub,
+    SECRET
   }
 });
+
 server.applyMiddleware({
   app
 });

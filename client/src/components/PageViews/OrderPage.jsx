@@ -26,15 +26,19 @@ class OrderPage extends Component {
     const namesOfComparedProducts = products.map(product => {
       quantities.push(product.quantity);
       return (
-        <div>
-          <img
-            src={`${product.image}`}
-            alt="some"
-            style={{ height: '50px', width: '50px' }}
-          />
-          <p>{product.name}</p>
-          <p>{product.quantity}</p>
-          <p>{product.description}</p>
+        <div className="compaired_product">
+          <div className="compaired_product__img">
+            <img
+              src={`${product.image}`}
+              alt="some"
+              style={{ height: '50px', width: '50px' }}
+            />
+          </div>
+          <div className="compaired_product__details">
+            <p>{product.name}</p>
+            <p>Qty: {product.quantity}</p>
+            <p>{product.description}</p>
+          </div>
         </div>
       );
     });

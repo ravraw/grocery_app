@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import { loginUserMutation } from '../../queries/queries';
 
 class Login extends Component {
   constructor() {
@@ -7,6 +9,7 @@ class Login extends Component {
     this.state = {
       //should use fetched Cart data from database; now uses hardcoded cartProducts
       // cartProducts: cartProducts
+      loading: true,
       redirect: false
     };
 
@@ -15,11 +18,26 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({
-      redirect: true
-    });
-    // event.preventDefault();
-    // console.log('submitted!!adkasdk;naslkdn;askdnaksldn;ldnslkand;lkasndl;ksandsakl;nsakldns;aldnsklnasl;kdnsaldasd');
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+    // console.log('FROM LOGIN ', { email, password })
+    this.props.history.push('/');
+    this.props
+      .loginUserMutation({
+        variables: {
+          email,
+          password
+        }
+      })
+      .then(data => {
+        //console.log('FROM RES', res);
+        if (data) {
+          this.setState({ redirect: true });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -28,7 +46,7 @@ class Login extends Component {
     }
     return (
       <div className="login_container">
-        <form className="login_form">
+        <form className="login_form" onSubmit={this.handleSubmit}>
           <label>Login</label>
           <input type="text" name="email" placeholder="Email " />
           <input type="text" name="password" placeholder="Password" />
@@ -36,7 +54,7 @@ class Login extends Component {
             className="form_btn"
             type="submit"
             value="Submit"
-            onClick={this.handleSubmit}
+            // onClick={this.handleSubmit}
           />
         </form>
       </div>
@@ -44,4 +62,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default graphql(loginUserMutation, { name: 'loginUserMutation' })(Login);
