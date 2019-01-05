@@ -11,7 +11,10 @@ class Order extends Component {
     this.state = {};
 
     // this.displayProducts = this.displayProducts.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
+
+  handleClick(event) {}
   // displayProducts() {
   //   const products = this.props.products;
   //   const userId = this.props.userId;
@@ -54,7 +57,7 @@ class Order extends Component {
           <h3>Delivery Coming From: {storeAddress}</h3>
         </div>
         <div>
-          <button>Details</button>
+          <button onClick={this.handleClick}>Details</button>
         </div>
       </div>
     );
