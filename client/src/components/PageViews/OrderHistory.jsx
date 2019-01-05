@@ -1,5 +1,6 @@
 import Order from "../OrderHistory/Order.jsx";
 import React, { Component } from "react";
+import NavigationBar from "../NavigationBar.jsx";
 const userId = 12;
 const email = "dongyingname@yahoo.com";
 const orders = [
@@ -8,7 +9,10 @@ const orders = [
     distance: "15 miles",
     deliveryAddress: "1111 8st SE, Calgary, Alberta,Canada",
     deliveryTime: "10:00 - 11:00",
+    delieveryFee: "5",
+    gst: "10",
     total: "100",
+    subtotal: "90",
     userId: "1",
     email: "hahaha@yahoo.com",
     orderTime: "Decemeber 12th,2018",
@@ -46,7 +50,10 @@ const orders = [
     deliveryAddress: "1111 8st SE, Calgary, Alberta,Canada",
     deliveryTime: "10:00 - 11:00",
     total: "100",
+    subtotal: "90",
     userId: "1",
+    gst: "10",
+
     email: "hahaha@yahoo.com",
     orderTime: "Decemeber 12th,2018",
     storeAddress: "9999 8st SW,Calgary,Alberta,Canada",
@@ -79,6 +86,11 @@ const orders = [
   }
 ];
 class OrderHistory extends Component {
+  constructor() {
+    super();
+    this.state = {};
+    this.displayOrder = this.displayOrder.bind(this);
+  }
   displayOrder() {
     return orders.map(order => {
       return <Order order={order} />;
@@ -86,10 +98,13 @@ class OrderHistory extends Component {
   }
   render() {
     return (
-      <div>
-        <h2>Your Order History:</h2>
-        <div>{this.displayOrder()}</div>
-      </div>
+      <React.Fragment>
+        <NavigationBar />
+        <div>
+          <h2>Your Order History:</h2>
+          <div>{this.displayOrder()}</div>
+        </div>
+      </React.Fragment>
     );
   }
 }
