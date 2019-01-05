@@ -8,6 +8,11 @@ const orders = [
     distance: "15 miles",
     deliveryAddress: "1111 8st SE, Calgary, Alberta,Canada",
     deliveryTime: "10:00 - 11:00",
+    total: "100",
+    userId: "1",
+    email: "hahaha@yahoo.com",
+    orderTime: "Decemeber 12th,2018",
+    storeAddress: "9999 8st SW,Calgary,Alberta,Canada",
     products: [
       {
         image:
@@ -40,6 +45,11 @@ const orders = [
     distance: "15 miles",
     deliveryAddress: "1111 8st SE, Calgary, Alberta,Canada",
     deliveryTime: "10:00 - 11:00",
+    total: "100",
+    userId: "1",
+    email: "hahaha@yahoo.com",
+    orderTime: "Decemeber 12th,2018",
+    storeAddress: "9999 8st SW,Calgary,Alberta,Canada",
     products: [
       {
         image:
@@ -71,14 +81,7 @@ const orders = [
 class OrderHistory extends Component {
   displayOrder() {
     return orders.map(order => {
-      return (
-        <Order
-          id={order.id}
-          products={order.products}
-          userId={userId}
-          email={email}
-        />
-      );
+      return <Order order={order} />;
     });
   }
   render() {

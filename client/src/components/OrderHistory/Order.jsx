@@ -34,18 +34,28 @@ class Order extends Component {
       distance,
       deliveryAddress,
       deliveryTime,
-      products
-    } = this.props;
+      total,
+      userId,
+      email,
+      orderTime,
+      products,
+      storeAddress
+    } = this.props.order;
     return (
       <div>
-        <h1>Delivery Address: {deliveryAddress}</h1>
-        <h1>Order ID: {this.props.id}</h1>
-        <h1>Order ID: {this.props.id}</h1>
-        <h1>Order ID: {this.props.id}</h1>
-        <h1>Order ID: {this.props.id}</h1>
-        <h1>Order ID: {this.props.id}</h1>
+        <div>
+          <h1>Order ID: {id}</h1>
+          <h2>Time Ordered: {orderTime}</h2>
+          <h3>Total Amount Paid: {total}</h3>
+          <h3>Delivery Address: {deliveryAddress}</h3>
 
-        {/* <div>{this.displayProducts()}</div> */}
+          <h3>Delivery Time: {deliveryTime}</h3>
+          <h3>Delivery Distance: {distance}</h3>
+          <h3>Delivery Coming From: {storeAddress}</h3>
+        </div>
+        <div>
+          <button>Details</button>
+        </div>
       </div>
     );
   }
