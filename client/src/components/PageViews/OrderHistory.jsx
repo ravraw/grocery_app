@@ -1,10 +1,13 @@
-import Order from "../Account/Order";
+import Order from "../OrderHistory/Order.jsx";
 import React, { Component } from "react";
 const userId = 12;
 const email = "dongyingname@yahoo.com";
 const orders = [
   {
     id: 1,
+    distance: "15 miles",
+    deliveryAddress: "1111 8st SE, Calgary, Alberta,Canada",
+    deliveryTime: "10:00 - 11:00",
     products: [
       {
         image:
@@ -34,6 +37,9 @@ const orders = [
   },
   {
     id: 2,
+    distance: "15 miles",
+    deliveryAddress: "1111 8st SE, Calgary, Alberta,Canada",
+    deliveryTime: "10:00 - 11:00",
     products: [
       {
         image:
