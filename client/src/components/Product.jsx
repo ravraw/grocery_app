@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { graphql, compose } from "react-apollo";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { graphql, compose } from 'react-apollo';
 import {
   addCartItemMutation,
   deleteCartItemMutation,
   getCartQuery
-} from "../queries/queries";
+} from '../queries/queries';
 
 class Product extends Component {
   // let product_id =  this.props.product._typename === 'CartItem'
   //             ? this.props.product_id
   //             : this.props.product.id;
   onAdd() {
-    console.log("FROM ADD IN PRODUCTS ___", this.props.product);
+    console.log('FROM ADD IN PRODUCTS ___', this.props.product);
     this.props
       .addCartItemMutation({
         variables: {
@@ -27,7 +27,7 @@ class Product extends Component {
   }
 
   onDecrease() {
-    console.log("FROM UPDATE IN PRODUCTS ___", this.props);
+    console.log('FROM UPDATE IN PRODUCTS ___', this.props);
     this.props
       .addCartItemMutation({
         variables: {
@@ -83,24 +83,24 @@ class Product extends Component {
           <img
             src={image}
             alt="dummy"
-            style={{ height: "150px", width: "150px" }}
+            style={{ height: '150px', width: '150px' }}
           />
         </Link>
         <h4>{name}</h4>
-        <p> {description || "each"}</p>
+        <p> {description || 'each'}</p>
         <p>$ {price}</p>
-        {store ? <p>Store: {store.name}</p> : ""}
-        {quantity ? <p>Quantity: {quantity}</p> : ""}
-        {price ? <button onClick={this.onAdd.bind(this)}>Add</button> : ""}
+        {store ? <p>Store: {store.name}</p> : ''}
+        {quantity ? <p>Quantity: {quantity}</p> : ''}
+        {price ? <button onClick={this.onAdd.bind(this)}>Add</button> : ''}
         {quantity ? (
           <button onClick={this.onDecrease.bind(this)}>-</button>
         ) : (
-          ""
+          ''
         )}
         {quantity ? (
           <button onClick={this.onDelete.bind(this)}>DELETE</button>
         ) : (
-          ""
+          ''
         )}
       </div>
     );
@@ -108,6 +108,6 @@ class Product extends Component {
 }
 
 export default compose(
-  graphql(addCartItemMutation, { name: "addCartItemMutation" }),
-  graphql(deleteCartItemMutation, { name: "deleteCartItemMutation" })
+  graphql(addCartItemMutation, { name: 'addCartItemMutation' }),
+  graphql(deleteCartItemMutation, { name: 'deleteCartItemMutation' })
 )(Product);
