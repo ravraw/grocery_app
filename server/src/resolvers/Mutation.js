@@ -1,6 +1,64 @@
 const faker = require('faker');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const Mutation = {
+  // register a user
+  register(parent, args, { knex, pubSub }, info) {
+    const { email, username, password } = args.data;
+    console.log('FROM REGISTER', email, password);
+    return knex('users')
+      .where({ email })
+      .then(result => {
+        if (result[0]) {
+          throw new Error('email not available');
+        } else {
+          const hash = bcrypt.hashSync(password, 10);
+          return knex('users')
+            .returning('*')
+            .insert({ email, username, password: hash });
+        }
+      })
+      .then(result => result[0])
+      .catch(err => err);
+  },
+  // login a user
+  login(parent, args, { knex, SECRET }, info) {
+    const { email, password } = args.data;
+    return (
+      knex('users')
+        .where({ email })
+        .then(result => {
+          if (!result[0]) {
+            throw new Error('wrong email or password');
+          } else {
+            console.log('FROM LOGIN', result[0]);
+            const { id, email, username } = result[0];
+            const valid = bcrypt.compareSync(password, result[0].password);
+            console.log('IS VALID', valid);
+            if (!valid) {
+              throw new Error('wrong email or password');
+            }
+            const token = jwt.sign(
+              {
+                user: {
+                  id,
+                  email,
+                  username
+                }
+              },
+              SECRET,
+              { expiresIn: '7 days' }
+            );
+            console.log('TOKEN ', token);
+            return token;
+          }
+        })
+        //.then(token => token)
+        .catch(err => err)
+    );
+  },
+
   // addCartItem
   addCartItem(parent, args, { knex, pubSub }, info) {
     const { quantity, user_id, product_id } = args.data;

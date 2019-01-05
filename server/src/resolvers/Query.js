@@ -1,15 +1,21 @@
 const Query = {
   // users
-  users(parent, args, { knex }, info) {
+  getUser(parent, args, { knex, user }, info) {
     console.log('FROM RESOLVER - QUERY/USERS');
     console.log('users args:', args.id);
+    // if (!args.id) {
+    //   return knex.select('*').from('users');
+    // }
     if (!args.id) {
-      return knex.select('*').from('users');
+      return 'Please log-in';
     }
     //return knex('users').where('id', `%${args.id}%`);
     return knex('users')
-      .returning('*')
-      .where({ id: `${args.id}` });
+      .select('id', 'username', 'email')
+      .where({
+        id: `${args.id}`
+      })
+      .then(result => result[0]);
   },
   // stores
   stores(parent, args, { knex }, info) {
@@ -21,7 +27,7 @@ const Query = {
   },
   // departments
   departments(parent, args, { knex }, info) {
-    console.log('FROM RESOLVER - QUERY/DEPARTMENTS');
+    console.log('FROM RESOLVER  - QUERY/DEPARTMENTS');
     const { query, id } = args;
     if (query) {
       return knex('departments').where('name', 'like', `%${query}%`);

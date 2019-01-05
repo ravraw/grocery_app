@@ -11,7 +11,7 @@ class OrderPage extends Component {
     this.handleCheckout = this.handleCheckout.bind(this);
   }
   handleCheckout(total) {
-    // console.log("totalamount", total);
+    console.log("totalamount", total);
     this.setState({ total: total });
     this.setState({ redirect: true });
 
@@ -20,21 +20,25 @@ class OrderPage extends Component {
 
   displayStores() {
     const data = this.props.data;
-    // console.log("DATA FROM ORDER PAGE", this.props);
-    const products = this.props.location.products; //products from cart, which are cd of.
+    console.log("DATA FROM ORDER PAGE", this.props);
+    const products = this.props.location.products; //products from cart, which are compared of.
     const quantities = [];
     const namesOfComparedProducts = products.map(product => {
       quantities.push(product.quantity);
       return (
-        <div key={product.id.toString()}>
-          <img
-            src={`${product.image}`}
-            alt="some"
-            style={{ height: "50px", width: "50px" }}
-          />
-          <p>{product.name}</p>
-          <p>{product.quantity}</p>
-          <p>{product.description}</p>
+        <div className="compaired_product">
+          <div className="compaired_product__img">
+            <img
+              src={`${product.image}`}
+              alt="some"
+              style={{ height: "50px", width: "50px" }}
+            />
+          </div>
+          <div className="compaired_product__details">
+            <p>{product.name}</p>
+            <p>Qty: {product.quantity}</p>
+            <p>{product.description}</p>
+          </div>
         </div>
       );
     });

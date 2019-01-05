@@ -159,6 +159,25 @@ const getSearchResults = gql`
 `;
 
 // Mutations
+
+// register
+const registerUserMutation = gql`
+  mutation($email: String!, $username: String!, $password: String!) {
+    register(
+      data: { email: $email, username: $username, password: $password }
+    ) {
+      id
+      username
+      email
+    }
+  }
+`;
+// login
+const loginUserMutation = gql`
+  mutation($email: String!, $password: String!) {
+    login(data: { email: $email, password: $password })
+  }
+`;
 // used in Products component
 const addCartItemMutation = gql`
   mutation($quantity: Int!, $user_id: ID!, $product_id: ID!) {
@@ -237,6 +256,8 @@ export {
   getCartQuery,
   getCategoryProductsQuery,
   getProductQuery,
+  registerUserMutation,
+  loginUserMutation,
   addCartItemMutation,
   deleteCartItemMutation,
   getSearchResults,

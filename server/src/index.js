@@ -18,9 +18,23 @@ const User = require("./resolvers/User");
 const Department = require("./resolvers/Department");
 const Category = require("./resolvers/Category");
 const Product = require("./resolvers/Product");
+const jwt = require("jsonwebtoken");
+const SECRET = process.env.HASH_SECRET;
+const addUser = async req => {
+  const token = req.headers.authorization;
+  console.log("TOKEN", token);
+  try {
+    const user = await jwt.verify(token, SECRET);
+  } catch (err) {
+    console.log(err.message);
+  }
+  req.next();
+};
 
 //initiate express server
 const app = express();
+app.use(addUser);
+
 app.use(express.static("public"));
 app.use(cors());
 app.use(knexLogger(knex));
@@ -47,9 +61,11 @@ const server = new ApolloServer({
   },
   context: {
     knex,
-    pubSub
+    pubSub,
+    SECRET
   }
 });
+
 server.applyMiddleware({
   app
 });

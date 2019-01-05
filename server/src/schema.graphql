@@ -1,6 +1,6 @@
 type Query {
     # All with / without query
-    users(id:ID):[User!]!
+    getUser(id:ID):User!
     stores(query:String):[Store!]!
     departments(query:String,id:ID):[Department!]!
     categories(query:String,id:ID):[Category!]!
@@ -18,6 +18,8 @@ type Query {
 
 type Mutation {
     # shopping Cart
+    register(data:registerInput):User!
+    login(data:loginInput):String!
     addCartItem(data:AddCartItemInput):CartItem!
     deleteCartItem(data:DeleteCartItemInput):CartItem!
     emptyCart(user_id:ID!):[CartItem!]
@@ -57,17 +59,24 @@ input addOrderItemInput{
     price:Float!
     order_id:ID!
 }
-# input UpdateUserInput {
+input registerInput {
+    email: String!
+    username:String!
+    password:String!
+}
+input loginInput{
+    email:String!
+    password:String!
+}
+
+# type defs
+
+# type User {
+#     id: ID!
 #     email: String!
 #     password:String!
+#     shoppingCart:[Product!]!
 # }
-
-type User {
-    id: ID!
-    email: String!
-    password:String!
-    shoppingCart:[Product!]!
-}
 
 type Store{
     id:ID!
@@ -135,6 +144,16 @@ type OrderItem{
     price:Float!
     order_id:ID!
 }
+
+type User{
+    id:ID!
+    email:String!
+    username:String!
+    # password:String!
+}
+# type Token{
+#     token:String!
+# }
 
 
 
