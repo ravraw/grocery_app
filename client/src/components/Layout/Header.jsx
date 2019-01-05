@@ -37,7 +37,7 @@ class Header extends Component {
       return <span>0</span>;
     } else {
       // this.setState({ count: data.shoppingCart.length });
-      return <span>{data.shoppingCart.length}</span>;
+      return <span>{data.shoppingCart.length || 0}</span>;
     }
   }
 

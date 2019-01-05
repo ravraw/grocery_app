@@ -574,6 +574,11 @@ footer{
       border-radius:5px;
       margin:5px 0 5px 0;
       padding:10px;
+      .compaired_product{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+      }
      
       div{
         width:100%;

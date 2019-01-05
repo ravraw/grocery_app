@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { ApolloServer, gql, PubSub } = require('apollo-server-express');
 const http = require('http');
+const jwt = require('jsonwebtoken');
 
 const PORT = 4000;
 const express = require('express');
@@ -33,6 +34,55 @@ const client = require('twilio')(accountSid, authToken);
 
 app.use(require('body-parser').text());
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const transport = {
+  host: 'smtp.gmail.com',
+  auth: {
+    user: 'cross.aisle.app@gmail.com',
+    pass: '1234567890Kk'
+  }
+};
+const transporter = nodemailer.createTransport(transport);
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(
+      'Server is ready to send messages from cross.aisle.app@gmail.com!'
+    );
+  }
+});
+app.post('/register', async (req, res) => {
+  // console.log("req.body", req.body);
+  // const { email, password, username } = JSON.parse(req.body);
+  const { email } = JSON.parse(req.body);
+
+  console.log('email', email);
+  const line1 = `<h2>Welcome to Cross Aisle!</h2></br>`;
+  const line2 = '<h2>Your registration is successful.</h2></br>';
+  const line3 =
+    '<h2>Now you can start ordering groceries from anywhere.</h2></br>';
+  const line4 = "<h1><a href='http://localhost:3000'>Cross Aisle</a></h1>";
+  const content = line1 + line2 + line3 + line4;
+  const mail = {
+    from: 'cross.aisle.app@gmail.com',
+    to: email, //Change to email address that you want to receive messages on
+    subject: 'Welcome to Cross Aisle!',
+    html: content
+  };
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.status(400).send('Failed to send email!!');
+    } else {
+      res.status(200).send('Registration confirmation has been sent');
+    }
+  });
+  if (email && password) {
+    res.status(200).send('Status Code 200!! Registration succeeded!!!');
+
+    //send the user data into database
+  }
+});
 
 app.post('/charge', async (req, res) => {
   console.log('req.body', req.body);
@@ -72,6 +122,29 @@ app.post('/charge', async (req, res) => {
           .then(message => console.log('Message to the driver', message.sid))
           .done()
       );
+
+    console.log('status PLEASE', status);
+    if (status === 'succeeded') {
+      const line1 = `<h2>Thank you for your purchase in Cross Aisle!</h2></br>`;
+      const line2 = `<h2>Order ID: ${orderId}!</h2></br>`;
+      const line3 = `<h2>The total: ${amount}.</h2></br>`;
+      const line4 =
+        "<h2>Go to <a href='http://localhost:3000'>Cross Aisle</a> to see your order history</h2>";
+      const content = line1 + line2 + line3 + line4;
+      const mail = {
+        from: 'cross.aisle.app@gmail.com',
+        to: 'dongyingname@yahoo.com', //Change to email address that you want to receive messages on
+        subject: 'Order confirmation from Cross Aisle!',
+        html: content
+      };
+      transporter.sendMail(mail, (err, data) => {
+        if (err) {
+          res.status(400).send('Failed to send email!!');
+        } else {
+          res.status(200).send('Purchase confirmation has been sent');
+        }
+      });
+    }
     res.json({
       status
     });
@@ -120,6 +193,99 @@ app.post('/charge', async (req, res) => {
 //   }
 // });
 
+const stores = {
+  superstore: [
+    '5858 Signal Hill Centre SW, Calgary, Alberta, Canada',
+    '20 Heritage Meadows Way SE, Calgary, Alberta, Canada',
+    '3575 20 Ave NE, Calgary, Alberta, Canada',
+    '100 Country Village Rd NE, Calgary, Alberta, Canada',
+    '4700 130 Ave SE, Calgary, Alberta, Canada'
+  ],
+  walmart: [
+    '1212 37 St SW, Calgary, Alberta, Canada',
+    '9650 Macleod Trail, Calgary, Alberta, Canada',
+    '3800 Memorial Dr, Calgary, Alberta, Canada',
+    '1110 57 Ave NE, Calgary, Alberta, Canada',
+    '5005 Northland Dr NW, Calgary, Alberta, Canada',
+    '4705 130 Ave SE, Calgary, Alberta, Canada'
+  ]
+};
+var distance = require('google-distance-matrix');
+
+app.post('/distances', async (req, res) => {
+  // console.log("req.body", req.body);
+  const { deliveryAddress, storeName } = JSON.parse(req.body);
+  console.log('deliveryAddress', deliveryAddress);
+
+  var origins = [deliveryAddress];
+  var destinations = stores[storeName];
+
+  // var destinations = [walmart, superstore, saveonfood];
+
+  distance.key('AIzaSyD5tIgFoKnBfLJb5a0ao2CHcEYdYiQME_c');
+  distance.units('imperial');
+
+  distance.matrix(origins, destinations, function(err, distances) {
+    if (err) {
+      return console.log(err);
+    }
+    if (!distances) {
+      return console.log('no distances');
+    }
+    if (distances.status == 'OK') {
+      let shortestDistance = Infinity;
+      let shortestAddress = '';
+      const distanceArr = [];
+      for (var i = 0; i < origins.length; i++) {
+        for (var j = 0; j < destinations.length; j++) {
+          var origin = distances.origin_addresses[i];
+          var destination = distances.destination_addresses[j];
+          if (distances.rows[0].elements[j].status == 'OK') {
+            var distance = distances.rows[i].elements[j].distance.text;
+            var numberDistance = Number(distance.slice(0, -2));
+            if (shortestDistance > numberDistance) {
+              shortestDistance = numberDistance;
+              shortestAddress = destination;
+            }
+            console.log('distance', distance);
+            console.log('numberDistance', numberDistance);
+            console.log('shortestDistance', shortestDistance);
+
+            console.log(
+              'Distance from ' +
+                origin +
+                ' to ' +
+                destination +
+                ' is ' +
+                distance
+            );
+            distanceArr.push(
+              'Distance from ' +
+                origin +
+                ' to ' +
+                destination +
+                ' is ' +
+                distance
+            );
+          } else {
+            console.log(
+              destination + ' is not reachable by land from ' + origin
+            );
+          }
+        }
+      }
+      res.status(200).send({ shortestAddress, shortestDistance });
+    }
+  });
+  // const hashPass = bcrypt.hashSync(password, 15);
+  // console.log("hashed Password", hashPass);
+  // if (hashPass) {
+  //   res.status(200).send("Status Code 200!! Registration succeeded!!!");
+
+  //   //send the user data into database
+  // }
+});
+
 const faker = require('faker');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
@@ -128,6 +294,20 @@ const User = require('./resolvers/User');
 const Department = require('./resolvers/Department');
 const Category = require('./resolvers/Category');
 const Product = require('./resolvers/Product');
+
+//auth
+const SECRET = process.env.HASH_SECRET;
+const addUser = async req => {
+  const token = req.headers.authorization;
+  console.log('TOKEN', token);
+  try {
+    const user = await jwt.verify(token, SECRET);
+  } catch (err) {
+    console.log(err.message);
+  }
+  req.next();
+};
+app.use(addUser);
 
 const server = new ApolloServer({
   typeDefs,
@@ -142,9 +322,11 @@ const server = new ApolloServer({
   },
   context: {
     knex,
-    pubSub
+    pubSub,
+    SECRET
   }
 });
+
 server.applyMiddleware({
   app
 });
