@@ -70,7 +70,8 @@ class Header extends Component {
   // }
 
   render() {
-    // console.log("FROM HEADER ", this.props.data.shoppingCart);
+    let url = window.location.href;
+    let lastUrl = url.substr(url.lastIndexOf("/") + 1);
     this.props.data.refetch();
     if (!("webkitSpeechRecognition" in window)) {
       throw new Error(
@@ -126,6 +127,9 @@ class Header extends Component {
           <Link to={`/user/new`} className="registration_link">
             Register
           </Link>
+          <Link to={`/account`} className="account_link">
+            Account
+          </Link>
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
             <img
@@ -135,7 +139,14 @@ class Header extends Component {
             />
           </Link>
         </div>
-        <div>{/* <SpeechRecognition /> */}</div>
+        {lastUrl === "account" || lastUrl === "orderHistory" ? (
+          <div>
+            <Link to={`/account`}>Account Details</Link>
+            <Link to={`/orderHistory`}>Order History</Link>
+          </div>
+        ) : (
+          ""
+        )}
       </header>
     );
   }
