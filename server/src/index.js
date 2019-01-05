@@ -105,21 +105,6 @@ app.post('/charge', async (req, res) => {
     res.status(400).end();
   }
 });
-// app.post('/register', async (req, res) => {
-//   // console.log("req.body", req.body);
-//   const { email, password, username } = JSON.parse(req.body);
-//   console.log('email', email);
-//   console.log('password', password);
-//   console.log('username', username);
-
-//   const hashPass = bcrypt.hashSync(password, 15);
-//   console.log('hashed Password', hashPass);
-//   if (hashPass) {
-//     res.status(200).send('Status Code 200!! Registration succeeded!!!');
-
-//     //send the user data into database
-//   }
-// });
 
 const faker = require('faker');
 const Query = require('./resolvers/Query');
@@ -132,17 +117,20 @@ const Product = require('./resolvers/Product');
 
 //auth
 const SECRET = process.env.HASH_SECRET;
-const addUser = async req => {
-  const token = req.headers.authorization;
-  console.log('TOKEN', token);
-  try {
-    const user = await jwt.verify(token, SECRET);
-  } catch (err) {
-    console.log(err.message);
-  }
-  req.next();
-};
-app.use(addUser);
+// const addUser = (req, res, next) => {
+//   const token = req.headers.authorization;
+//   console.log('TOKEN', token);
+//   try {
+//     console.log('VERIFY', jwt.verify(token, SECRET));
+//     const { user } = jwt.verify(token, '123456ertyui');
+//     console.log('FROM REQUEST', user);
+//     req.user = user;
+//   } catch (err) {
+//     console.log('FROM CATCH', err.message);
+//   }
+//   req.next();
+// };
+// app.use(addUser);
 
 const server = new ApolloServer({
   typeDefs,
@@ -160,6 +148,13 @@ const server = new ApolloServer({
     pubSub,
     SECRET
   }
+  //,
+  // context: ({ req }) => ({
+  //   knex,
+  //   pubSub,
+  //   SECRET,
+  //   user: req.user
+  // })
 });
 
 server.applyMiddleware({

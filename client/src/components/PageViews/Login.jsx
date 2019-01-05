@@ -29,9 +29,11 @@ class Login extends Component {
           password
         }
       })
-      .then(data => {
-        //console.log('FROM RES', res);
-        if (data) {
+      .then(res => {
+        console.log('FROM RES', res.data.login);
+
+        if (res.data.login) {
+          window.localStorage.setItem('token', res.data.login);
           this.setState({ redirect: true });
         }
       })

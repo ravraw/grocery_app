@@ -9,7 +9,9 @@ class User_new extends Component {
       username: { value: '', error: false },
       email: { value: '', error: false },
       password: { value: '', error: false },
-      confirmPassword: { value: '', error: false }
+      confirmPassword: { value: '', error: false },
+      loading: true,
+      redirect: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,6 +26,7 @@ class User_new extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+
     //Regex validation: contains diget,lowercass and uppercase letter, no space, at least 10 characters.
     const validPassword = RegExp(
       /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{10,}$/
@@ -74,7 +77,7 @@ class User_new extends Component {
       //     email: emailValue,
       //     password: passwordValue
       //   })
-      // });
+      // }
 
       this.props
         .registerUserMutation({
@@ -91,6 +94,7 @@ class User_new extends Component {
         // });
         .then(result => {
           console.log('USER REGISTRATION', result);
+          this.props.history.push('/');
         });
     }
   }

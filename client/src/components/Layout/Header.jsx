@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { graphql, compose, Subscription } from 'react-apollo';
-import { getCartQuery, cartInfoSubscription } from '../../queries/queries';
+import {
+  getCartQuery,
+  cartInfoSubscription,
+  addCartItemMutation
+} from '../../queries/queries';
 import logo from '../../assets/images/logo.png';
 import cart from '../../assets/images/cart.svg';
 import loupe from '../../assets/images/loupe.png';
@@ -57,7 +61,21 @@ class Header extends Component {
       const transcript = e.results[0][0].transcript;
       console.log('Result!!!', transcript);
       console.log('event', event);
-      this.setState({ searchPath: transcript, redirect: true });
+      console.log('TO NUMBER', Number(transcript));
+      if (isNaN(Number(transcript))) {
+        this.setState({ searchPath: transcript, redirect: true });
+      } else {
+        this.props
+          .addCartItemMutation({
+            variables: {
+              quantity: 1,
+              user_id: 1, // hardcoded
+              product_id: Number(transcript)
+            }
+          })
+          .then(data => this.props.refetch())
+          .catch(err => console.log(err));
+      }
     };
     recognition.onspeechend = function() {
       recognition.stop();
@@ -154,5 +172,6 @@ export default compose(
       return { variables: { userId: 1 } };
     },
     name: 'cartInfoSubscription'
-  })
+  }),
+  graphql(addCartItemMutation, { name: 'addCartItemMutation' })
 )(Header);
