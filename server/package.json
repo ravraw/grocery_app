@@ -13,7 +13,7 @@
   "dependencies": {
     "apollo-server": "^2.2.6",
     "apollo-server-express": "^2.2.6",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
@@ -22,6 +22,7 @@
     "google-distance-matrix": "^1.1.1",
     "graphql": "^14.0.2",
     "graphql-subscriptions": "^1.0.0",
+    "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
     "knex-csv-seeder": "^0.4.1",
     "knex-logger": "^0.1.0",

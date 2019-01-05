@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { registerUserMutation } from '../../queries/queries';
 
 class User_new extends Component {
   constructor() {
@@ -56,21 +58,32 @@ class User_new extends Component {
     console.log('state', this.state);
     console.log('noErrror?', noError);
     if (noError) {
-      //fetch new user data to the database
+      // fetch('http://localhost:4000/register', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'text/plain' },
+      //   body: JSON.stringify({
+      //     username: usernameValue,
+      //     email: emailValue,
+      //     password: passwordValue
+      //   })
+      // });
 
-      //send email from backend
-      fetch('http://localhost:4000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({
-          email: emailValue,
-          password: passwordValue
+      this.props
+        .registerUserMutation({
+          variables: {
+            // username: usernameValue,
+            email: emailValue,
+            password: passwordValue
+          }
         })
-      }).then(response => {
-        console.log('response', response);
-        if (response.ok) console.log('Registraiton Complete!');
-        //then put user into session and redirect to home page
-      });
+        // .then(response => {
+        //   console.log('response', response);
+        //   if (response.ok) console.log('Registraiton Complete!');
+        //   //then put user into session and redirect to home page
+        // });
+        .then(result => {
+          console.log('USER REGISTRATION', result);
+        });
     }
   }
 
@@ -122,4 +135,6 @@ class User_new extends Component {
   }
 }
 
-export default User_new;
+export default graphql(registerUserMutation, { name: 'registerUserMutation' })(
+  User_new
+);
