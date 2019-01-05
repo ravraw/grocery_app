@@ -139,14 +139,6 @@ class Header extends Component {
             />
           </Link>
         </div>
-        {lastUrl === "account" || lastUrl === "orderHistory" ? (
-          <div>
-            <Link to={`/account`}>Account Details</Link>
-            <Link to={`/orderHistory`}>Order History</Link>
-          </div>
-        ) : (
-          ""
-        )}
       </header>
     );
   }

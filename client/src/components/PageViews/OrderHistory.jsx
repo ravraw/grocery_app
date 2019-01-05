@@ -1,5 +1,6 @@
 import Order from "../OrderHistory/Order.jsx";
 import React, { Component } from "react";
+import NavigationBar from "../NavigationBar.jsx";
 const userId = 12;
 const email = "dongyingname@yahoo.com";
 const orders = [
@@ -86,10 +87,13 @@ class OrderHistory extends Component {
   }
   render() {
     return (
-      <div>
-        <h2>Your Order History:</h2>
-        <div>{this.displayOrder()}</div>
-      </div>
+      <React.Fragment>
+        <NavigationBar />
+        <div>
+          <h2>Your Order History:</h2>
+          <div>{this.displayOrder()}</div>
+        </div>
+      </React.Fragment>
     );
   }
 }
