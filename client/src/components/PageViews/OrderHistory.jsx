@@ -86,6 +86,11 @@ const orders = [
   }
 ];
 class OrderHistory extends Component {
+  constructor() {
+    super();
+    this.state = {};
+    this.displayOrder = this.displayOrder.bind(this);
+  }
   displayOrder() {
     return orders.map(order => {
       return <Order order={order} />;
