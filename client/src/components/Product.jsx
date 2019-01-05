@@ -8,33 +8,29 @@ import {
 } from '../queries/queries';
 
 class Product extends Component {
-  // let product_id =  this.props.product._typename === 'CartItem'
-  //             ? this.props.product_id
-  //             : this.props.product.id;
   onAdd() {
-    console.log('FROM ADD IN PRODUCTS ___', this.props.product);
+    // console.log("FROM ADD IN PRODUCTS ___", this.props.product);
     this.props
       .addCartItemMutation({
         variables: {
           quantity: 1,
           user_id: 1, // hardcoded
           product_id: this.props.product.product_id || this.props.product.id
-        } //,
-        //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
+        }
       })
       .then(data => this.props.refetch())
       .catch(err => console.log(err));
   }
 
   onDecrease() {
-    console.log('FROM UPDATE IN PRODUCTS ___', this.props);
+    // console.log("FROM UPDATE IN PRODUCTS ___", this.props);
     this.props
       .addCartItemMutation({
         variables: {
           quantity: -1,
           user_id: 1, // hardcoded
           product_id: this.props.product.product_id
-        } //,
+        }
         //refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
       })
       .then(data => this.props.refetch())
@@ -42,7 +38,6 @@ class Product extends Component {
   }
 
   onDelete() {
-    // console.log('PROPS FROM DELETE PRODUCT', this.props);
     this.props
       .deleteCartItemMutation({
         variables: {
@@ -55,8 +50,6 @@ class Product extends Component {
       .catch(err => console.log(err));
   }
   render() {
-    const data = this.props.data;
-    // console.log('FROM PRODUCT', this.props);
     const {
       id,
       name,
@@ -66,17 +59,6 @@ class Product extends Component {
       image,
       store
     } = this.props.product;
-    // const { id: store_id, name: store_name } = store;
-    // console.log(
-    //   "from product -----",
-    //   id,
-    //   name,
-    //   description,
-    //   price,
-    //   image
-    //   // store_id,
-    //   // store_name
-    // );
     return (
       <div key={id} className="product">
         <Link to={`/product/${id}/show`}>

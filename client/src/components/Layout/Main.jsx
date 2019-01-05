@@ -15,6 +15,8 @@ import Login from "../PageViews/Login";
 import Cart from "../PageViews/Cart";
 import Errors from "../PageViews/Errors";
 import LastOrder from "../PageViews/LastOrder";
+import Account from "../PageViews/Account";
+import OrderHistory from "../PageViews/OrderHistory";
 
 class Main extends Component {
   render() {
@@ -38,6 +40,8 @@ class Main extends Component {
           <Route path="/product/:id/show" component={Product_show} />
 
           <Route path="/department/:id/show" component={Department_show} />
+          <Route path="/account" component={Account} />
+          <Route path="/orderHistory" component={OrderHistory} />
 
           {/* <Route path="/user/:user_id/show" component={User_show} />
           <Route path="/login" component={Login} /> */}

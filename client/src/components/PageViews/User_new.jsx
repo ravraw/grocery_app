@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { registerUserMutation } from '../../queries/queries';
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { registerUserMutation } from "../../queries/queries";
 
 class User_new extends Component {
   constructor() {
     super();
     this.state = {
-      email: { value: '', error: false },
-      password: { value: '', error: false },
-      confirmPassword: { value: '', error: false }
+      email: { value: "", error: false },
+      password: { value: "", error: false },
+      confirmPassword: { value: "", error: false }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     const { value, name } = event.target;
-    if (name !== 'confirmPassword') {
+    if (name !== "confirmPassword") {
       this.setState({
         [name]: { value: value, error: false }
       });
@@ -37,17 +37,17 @@ class User_new extends Component {
     let confirmValue = state.confirmPassword.value;
 
     if (!validEmail.test(emailValue)) {
-      console.log(console.log('email Error!!!'));
-      this.setState({ email: { value: '', error: true } });
+      console.log(console.log("email Error!!!"));
+      this.setState({ email: { value: "", error: true } });
     }
     if (!validPassword.test(passwordValue)) {
-      console.log(console.log('Password Error!!!'));
-      this.setState({ password: { value: '', error: true } });
+      console.log(console.log("Password Error!!!"));
+      this.setState({ password: { value: "", error: true } });
     }
     const passwordMatch = passwordValue === confirmValue && passwordValue;
     if (passwordMatch) {
-      console.log(console.log('Confirm-Password Error!!!'));
-      this.setState({ confirmPassword: { value: '', error: true } });
+      console.log(console.log("Confirm-Password Error!!!"));
+      this.setState({ confirmPassword: { value: "", error: true } });
     }
 
     const emailError = state.email.error;
@@ -55,8 +55,8 @@ class User_new extends Component {
     const confirmError = state.confirmPassword.error;
 
     const noError = !emailError && !passwordError && !confirmError;
-    console.log('state', this.state);
-    console.log('noErrror?', noError);
+    // console.log("state", this.state);
+    // console.log("noErrror?", noError);
     if (noError) {
       // fetch('http://localhost:4000/register', {
       //   method: 'POST',
@@ -82,7 +82,7 @@ class User_new extends Component {
         //   //then put user into session and redirect to home page
         // });
         .then(result => {
-          console.log('USER REGISTRATION', result);
+          console.log("USER REGISTRATION", result);
         });
     }
   }
@@ -98,7 +98,7 @@ class User_new extends Component {
             onChange={this.handleChange}
             placeholder="Email"
           />
-          {this.state.email.error ? <div>Incorrect Email</div> : ''}
+          {this.state.email.error ? <div>Incorrect Email</div> : ""}
           <input
             type="text"
             name="password"
@@ -111,7 +111,7 @@ class User_new extends Component {
               one upper-case letter!
             </div>
           ) : (
-            ''
+            ""
           )}
 
           <input
@@ -123,7 +123,7 @@ class User_new extends Component {
           {this.state.confirmPassword.error ? (
             <div>Password and confirmPassword don't match!</div>
           ) : (
-            ''
+            ""
           )}
 
           <button className="form_btn" type="submit">
@@ -135,6 +135,6 @@ class User_new extends Component {
   }
 }
 
-export default graphql(registerUserMutation, { name: 'registerUserMutation' })(
+export default graphql(registerUserMutation, { name: "registerUserMutation" })(
   User_new
 );

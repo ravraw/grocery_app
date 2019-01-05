@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { graphql, compose, Subscription } from 'react-apollo';
-import { getCartQuery, cartInfoSubscription } from '../../queries/queries';
-import logo from '../../assets/images/logo.png';
-import cart from '../../assets/images/cart.svg';
-import loupe from '../../assets/images/loupe.png';
-import microphone from '../../assets/images/microphone.png';
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { graphql, compose, Subscription } from "react-apollo";
+import { getCartQuery, cartInfoSubscription } from "../../queries/queries";
+import logo from "../../assets/images/logo.png";
+import cart from "../../assets/images/cart.svg";
+import loupe from "../../assets/images/loupe.png";
+import microphone from "../../assets/images/microphone.png";
 // import webkitSpeechRecognition from "webkitSpeechRecognition";
 // var recognition = new webkitSpeechRecognition(); //get new instance
 
@@ -14,7 +14,7 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      searchPath: '/',
+      searchPath: "/",
       redirect: false,
       count: null
     };
@@ -24,7 +24,7 @@ class Header extends Component {
   }
   handleChange = event => {
     const path = event.target.value;
-    console.log('searchpath', path);
+    // console.log('searchpath', path);
     this.setState({ searchPath: path });
   };
   handleSubmit(event) {
@@ -50,13 +50,13 @@ class Header extends Component {
     recognition.continuous = false;
     recognition.start();
     recognition.onstart = function() {
-      console.log('Recieving research command!!!!!!');
+      console.log("Recieving search command!!!!!!");
     };
 
     recognition.onresult = e => {
       const transcript = e.results[0][0].transcript;
-      console.log('Result!!!', transcript);
-      console.log('event', event);
+      // console.log("Result!!!", transcript);
+      // console.log("event", event);
       this.setState({ searchPath: transcript, redirect: true });
     };
     recognition.onspeechend = function() {
@@ -70,9 +70,10 @@ class Header extends Component {
   // }
 
   render() {
-    console.log('FROM HEADER ', this.props.data.shoppingCart);
+    let url = window.location.href;
+    let lastUrl = url.substr(url.lastIndexOf("/") + 1);
     this.props.data.refetch();
-    if (!('webkitSpeechRecognition' in window)) {
+    if (!("webkitSpeechRecognition" in window)) {
       throw new Error(
         "This browser doesn't support speech recognition. Try Google Chrome."
       );
@@ -102,7 +103,7 @@ class Header extends Component {
             <img
               src={loupe}
               alt="search"
-              style={{ height: '35px', width: '35px' }}
+              style={{ height: "35px", width: "35px" }}
             />
           </button>
           <button
@@ -113,7 +114,7 @@ class Header extends Component {
             <img
               src={microphone}
               alt="speak"
-              style={{ height: '35px', width: '35px' }}
+              style={{ height: "35px", width: "35px" }}
             />
           </button>
           {/* <button type="button">Start</button> */}
@@ -126,16 +127,26 @@ class Header extends Component {
           <Link to={`/user/new`} className="registration_link">
             Register
           </Link>
+          <Link to={`/account`} className="account_link">
+            Account
+          </Link>
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
             <img
               src={cart}
               alt="delete"
-              style={{ height: '35px', width: '35px' }}
+              style={{ height: "35px", width: "35px" }}
             />
           </Link>
         </div>
-        <div>{/* <SpeechRecognition /> */}</div>
+        {lastUrl === "account" || lastUrl === "orderHistory" ? (
+          <div>
+            <Link to={`/account`}>Account Details</Link>
+            <Link to={`/orderHistory`}>Order History</Link>
+          </div>
+        ) : (
+          ""
+        )}
       </header>
     );
   }
@@ -153,6 +164,6 @@ export default compose(
       // console.log('from props:', props);
       return { variables: { userId: 1 } };
     },
-    name: 'cartInfoSubscription'
+    name: "cartInfoSubscription"
   })
 )(Header);

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import { getProductQuery } from '../../queries/queries';
-import Store from '../OrderPage/Store';
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { getProductQuery } from "../../queries/queries";
+import Store from "../OrderPage/Store";
 
 class OrderPage extends Component {
   constructor() {
     super();
-    this.state = { redirect: false, total: 0, email: 'useremail@yahoo.com' };
+    this.state = { redirect: false, total: 0, email: "useremail@yahoo.com" };
     this.displayStores = this.displayStores.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
   }
   handleCheckout(total) {
-    console.log('totalamount', total);
+    console.log("totalamount", total);
     this.setState({ total: total });
     this.setState({ redirect: true });
 
@@ -20,7 +20,7 @@ class OrderPage extends Component {
 
   displayStores() {
     const data = this.props.data;
-    console.log('DATA FROM ORDER PAGE', this.props);
+    console.log("DATA FROM ORDER PAGE", this.props);
     const products = this.props.location.products; //products from cart, which are compared of.
     const quantities = [];
     const namesOfComparedProducts = products.map(product => {
@@ -31,7 +31,7 @@ class OrderPage extends Component {
             <img
               src={`${product.image}`}
               alt="some"
-              style={{ height: '50px', width: '50px' }}
+              style={{ height: "50px", width: "50px" }}
             />
           </div>
           <div className="compaired_product__details">
@@ -48,16 +48,16 @@ class OrderPage extends Component {
     } else {
       data.products.map((product, index) => {
         let quantityIndex = Math.floor(index / 2);
-        if (product.store.id === '1') {
-          console.log('store1');
+        if (product.store.id === "1") {
+          // console.log("store1");
           storeWiseProducts.store1.push({
             ...product,
             quantity: quantities[quantityIndex]
           });
         }
 
-        if (product.store.id === '2') {
-          console.log('store2');
+        if (product.store.id === "2") {
+          // console.log("store2");
           storeWiseProducts.store2.push({
             ...product,
             quantity: quantities[quantityIndex]
@@ -71,11 +71,15 @@ class OrderPage extends Component {
         return acc + cur.price * quantities[index];
       }, 0);
       arr.push(
-        <Store storeProducts={storeWiseProducts[store]} total={total} />
+        <Store
+          key={storeWiseProducts[store][0].store.id}
+          storeProducts={storeWiseProducts[store]}
+          total={total}
+        />
       );
     }
     return [
-      <div className="store_wrapper">
+      <div key="1" className="store_wrapper">
         <div className="compaired_products">
           <h2>Items</h2>
           {namesOfComparedProducts}
@@ -94,7 +98,7 @@ class OrderPage extends Component {
 
 export default graphql(getProductQuery, {
   options: props => {
-    console.log('FROM PROPS IN ORDERPAGE QUERY:', props);
+    console.log("FROM PROPS IN ORDERPAGE QUERY:", props);
     return {
       variables: {
         selected: [
