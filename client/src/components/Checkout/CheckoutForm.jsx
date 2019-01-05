@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
-import { CardElement, injectStripe } from "react-stripe-elements";
-import { graphql, compose } from "react-apollo";
+import { CardElement, injectStripe } from 'react-stripe-elements';
+import { graphql, compose } from 'react-apollo';
 import {
   addOrderMutation,
   addOrderItemMutation,
   emptyCartMutation
-} from "../../queries/queries";
+} from '../../queries/queries';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -20,8 +20,11 @@ class CheckoutForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  async submit(ev) {
+  async submit(e) {
     const {
+      sub_total,
+      delivery_charge,
+      gst_total,
       deliveryDate,
       deliveryTime,
       deliveryAddress,
@@ -29,31 +32,43 @@ class CheckoutForm extends Component {
       total
     } = this.props;
     if (deliveryDate && deliveryTime && deliveryAddress) {
-      let response = await fetch("http://localhost:4000/charge", {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
+      let response = await fetch('http://localhost:4000/charge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
-          description: "a new purchase!",
-          token: "tok_visa",
+          description: 'a new purchase!',
+          token: 'tok_visa',
           amount: parseInt(this.props.total),
-          email: "dongyingname@yahoo.com" //needs to be replaced with user's email who is logged in
+          email: 'dongyingname@yahoo.com' //needs to be replaced with user's email who is logged in
         })
       });
       if (response.ok) {
-        console.log("Purchase Complete!");
+        console.log('Purchase Complete!');
         //add order
         // hard coded user
         const user_id = 1;
         this.props
-          .addOrderMutation({ variables: { user_id } })
-          .then(data => {
+          .addOrderMutation({
+            variables: {
+              user_id,
+              store: storeName,
+              delivery_address: deliveryAddress,
+              delivery_window: deliveryTime,
+              sub_total,
+              delivery_charge,
+              gst_total,
+              grand_total: total
+            }
+          })
+          .then(order => {
+            console.log('FROM CHECKOUT --- data', order.data.addOrder.id);
             this.props.products.map(product => {
               this.props.addOrderItemMutation({
                 variables: {
                   product_id: product.id,
                   quantity: product.quantity,
                   price: product.price,
-                  order_id: 1
+                  order_id: order.data.addOrder.id
                 }
               });
             });
@@ -64,11 +79,11 @@ class CheckoutForm extends Component {
           });
       }
     } else if (!deliveryDate) {
-      alert("Please choose a delivery Date!");
+      alert('Please choose a delivery Date!');
     } else if (!deliveryTime) {
-      alert("Please choose a delivery Time!");
+      alert('Please choose a delivery Time!');
     } else if (!deliveryAddress) {
-      alert("Please type a delivery Address!");
+      alert('Please type a delivery Address!');
     }
   }
 
@@ -79,18 +94,24 @@ class CheckoutForm extends Component {
       deliveryTime,
       storeName,
       total,
-      deliveryAddress
+      deliveryAddress,
+      sub_total,
+      delivery_charge,
+      gst_total
     } = this.props;
     if (this.state.redirect) {
       this.setState({ redirect: false });
       return (
         <Redirect
           to={{
-            pathname: "/LastOrder",
+            pathname: '/LastOrder',
             lastOrder: {
               deliveryDate,
               deliveryTime,
               storeName,
+              sub_total,
+              delivery_charge,
+              gst_total,
               total,
               deliveryAddress
             }
@@ -117,8 +138,8 @@ class CheckoutForm extends Component {
 
 export default injectStripe(
   compose(
-    graphql(addOrderMutation, { name: "addOrderMutation" }),
-    graphql(addOrderItemMutation, { name: "addOrderItemMutation" }),
-    graphql(emptyCartMutation, { name: "emptyCartMutation" })
+    graphql(addOrderMutation, { name: 'addOrderMutation' }),
+    graphql(addOrderItemMutation, { name: 'addOrderItemMutation' }),
+    graphql(emptyCartMutation, { name: 'emptyCartMutation' })
   )(CheckoutForm)
 );

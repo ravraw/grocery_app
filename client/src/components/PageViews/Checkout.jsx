@@ -79,12 +79,15 @@ class Checkout extends Component {
           <div className="example">
             <Elements>
               <CheckoutForm
-                total={allTotal}
                 products={this.props.location.products}
                 storeName={storeName}
                 deliveryTime={this.state.time}
                 deliveryDate={this.state.date}
                 deliveryAddress={this.state.address}
+                sub_total={total}
+                delivery_charge={deliveryFee}
+                gst_total={gst}
+                total={allTotal}
               />
             </Elements>
           </div>

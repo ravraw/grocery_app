@@ -16,6 +16,13 @@ exports.up = function(knex, Promise) {
         .integer('user_id')
         .references('id')
         .inTable('users');
+      table.string('store');
+      table.string('delivery_address');
+      table.string('delivery_window');
+      table.decimal('sub_total');
+      table.decimal('delivery_charge');
+      table.decimal('gst_total');
+      table.decimal('grand_total');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     });

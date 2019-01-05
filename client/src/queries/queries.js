@@ -189,6 +189,7 @@ const addCartItemMutation = gql`
   }
 `;
 // used in Products component
+
 const deleteCartItemMutation = gql`
   mutation($user_id: ID!, $product_id: ID!) {
     deleteCartItem(data: { user_id: $user_id, product_id: $product_id }) {
@@ -197,11 +198,37 @@ const deleteCartItemMutation = gql`
   }
 `;
 // add Order in CheckoutForm component
+// user_id, store, delivery_address, delivery_window, sub_total, delivery_charge, gst_total, grand_total;
 const addOrderMutation = gql`
-  mutation($user_id: ID!) {
-    addOrder(user_id: $user_id) {
+  mutation(
+    $user_id: ID!
+    $store: String!
+    $delivery_address: String!
+    $delivery_window: String!
+    $sub_total: Float!
+    $delivery_charge: Float!
+    $gst_total: Float!
+    $grand_total: Float!
+  ) {
+    addOrder(
+      user_id: $user_id
+      store: $store
+      delivery_address: $delivery_address
+      delivery_window: $delivery_window
+      sub_total: $sub_total
+      delivery_charge: $delivery_charge
+      gst_total: $gst_total
+      grand_total: $grand_total
+    ) {
       id
       user_id
+      store
+      delivery_address
+      delivery_window
+      sub_total
+      delivery_charge
+      gst_total
+      grand_total
     }
   }
 `;

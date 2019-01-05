@@ -5,6 +5,7 @@ type Query {
     departments(query:String,id:ID):[Department!]!
     categories(query:String,id:ID):[Category!]!
     products(query:String,id:ID,selected:[SelectedProducts]):[Product!]!
+    userOrders(id:ID!):[Order!]!
     # shoppingCart(query:String):[Product]!
     shoppingCart(id:ID):[CartItem!]!
     userCartItems(query:ID):[Product!]!
@@ -14,6 +15,8 @@ type Query {
     product:Product!
     cartItem:CartItem!
     store:Store!
+    order:Order!
+    orderItem:OrderItem!
 }
 
 type Mutation {
@@ -24,7 +27,14 @@ type Mutation {
     deleteCartItem(data:DeleteCartItemInput):CartItem!
     emptyCart(user_id:ID!):[CartItem!]
     updateCartItem(data:UpdateCartItemInput):CartItem!
-    addOrder(user_id:ID!):Order!
+    addOrder(user_id:ID!,
+    store: String!
+    delivery_address: String!
+    delivery_window: String!
+    sub_total: Float!
+    delivery_charge: Float!
+    gst_total: Float!
+    grand_total: Float!):Order!
     addOrderItem(data:addOrderItemInput):OrderItem!
     # removeCartItem(id: ID!): Product!
     # updateCartItem(id: ID!, data: UpdateCartItemInput!): Product!
@@ -135,6 +145,14 @@ type CartItem {
 type Order{
     id:ID!
     user_id:ID!
+    store:String!
+    delivery_address:String!
+    delivery_window:String!
+    sub_total:Float!
+    delivery_charge:Float!
+    gst_total:Float!
+    grand_total:Float!
+    orderItems:[OrderItem!]!
 }
 
 type OrderItem{
@@ -143,6 +161,8 @@ type OrderItem{
     quantity:Float!
     price:Float!
     order_id:ID!
+    name:String!
+
 }
 
 type User{

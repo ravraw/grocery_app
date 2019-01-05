@@ -109,6 +109,12 @@ const Query = {
         //.join('users', 'user_cart_items.user_id', 'users.id')
         .where('user_cart_items.user_id', args.id)
     );
+  },
+  //orders by currentUser
+  userOrders(parent, args, { knex }, info) {
+    return knex('user_orders')
+      .select('*')
+      .where('user_id', args.id);
   }
 };
 

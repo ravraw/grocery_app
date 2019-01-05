@@ -163,11 +163,29 @@ const Mutation = {
   },
   // add new order
   addOrder(parent, args, { knex }, info) {
-    console.log('FROM MUTATION - ADD ORDER');
-    const { user_id } = args;
+    console.log('FROM MUTATION - ADD ORDER', args);
+    const {
+      user_id,
+      store,
+      delivery_address,
+      delivery_window,
+      sub_total,
+      delivery_charge,
+      gst_total,
+      grand_total
+    } = args;
     return knex('user_orders')
       .returning('*')
-      .insert({ user_id })
+      .insert({
+        user_id,
+        store,
+        delivery_address,
+        delivery_window,
+        sub_total,
+        delivery_charge,
+        gst_total,
+        grand_total
+      })
       .then(result => result[0]);
   },
   // add OrderItems
