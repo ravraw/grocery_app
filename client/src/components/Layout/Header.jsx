@@ -130,6 +130,10 @@ class Header extends Component {
           <Link to={`/account`} className="account_link">
             Account
           </Link>
+          <Link to={`/orderHistory`} className="account_link">
+            Order History
+          </Link>
+
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
             <img
