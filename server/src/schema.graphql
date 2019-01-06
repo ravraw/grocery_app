@@ -162,7 +162,6 @@ type OrderItem{
     price:Float!
     order_id:ID!
     name:String!
-
 }
 
 type User{
