@@ -25,7 +25,7 @@ class Header extends Component {
   handleChange = event => {
     const path = event.target.value;
     // console.log('searchpath', path);
-    this.setState({ searchPath: path });
+    this.setState({ searchPath: "/products/" + path });
   };
   handleSubmit(event) {
     event.preventDefault();
@@ -57,7 +57,7 @@ class Header extends Component {
       const transcript = e.results[0][0].transcript;
       // console.log("Result!!!", transcript);
       // console.log("event", event);
-      this.setState({ searchPath: transcript, redirect: true });
+      this.setState({ searchPath: "/products/" + transcript, redirect: true });
     };
     recognition.onspeechend = function() {
       recognition.stop();
@@ -83,7 +83,7 @@ class Header extends Component {
     // var recognition = new webkitSpeechRecognition();
     if (this.state.redirect) {
       this.setState({ redirect: false });
-      return <Redirect to={`/products/${this.state.searchPath}`} />;
+      return <Redirect to={this.state.searchPath} />;
     }
     return (
       <header className="header">
