@@ -5,7 +5,7 @@ type Query {
     departments(query:String,id:ID):[Department!]!
     categories(query:String,id:ID):[Category!]!
     products(query:String,id:ID,selected:[SelectedProducts]):[Product!]!
-    userOrders(id:ID!):[Order!]!
+    userOrders(user_id:ID!):[Order!]!
     # shoppingCart(query:String):[Product]!
     shoppingCart(id:ID):[CartItem!]!
     userCartItems(query:ID):[Product!]!
@@ -152,6 +152,7 @@ type Order{
     delivery_charge:Float!
     gst_total:Float!
     grand_total:Float!
+    created_at:String!
     orderItems:[OrderItem!]!
 }
 
@@ -162,6 +163,7 @@ type OrderItem{
     price:Float!
     order_id:ID!
     name:String!
+    image:String!
 }
 
 type User{

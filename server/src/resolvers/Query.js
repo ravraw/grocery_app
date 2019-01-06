@@ -114,7 +114,7 @@ const Query = {
   userOrders(parent, args, { knex }, info) {
     return knex('user_orders')
       .select('*')
-      .where('user_id', args.id);
+      .where('user_id', args.user_id);
   }
 };
 

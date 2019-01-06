@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Product from "../Product";
-import CartItem from "../CartItem";
-import { graphql } from "react-apollo";
-import { getCartQuery } from "../../queries/queries";
-import { NavLink, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import Product from '../Product';
+import CartItem from '../CartItem';
+import { graphql } from 'react-apollo';
+import { getCartQuery } from '../../queries/queries';
+import { NavLink, Link } from 'react-router-dom';
 
 class Cart extends Component {
   constructor(props) {
@@ -32,17 +32,21 @@ class Cart extends Component {
     if (data.loading) {
       return <div>Loading Cart items...</div>;
     } else {
-      return data.shoppingCart.map(product => {
-        // console.log("PRODUCT FROM CART", product);
-        return (
-          <CartItem
-            refetch={data.refetch}
-            key={product.id}
-            onDelete={this.onDelete}
-            product={product}
-          />
-        );
-      });
+      return data.shoppingCart.length ? (
+        data.shoppingCart.map(product => {
+          // console.log("PRODUCT FROM CART", product);
+          return (
+            <CartItem
+              refetch={data.refetch}
+              key={product.id}
+              onDelete={this.onDelete}
+              product={product}
+            />
+          );
+        })
+      ) : (
+        <h1> Your Cart is empty !!!!!</h1>
+      );
     }
   }
 
@@ -51,10 +55,12 @@ class Cart extends Component {
     if (!data.loading) {
       const productsProps = data.shoppingCart;
       // console.log("productsProps", productsProps);
-      return (
+      return productsProps.length ? (
         <Link to={{ pathname: `/order`, products: productsProps }}>
           Compare Prices
         </Link>
+      ) : (
+        ''
       );
     }
   }
