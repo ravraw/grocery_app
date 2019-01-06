@@ -71,6 +71,7 @@ class Product extends Component {
         <h4>{name}</h4>
         <p> {description || 'each'}</p>
         <p>$ {price}</p>
+        <p># {id}</p>
         {store ? <p>Store: {store.name}</p> : ''}
         {quantity ? <p>Quantity: {quantity}</p> : ''}
         {price ? <button onClick={this.onAdd.bind(this)}>Add</button> : ''}

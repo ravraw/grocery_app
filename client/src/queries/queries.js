@@ -157,6 +157,29 @@ const getSearchResults = gql`
     }
   }
 `;
+// query userOrders
+const getUserOrders = gql`
+  query($user_id: ID!) {
+    userOrders(user_id: $user_id) {
+      id
+      user_id
+      store
+      delivery_address
+      delivery_window
+      sub_total
+      delivery_charge
+      gst_total
+      grand_total
+      created_at
+      orderItems {
+        name
+        quantity
+        price
+        image
+      }
+    }
+  }
+`;
 
 // Mutations
 
@@ -283,6 +306,7 @@ export {
   getCartQuery,
   getCategoryProductsQuery,
   getProductQuery,
+  getUserOrders,
   registerUserMutation,
   loginUserMutation,
   addCartItemMutation,
