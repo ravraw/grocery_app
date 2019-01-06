@@ -46,27 +46,37 @@ class LastOrder extends Component {
     this.getDistances();
   }
   render() {
-    // console.log("lastOrder", this.props.location.lastOrder);
+    console.log("lastOrder", this.props.location.lastOrder);
     const {
+      deliveryAddress,
       deliveryDate,
       deliveryTime,
-      deliveryAddress,
+      delivery_charge,
+      gst_total,
       storeName,
+      sub_total,
       total
     } = this.props.location.lastOrder;
 
     return (
       <div>
         <h1>Thank You For Your Purchase!</h1>
-
-        <h3>DELIVERY DATE: {deliveryDate}</h3>
-        <h3>DELIVERY TIME: {deliveryTime}</h3>
-        <h3>DELIVERY ADDRESS: {deliveryAddress}</h3>
-        <h3>STORE: {storeName}</h3>
-        <h3>TOTAL: ${total}</h3>
         <h3>
-          The groceries will be delivered from {this.state.shortestAddress}
+          Your groceries will be delivered from {storeName}{" "}
+          {this.state.shortestAddress}.
         </h3>
+        <h3>TO: {deliveryAddress}</h3>
+
+        <h3>ON: {deliveryDate} </h3>
+        <h3>BETWEEN: {deliveryTime}</h3>
+
+        <h3>Here is the details of your order.</h3>
+        <h3>SUBTOTAL: {sub_total.toFixed(2)}</h3>
+        <h3>DELIVERY FEE: {delivery_charge.toFixed(2)}</h3>
+        <h3>GST: {gst_total.toFixed(2)}</h3>
+        <h3>TOTAL: ${total.toFixed(2)}</h3>
+
+        <h3>FYI: We selected the closest {storeName}.</h3>
         <h3>
           The distance from your shipping address is{" "}
           {this.state.shortestDistance} miles.
