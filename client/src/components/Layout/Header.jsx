@@ -130,6 +130,7 @@ class Header extends Component {
           <Link to={`/account`} className="account_link">
             Account
           </Link>
+
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
             <img
@@ -139,14 +140,6 @@ class Header extends Component {
             />
           </Link>
         </div>
-        {lastUrl === "account" || lastUrl === "orderHistory" ? (
-          <div>
-            <Link to={`/account`}>Account Details</Link>
-            <Link to={`/orderHistory`}>Order History</Link>
-          </div>
-        ) : (
-          ""
-        )}
       </header>
     );
   }

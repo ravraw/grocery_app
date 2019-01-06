@@ -123,13 +123,7 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
         <CardElement className="card_element" />
-        <label>Name on Card</label>
-        <input
-          type="text"
-          id="cname"
-          name="cardname"
-          placeholder="John More Doe"
-        />
+
         <button onClick={this.submit}>Submit</button>
       </div>
     );
