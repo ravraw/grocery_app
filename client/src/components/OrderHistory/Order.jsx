@@ -72,7 +72,8 @@ class Order extends Component {
       store
     } = this.props.order;
 
-    const date = new Date(Number(created_at) * 1000).toLocaleDateString();
+    const date = new Date(Number(created_at)).toLocaleDateString();
+
     console.log(date);
     return (
       <div className="order_info">
