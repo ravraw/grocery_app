@@ -117,20 +117,20 @@ const Product = require('./resolvers/Product');
 
 //auth
 const SECRET = process.env.HASH_SECRET;
-// const addUser = (req, res, next) => {
-//   const token = req.headers.authorization;
-//   console.log('TOKEN', token);
-//   try {
-//     console.log('VERIFY', jwt.verify(token, SECRET));
-//     const { user } = jwt.verify(token, '123456ertyui');
-//     console.log('FROM REQUEST', user);
-//     req.user = user;
-//   } catch (err) {
-//     console.log('FROM CATCH', err.message);
-//   }
-//   req.next();
-// };
-// app.use(addUser);
+const addUser = (req, res, next) => {
+  const token = req.headers.authorization.replace('Bearer ', '');
+  console.log('TOKEN', token);
+  try {
+    //console.log('VERIFY', jwt.verify(token, SECRET));
+    const { user } = jwt.verify(token, '123456ertyui');
+    console.log('FROM REQUEST', user);
+    req.user = user;
+  } catch (err) {
+    console.log('FROM CATCH', err.message);
+  }
+  req.next();
+};
+app.use(addUser);
 
 const server = new ApolloServer({
   typeDefs,
@@ -143,18 +143,18 @@ const server = new ApolloServer({
     Category,
     Product
   },
-  context: {
-    knex,
-    pubSub,
-    SECRET
-  }
-  //,
-  // context: ({ req }) => ({
+  // context: {
   //   knex,
   //   pubSub,
-  //   SECRET,
-  //   user: req.user
-  // })
+  //   SECRET
+  // }
+  //,
+  context: ({ req }) => ({
+    knex,
+    pubSub,
+    SECRET,
+    user: req.user
+  })
 });
 
 server.applyMiddleware({
