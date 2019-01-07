@@ -492,6 +492,9 @@ footer{
     border-bottom:1px solid gray;
     text-transform: capitalize;
     flex:1;
+    padding:10px;
+    width:90%;
+    margin:auto;
     >*{
       width:33%;
     }
@@ -573,11 +576,12 @@ footer{
       border:2px solid orange;
       border-radius:5px;
       margin:5px 0 5px 0;
-      padding:10px;
+      //padding:10px;
       .compaired_product{
         display:flex;
         justify-content: center;
         align-items: center;
+        padding:10px;
       }
      
       div{
@@ -587,7 +591,6 @@ footer{
          align-items: center;
          flex-wrap:wrap;
          flex:1 ;
-         
       }
       h2{
         text-align:center;
@@ -658,14 +661,86 @@ footer{
 
 // checkout
 .checkout{
+  // border:1px solid red;
   display:flex;
   flex-direction:column;
-  height:100%;
-  overflow: scroll;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding:10px;
+  overflow: scroll;
+  margin:auto auto;
+  text-align: center;
+  h2{
+    color:$primary-color;
+   
+  }
+  
   > *{
     margin-bottom:5px;
+  }
+  .checkout_info{
+    height:100%;
+    width:40%;
+    min-width:350px;
+    border:2px solid $tertiary-color;
+    border-radius: 5px;
+    padding:15px;
+    display:flex;
+    // flex:1;
+  flex-direction:column;
+  justify-content: space-evenly;
+  align-items: center;
+  //   #date{ background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  // }
+  }
+
+  .delivery_details,.payment_details{
+    display:flex;
+    // flex:1;
+    flex-direction:column;
+    justify-content: space-between;
+    align-items:center;
+    height: 25%;
+    width:80%;
+    h3{
+      color:$secondary-color;
+    }
+    label{
+      width:90%;
+      display:flex;
+      min-width:280px;
+      justify-content: flex-start;
+      align-items:center;
+      margin-left:10px;
+      text-transform: capitalize;
+      input,select,span{
+        width:70%;
+        height:30px;
+        margin-left:auto;
+        border:1px solid $secondary-color;
+        border-radius:5px;
+        outline: none;
+        font-size:1.5rem;
+        text-align:left;
+        padding-left:10px;
+        text-transform: capitalize;
+      }
+    }
+  }
+   .payment_details{
+    //  border:1px solid red;
+     border-radius:5px;
+     background: lightgray;
+     padding:10px 0; 
+    label{ 
+     text-align: center;
+      span{
+      border:none;
+     
+    }
+  }
+
   }
   .card_element{
     border:2px solid orange;
@@ -675,7 +750,6 @@ footer{
     flex:1 ;
     min-width:280px;
     color:green;
- 
   }
   button{
     background: green;
@@ -687,9 +761,9 @@ footer{
     text-transform:uppercase;
     cursor: pointer;
     font-size:1.5rem;
-    &:hover{
+    // &:hover{
 
-    }
+    // }
   }
 }
   
@@ -702,6 +776,248 @@ svg{
   
 }
 
+// user account / profile
+
+.account ,.orderHistory{
+  border:2px solid $tertiary-color;
+  border-radius:5px;
+  height:100%;
+  margin:10px;
+  display: flex;
+  margin: auto;
+  
+  .user_nav{
+    width:10%;
+    height:100%;
+    background: lightgray;
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    // border-bottom:2px solid $tertiary-color;
+    a{
+      text-transform:uppercase;
+      text-decoration: none;
+      color:$primary-color;
+      //background: $primary-color;
+      margin:0px auto;
+      margin-top:20px;
+      padding:5px;
+      border:2px solid lightgray;
+      border-radius:5px;
+    } 
+  }
+  .user_display{
+    width:90%;
+    padding:20px;
+    display:flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    overflow: scroll;
+   .user_profile{
+     height:100%;
+     .account_info,.personal_info{
+       width:70%;
+       display:flex;
+       flex-direction: column;
+       justify-content: space-between;
+       padding:20px;
+      //  margin:20px;
+       margin:20px auto;
+       border:2px solid $tertiary-color;
+       border-radius: 5px;
+       height:40%;
+       h2{
+         color:$secondary-color;
+         text-transform: capitalize;
+       }
+       label{
+         //background: pink;
+         width:90%;
+         display:flex;
+         //margin:auto;
+         margin-left:10px;
+         color:$primary-color;
+         font-size:2rem;
+         
+         input,span{
+           //background:yellow;
+           width:80%;
+           margin-left:auto;
+           border:none;
+           border-bottom:1px solid $tertiary-color;
+           font-size:2rem;
+           outline: none;
+           text-transform: capitalize;
+         }
+       }
+     }
+   }
+   .user_history{
+     height:100%;
+     display:flex;
+     flex-direction:column;
+    .order_headers,.order_info{
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+    //  align-content: center;
+     border-bottom: 2px solid gray;
+      margin: 10px;
+      list-style: none;
+      padding: 15px;
+      span{
+      text-align: center;
+      flex-wrap:wrap;
+      padding:0 10px;
+      }
+    }
+    .order_info{
+      align-items: center;
+      span{
+        text-transform: capitalize;
+      }
+    }
+    .order_headers{
+      width:100%;
+       text-transform: capitalize;
+       background: lightgray;
+       border-radius:5px;
+       border-bottom:none;
+       color:white;
+       span{
+         text-align: center;
+         font-size:1.8rem;
+         color:$primary-color;
+       }
+     }
+     .order_info{
+       width:100%;
+       &__id{
+         flex:1 ;
+       }
+       &__date{
+         flex:2 ;
+       }
+       &__total{
+         flex:2 ;
+       }
+       &__add{
+         flex:5 ;   
+       }
+       &__window{
+         flex:3;
+       }
+       &__store{
+         flex:2 ;  
+       }
+        &__detail{
+         flex:2;
+        
+       }
+       &__btn{
+        border:1px solid lightGray;
+         border-radius:5px;
+         border:2px solid $primary-color;
+         //background:$secondary-color;
+        //  text-transform: uppercase;
+         padding:2px 1px ;
+         font-size:1.5rem;
+        &:hover{
+          cursor: pointer;
+          border:2px solid $secondary-color;
+        }
+       }
+
+     }
+   }
+ 
+   
+  }
+}
+
+// past order details --- modal
+.pastOrder_display{
+  border:2px solid$secondary-color;
+  border-radius:5px;
+  text-align: center;
+  padding:15px;
+  display:flex;
+  flex-direction: column;
+  overflow: scroll;
+  .pastOrder_item{
+    border:1px solid $tertiary-color;
+    border-radius: 5px;
+    padding:5px;
+  display:flex;
+  justify-content:flex-start;
+  align-items: center;
+  margin-bottom:10px;
+  .pastOrder_detail{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left:10px;
+    text-transform: capitalize;
+  }
+}
+
+}
+
+
+// lastOrder page --- order confirmation
+.lastOrder{
+  text-align:center;
+   height: 100%;
+   width:50vw;
+   margin:auto;
+   h1,h2{
+     color:$secondary-color;
+   }
+ 
+  &_details{
+    // background: lightgray;
+ display:flex;
+ flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 90%;
+  width:100%;
+  border:2px solid $primary-color;
+  border-radius:5px;
+  padding:15px;
+  margin:15px 0;
+  word-wrap: break-word;
+  label{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    // border:1px solid red;
+    margin-left:10px;
+    text-transform: capitalize;
+    font-size:22px;
+    color:$primary-color;
+    padding:5px;
+    
+
+    span{
+      // border:1px solid green;
+      align-self:flex-start;
+      width:60%;
+      text-align:left;
+      text-transform: capitalize;
+      color:black;
+      padding:5px;
+    }
+  }
+ 
+  }
+
+}
 
 /// animation
 @keyframes moveInLeft {
@@ -714,23 +1030,6 @@ svg{
     opacity: 1;
     transform: translateX(0); } }
 
-//   @keyframes shake {
-//   10%, 90% {
-//     transform: translate3d(-1px, 0, 0);
-//   }
-  
-//   20%, 80% {
-//     transform: translate3d(2px, 0, 0);
-//   }
-
-//   30%, 50%, 70% {
-//     transform: translate3d(-4px, 0, 0);
-//   }
-
-//   40%, 60% {
-//     transform: translate3d(4px, 0, 0);
-//   }
-// }
 
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }

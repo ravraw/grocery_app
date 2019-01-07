@@ -37,33 +37,28 @@ class Order extends Component {
     const productArr = orderItems.map(product => {
       const { id, name, price, quantity, image, store } = product;
       return (
-        <div key={id} className="cart_item">
-          <Link to={`/product/${id}/show`}>
-            <img
-              src={image}
-              alt="dummy"
-              style={{ height: '150px', width: '150px' }}
-            />
-          </Link>
-          <div className="cart_item__details">
-            <h4>{name}</h4>
-            <p>
-              Unit Price:$ {price} Quantity: {quantity} Total Amount:{' '}
-              {price * quantity}
-            </p>
-            <p />
-            <p />
+        <div key={id} className="pastOrder_item">
+          <img
+            src={image}
+            alt="dummy"
+            style={{ height: '75px', width: '75px' }}
+          />
+          <div className="pastOrder_detail">
+            <span>{name}</span>
+            <span>Price:$ {price}</span>
+            <span>Qty: {quantity}</span>
+            <span>Amount:{price * quantity}</span>
           </div>
         </div>
       );
     });
     return (
-      <div>
-        <h2>Order ID: {id}</h2>
+      <div className="pastOrder_display">
+        <span>Order # {id}</span>
         {productArr}
-        <h2>Subtotal: ${sub_total} </h2>
-        <h2>GST: ${gst_total} </h2>
-        <h2>Total: ${grand_total}</h2>
+        <span>Subtotal: ${sub_total} </span>
+        <span>GST: ${gst_total} </span>
+        <span>Total: ${grand_total}</span>
       </div>
     );
   }
@@ -76,22 +71,27 @@ class Order extends Component {
       created_at,
       store
     } = this.props.order;
+
+    const date = new Date(Number(created_at) * 1000).toLocaleDateString();
+    console.log(date);
     return (
-      <div>
-        <div>
-          <h1>Order#: {id}</h1>
-          <h2>date: {created_at}</h2>
-          <h3>Bill amount: ${grand_total}</h3>
-          <h3>Delivery Address: {delivery_address}</h3>
-          <h3>delivery time: {delivery_window}</h3>
-          <h3>Store: {store}</h3>
-        </div>
-        <div>
-          <button onClick={this.onOpenModal}>Details</button>{' '}
-          <Modal open={this.state.open} onClose={this.onCloseModal} center>
-            {this.displayOrderDetails()}
-          </Modal>
-        </div>
+      <div className="order_info">
+        <span className="order_info__id">{id}</span>
+        <span className="order_info__date">{date}</span>
+        <span className="order_info__total">${grand_total}</span>
+        <span className="order_info__add">{delivery_address}</span>
+        <span className="order_info__window">{delivery_window}</span>
+        <span className="order_info__store">{store}</span>
+
+        <button
+          onClick={this.onOpenModal}
+          className="order_info__detail order_info__btn"
+        >
+          Details
+        </button>
+        <Modal open={this.state.open} onClose={this.onCloseModal} center>
+          {this.displayOrderDetails()}
+        </Modal>
       </div>
     );
   }

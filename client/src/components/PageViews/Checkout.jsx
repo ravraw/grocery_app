@@ -48,50 +48,66 @@ class Checkout extends Component {
 
     return (
       <div className="checkout">
-        <h3>Thank you for shopping with us.</h3>
-        <h4>DELIVER DATE: </h4>
-        <input
-          type="date"
-          name="date"
-          id="date"
-          min={currentDate1}
-          onChange={this.handleChange}
-        />
-        <h4>DELIVER Time: </h4>
-        {this.displayTimeSelection()}
-        <h4>BILLING ADDRESS: </h4>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          placeholder="Calgary Address Only"
-          onChange={this.handleChange}
-        />
-
-        <p>Please complete the payment</p>
-        <h4>SUBTOTAL: ${total1}</h4>
-        <h4>DELIVERY FEE: ${deliveryFee1}</h4>
-        <h4>GST (5%): ${gst1}</h4>
-        <h4>TOTAL: ${allTotal1}</h4>
-        <h4> </h4>
-
-        <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
-          <div className="example">
-            <Elements>
-              <CheckoutForm
-                products={this.props.location.products}
-                storeName={storeName}
-                deliveryTime={this.state.time}
-                deliveryDate={this.state.date}
-                deliveryAddress={this.state.address}
-                sub_total={total}
-                delivery_charge={deliveryFee}
-                gst_total={gst}
-                total={allTotal}
+        <div className="checkout_info">
+          <h2>Please fill the delivery details.</h2>
+          <div className="delivery_details">
+            <label>
+              Date:
+              <input
+                type="date"
+                name="date"
+                id="date"
+                min={currentDate1}
+                onChange={this.handleChange}
               />
-            </Elements>
+            </label>
+            <label> Time: {this.displayTimeSelection()} </label>
+            <label>
+              Address:
+              <input
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Calgary Address Only"
+                onChange={this.handleChange}
+              />
+            </label>
           </div>
-        </StripeProvider>
+
+          <div className="payment_details">
+            <label>
+              Subtotal:<span> ${total1}</span>
+            </label>
+            <label>
+              Delivery fee:<span> ${deliveryFee1}</span>
+            </label>
+            <label>
+              Tax (5%):<span> ${gst1}</span>
+            </label>
+            <label>
+              Total: <span>${allTotal1}</span>
+            </label>
+          </div>
+
+          <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+            <div className="example">
+              <h3>Please complete the payment</h3>
+              <Elements>
+                <CheckoutForm
+                  products={this.props.location.products}
+                  storeName={storeName}
+                  deliveryTime={this.state.time}
+                  deliveryDate={this.state.date}
+                  deliveryAddress={this.state.address}
+                  sub_total={total}
+                  delivery_charge={deliveryFee}
+                  gst_total={gst}
+                  total={allTotal}
+                />
+              </Elements>
+            </div>
+          </StripeProvider>
+        </div>
       </div>
     );
   }
