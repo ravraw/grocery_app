@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getProductQuery } from "../../queries/queries";
 import Store from "../OrderPage/Store";
+import { NavLink, Link, Redirect } from "react-router-dom";
 
 class OrderPage extends Component {
   constructor() {
@@ -92,21 +93,33 @@ class OrderPage extends Component {
   }
 
   render() {
-    return <div className="compare_stores">{this.displayStores()}</div>;
+    if (!this.props.location.products) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/"
+          }}
+        />
+      );
+    } else {
+      return <div className="compare_stores">{this.displayStores()}</div>;
+    }
   }
 }
 
 export default graphql(getProductQuery, {
   options: props => {
-    console.log("FROM PROPS IN ORDERPAGE QUERY:", props);
-    return {
-      variables: {
-        selected: [
-          ...props.location.products.map(product => {
-            return { name: product.name };
-          })
-        ]
-      }
-    };
+    if (props.location.products) {
+      console.log("FROM PROPS IN ORDERPAGE QUERY:", props);
+      return {
+        variables: {
+          selected: [
+            ...props.location.products.map(product => {
+              return { name: product.name };
+            })
+          ]
+        }
+      };
+    }
   }
 })(OrderPage);
