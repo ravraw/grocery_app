@@ -90,7 +90,7 @@ class Header extends Component {
   render() {
     console.log('FROM HEADER ', this.props.data.shoppingCart);
     console.log('FROM HEADER PROPS', this.props);
-    console.log('FROM HEADER USER', this.props.user);
+    // console.log('FROM HEADER USER', this.props.user);
     this.props.data.refetch();
     if (!('webkitSpeechRecognition' in window)) {
       throw new Error(
