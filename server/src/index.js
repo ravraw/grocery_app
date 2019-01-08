@@ -90,8 +90,8 @@ const server = new ApolloServer({
   context: ({ req }) => ({
     knex,
     pubSub,
-    SECRET,
-    user: req.user
+    SECRET
+    //user: req.user
   })
 });
 
