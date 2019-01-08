@@ -36,9 +36,15 @@ class User_new extends Component {
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     );
     const state = this.state;
+    let usernameValue = state.username.value;
     let emailValue = state.email.value;
     let passwordValue = state.password.value;
     let confirmValue = state.confirmPassword.value;
+
+    if (usernameValue.length < 9) {
+      console.log(console.log('username Error!!!'));
+      this.setState({ username: { value: '', error: true } });
+    }
 
     if (!validEmail.test(emailValue)) {
       console.log(console.log('email Error!!!'));
@@ -53,12 +59,13 @@ class User_new extends Component {
       console.log(console.log('Confirm-Password Error!!!'));
       this.setState({ confirmPassword: { value: '', error: true } });
     }
-
+    const usernameError = state.username.error;
     const emailError = state.email.error;
     const passwordError = state.password.error;
     const confirmError = state.confirmPassword.error;
 
-    const noError = !emailError && !passwordError && !confirmError;
+    const noError =
+      !usernameError && !emailError && !passwordError && !confirmError;
     // console.log("state", this.state);
     // console.log("noErrror?", noError);
     if (noError) {
@@ -75,7 +82,7 @@ class User_new extends Component {
       this.props
         .registerUserMutation({
           variables: {
-            // username: usernameValue,
+            username: usernameValue,
             email: emailValue,
             password: passwordValue
           }
@@ -104,6 +111,13 @@ class User_new extends Component {
             placeholder="Email"
           />
           {this.state.email.error ? <div>Incorrect Email</div> : ''}
+          <input
+            type="text"
+            name="username"
+            onChange={this.handleChange}
+            placeholder="Username"
+          />
+          {this.state.username.error ? <div>At least 8 characters!</div> : ''}
           <input
             type="text"
             name="password"
