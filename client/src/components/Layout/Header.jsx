@@ -4,6 +4,7 @@ import { graphql, compose, Subscription } from "react-apollo";
 import {
   getCartQuery,
   cartInfoSubscription,
+  deleteCartItemMutation,
   addCartItemMutation
 } from "../../queries/queries";
 import logo from "../../assets/images/logo.png";
@@ -60,26 +61,71 @@ class Header extends Component {
     recognition.onresult = e => {
       const transcript = e.results[0][0].transcript;
       console.log("Result!!!", transcript);
-      console.log("event", event);
-      console.log("TO NUMBER", Number(transcript));
-      if (isNaN(Number(transcript))) {
+      // console.log("transcript type", typeof transcript);
+      const brokenTranscript = transcript.split(" ");
+      const firstVoice = brokenTranscript[0] ? brokenTranscript[0] : "";
+      // console.log("firstVoice", firstVoice);
+      const secondVoice = brokenTranscript[1] ? brokenTranscript[1] : "";
+      // console.log("secondVoice", secondVoice);
+
+      const thirdVoice = brokenTranscript[2] ? brokenTranscript[2] : "";
+      // console.log("thirdVoice", thirdVoice);
+      const moreCommand = ["add", "ad", "at", "@", "plus", "+", "more"];
+      const lessCommand = ["minus", "less", "fewer", "reduce"];
+      const foundMoreCommand = moreCommand.find(function(Command) {
+        return Command === secondVoice;
+      });
+      const foundLessCommand = lessCommand.find(function(Command) {
+        return Command === secondVoice;
+      });
+      if (isNaN(Number(firstVoice))) {
+        console.log("first voice is not a number!");
         this.setState({
           searchPath: "/products/" + transcript,
           redirect: true
         });
-      } else {
+      } else if (foundMoreCommand) {
+        console.log("More!!!!!!!!!");
         this.props
           .addCartItemMutation({
             variables: {
-              quantity: 1,
+              quantity: Number(thirdVoice),
               user_id: 1, // hardcoded
-              product_id: Number(transcript)
+              product_id: Number(firstVoice)
             }
           })
           .then(data => this.props.refetch())
           .catch(err => console.log(err));
+      } else if (foundLessCommand) {
+        console.log("Less!!!!!!!!!");
+
+        this.props
+          .addCartItemMutation({
+            variables: {
+              quantity: -Number(thirdVoice),
+              user_id: 1, // hardcoded
+              product_id: Number(firstVoice)
+            }
+          })
+          .then(data => this.props.refetch())
+          .catch(err => console.log(err));
+      } else if (secondVoice === "delete" || secondVoice === "remove") {
+        console.log("Erase command!!!");
+        this.props
+          .deleteCartItemMutation({
+            variables: {
+              user_id: 1, // hardcoded
+              product_id: Number(firstVoice)
+            } //,
+            // refetchQueries: [{ query: getCartQuery, variables: { id: 1 } }]
+          })
+          .then(data => this.props.refetch())
+          .catch(err => console.log(err));
+      } else {
+        // alert("Invalid Voice Command!");
       }
     };
+
     recognition.onspeechend = function() {
       recognition.stop();
     };
@@ -91,8 +137,8 @@ class Header extends Component {
   // }
 
   render() {
-    console.log('FROM HEADER ', this.props.data.shoppingCart);
-    console.log('FROM HEADER PROPS', this.props);
+    console.log("FROM HEADER ", this.props.data.shoppingCart);
+    console.log("FROM HEADER PROPS", this.props);
     // console.log('FROM HEADER USER', this.props.user);
     this.props.data.refetch();
     if (!("webkitSpeechRecognition" in window)) {
@@ -186,5 +232,6 @@ export default compose(
     },
     name: "cartInfoSubscription"
   }),
-  graphql(addCartItemMutation, { name: "addCartItemMutation" })
+  graphql(addCartItemMutation, { name: "addCartItemMutation" }),
+  graphql(deleteCartItemMutation, { name: "deleteCartItemMutation" })
 )(Header);
