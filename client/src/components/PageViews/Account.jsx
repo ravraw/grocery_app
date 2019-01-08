@@ -8,7 +8,7 @@ import Order from '../OrderHistory/Order';
 import NavigationBar from '../NavigationBar.jsx';
 
 const userId = 12;
-const email = 'dongyingname@yahoo.com';
+const email = 'rav@rav.com';
 
 class Account extends Component {
   constructor(props) {

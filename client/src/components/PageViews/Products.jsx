@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import { getSearchResults } from "../../queries/queries";
-import Product from "../Product";
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { getSearchResults } from '../../queries/queries';
+import Product from '../Product';
 class Products extends Component {
   // componentDidMount() {
   //   this.props.refetch();
@@ -23,6 +23,7 @@ class Products extends Component {
     }
   }
   render(props) {
+    console.log('FROM SEARCH RESULTS', this.props.data.products);
     // const categories = this.props.location.categories;
     return <div className="search_results">{this.displayProducts()}</div>;
   }

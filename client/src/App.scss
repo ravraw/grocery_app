@@ -1105,6 +1105,23 @@ svg{
 
 }
 
+// 404 notfound
+.notFound{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+ 
+  h1{
+    color:$secondary-color;
+    margin-bottom:20px;
+  }
+  // img{
+  //    background: yellow;
+  // }
+}
+
 /// animation
 @keyframes moveInLeft {
   0% {
