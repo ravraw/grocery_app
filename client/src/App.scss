@@ -82,6 +82,7 @@ body {
        text-transform: uppercase;
        padding:1px 3px;
        margin-left:5px;
+       outline: none;
       //  background: $secondary-color;
       // border:2px solid $primary-color;
       //  border-radius:5px;
@@ -276,33 +277,48 @@ footer{
 .departments{
   height:100%;
   display:flex;
-   padding:50px;
-  justify-content: space-around;
-  align-items: center;
+  padding:10px;
+  justify-content:center;
+  align-items: space-evenly;
+  //align-content: center;
   flex-wrap: wrap;
   overflow:scroll;
+ 
   .department{
   //max-width:400px;
   display: flex;
   flex-flow: column;
-  flex:1 0 220px;
-  justify-content: space-around;
+  flex:0 1 300px;
+  justify-content:space-around;
   align-items: center;
-  border:2px solid $tertiary-color;
-  border-radius:10px;
+  border:1.5px solid $tertiary-color;
+  border-radius:5px;
   text-decoration: none;
   margin:1rem;
-  padding:1rem;
+  padding:.5rem;
+  box-shadow: 2px 2px 3px rgba(0,0,0,.3);
+  position: relative;
+  //flex:1 0 ;
+  &:hover{
+    //border:2px solid $secondary-color;
+    box-shadow: 4px 4px 8px rgba(0,0,0,.3);
+    transform: translateY(-3px);
+   
+  }
  
   h2{
     color:green;
     text-transform:capitalize;
+    margin-bottom:5px;
+    // position: absolute;
+    // top:5px;
   }
-  // img{
-  //   height:100%;
-  //   width:auto;
-  //   max-width: 300px;
-  // }
+  img{
+    height:100%;
+   // width:auto;
+   // max-width: 300px;
+   
+  }
 
 }
 }
@@ -367,8 +383,9 @@ footer{
   height:100%;
   /* width */
 ::-webkit-scrollbar {
+  // margin:10px;
   width: 5px;
-  height:3px;
+  height:4px;
 }
 
 /* Track */
@@ -1112,11 +1129,39 @@ svg{
   flex-direction:column;
   justify-content: center;
   align-items: center;
+  >*{
+      margin-bottom:20px;
+  }
  
   h1{
     color:$secondary-color;
-    margin-bottom:20px;
   }
+  button{
+      margin:.5rem;
+      //align-self: center;
+      background:green;
+      width:10%;
+      padding:.4rem;
+      text-align: center;
+      vertical-align: middle;
+      border-radius:5px;
+      text-transform: uppercase;
+      font-size:1.5rem;
+      color:white;
+       box-shadow: 0px 1px 5px rgba(0,0,0,.5);
+       outline:none;
+       border:none;
+      &:hover{
+        color:green;
+        background: white;
+        cursor: pointer;
+        transform:scale(1.05);
+        border:1px solid green;
+        transform: translateY(-1px);
+         box-shadow: 0px 3px 10px rgba(0,0,0,.5);
+      }
+    }
+  
   // img{
   //    background: yellow;
   // }

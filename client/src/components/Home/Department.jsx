@@ -8,7 +8,7 @@ class Department extends Component {
     return (
       <Link className="department" to={`/department/${id}/show`}>
         <h2>{name}</h2>
-        <img src={image} alt="dummy" style={{ height: '250px' }} />
+        <img src={image} alt="dummy" style={{ height: '150px' }} />
       </Link>
     );
   }

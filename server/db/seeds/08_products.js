@@ -174,11 +174,11 @@ exports.seed = function(knex, Promise) {
         {
           name: 'Pineapple',
           description: '',
-          price: 3.8,
+          price: 4.8,
           department_id: 1,
           category_id: 2,
           brand_id: 1,
-          store_id: 1,
+          store_id: 2,
           image:
             'https://d2d8wwwkmhfcva.cloudfront.net/600x/filters:fill(FFF,true):format(jpg)/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_8376a834-936e-491c-8d32-f081af10d9bc.png'
         },

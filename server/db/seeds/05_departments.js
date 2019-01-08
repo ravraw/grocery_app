@@ -32,6 +32,16 @@ exports.seed = function(knex, Promise) {
         {
           name: 'pantry',
           image: 'http://onebloc.org/wp-content/uploads/2017/12/drygoods.png'
+        },
+        {
+          name: 'personal care',
+          image:
+            'https://pngimage.net/wp-content/uploads/2018/06/personal-care-png-2.png'
+        },
+        {
+          name: 'pets',
+          image:
+            'https://www.krogerkrazy.com/wp-content/uploads/2013/01/purina-products.png'
         }
       ]);
     });
