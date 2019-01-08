@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { graphql, compose, Subscription } from "react-apollo";
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { graphql, compose, Subscription } from 'react-apollo';
 import {
   getCartQuery,
   cartInfoSubscription,
   addCartItemMutation
-} from "../../queries/queries";
-import logo from "../../assets/images/logo.png";
-import cart from "../../assets/images/cart.svg";
-import loupe from "../../assets/images/loupe.png";
-import microphone from "../../assets/images/microphone.png";
+} from '../../queries/queries';
+import logo from '../../assets/images/logo.png';
+import cart from '../../assets/images/cart.svg';
+import loupe from '../../assets/images/loupe.png';
+import microphone from '../../assets/images/microphone.png';
 // import webkitSpeechRecognition from "webkitSpeechRecognition";
 // var recognition = new webkitSpeechRecognition(); //get new instance
 
@@ -18,7 +18,7 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      searchPath: "/",
+      searchPath: '/',
       redirect: false,
       count: null
     };
@@ -29,7 +29,7 @@ class Header extends Component {
   handleChange = event => {
     const path = event.target.value;
     // console.log('searchpath', path);
-    this.setState({ searchPath: "/products/" + path });
+    this.setState({ searchPath: '/products/' + path });
   };
   handleSubmit(event) {
     event.preventDefault();
@@ -54,17 +54,17 @@ class Header extends Component {
     recognition.continuous = false;
     recognition.start();
     recognition.onstart = function() {
-      console.log("Recieving search command!!!!!!");
+      console.log('Recieving search command!!!!!!');
     };
 
     recognition.onresult = e => {
       const transcript = e.results[0][0].transcript;
-      console.log("Result!!!", transcript);
-      console.log("event", event);
-      console.log("TO NUMBER", Number(transcript));
+      console.log('Result!!!', transcript);
+      console.log('event', event);
+      console.log('TO NUMBER', Number(transcript));
       if (isNaN(Number(transcript))) {
         this.setState({
-          searchPath: "/products/" + transcript,
+          searchPath: '/products/' + transcript,
           redirect: true
         });
       } else {
@@ -95,7 +95,7 @@ class Header extends Component {
     console.log('FROM HEADER PROPS', this.props);
     // console.log('FROM HEADER USER', this.props.user);
     this.props.data.refetch();
-    if (!("webkitSpeechRecognition" in window)) {
+    if (!('webkitSpeechRecognition' in window)) {
       throw new Error(
         "This browser doesn't support speech recognition. Try Google Chrome."
       );
@@ -125,7 +125,7 @@ class Header extends Component {
             <img
               src={loupe}
               alt="search"
-              style={{ height: "35px", width: "35px" }}
+              style={{ height: '35px', width: '35px' }}
             />
           </button>
           <button
@@ -136,7 +136,7 @@ class Header extends Component {
             <img
               src={microphone}
               alt="speak"
-              style={{ height: "35px", width: "35px" }}
+              style={{ height: '35px', width: '35px' }}
             />
           </button>
           {/* <button type="button">Start</button> */}
@@ -144,26 +144,35 @@ class Header extends Component {
         <div className="header__nav">
           <Link to="/">Home</Link>
           {this.props.user.user ? (
-            this.props.user.user.email
+            <Link className="username" to="">
+              {this.props.user.user.email}
+            </Link>
           ) : (
             <Link to={`/login`} className="login_link">
               Login
             </Link>
           )}
           {this.props.user.user ? (
-            <p onClick={() => this.props.logout()}>LOGOUT</p>
+            <Link to="" onClick={() => this.props.logout()}>
+              LOGOUT
+            </Link>
           ) : (
             <Link to={`/user/new`} className="registration_link">
               Register
             </Link>
           )}
+          {this.props.user.user ? (
+            <Link to={`/account`} className="account_link">
+              Account
+            </Link>
+          ) : null}
 
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
             <img
               src={cart}
               alt="delete"
-              style={{ height: "35px", width: "35px" }}
+              style={{ height: '35px', width: '35px' }}
             />
           </Link>
         </div>
@@ -184,7 +193,7 @@ export default compose(
       // console.log('from props:', props);
       return { variables: { userId: 1 } };
     },
-    name: "cartInfoSubscription"
+    name: 'cartInfoSubscription'
   }),
-  graphql(addCartItemMutation, { name: "addCartItemMutation" })
+  graphql(addCartItemMutation, { name: 'addCartItemMutation' })
 )(Header);
