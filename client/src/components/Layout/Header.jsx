@@ -64,7 +64,7 @@ class Header extends Component {
       console.log("TO NUMBER", Number(transcript));
       if (isNaN(Number(transcript))) {
         this.setState({
-          searchPath: "./products/" + transcript,
+          searchPath: "/products/" + transcript,
           redirect: true
         });
       } else {
