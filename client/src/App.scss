@@ -547,6 +547,19 @@ footer{
   .cart{
     overflow: scroll;
     height: 90%;
+    .emptyCart{
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      // h1{
+      //   color:darkgray;
+      // }
+      img{
+        margin-top:10px;
+      }
+    }
     .cart_item{
     // text-align:center;
     display:flex;
@@ -556,11 +569,12 @@ footer{
     border-bottom:1px solid gray;
     text-transform: capitalize;
     flex:1;
-    padding:10px;
-    width:90%;
-    margin:auto;
+    padding:5px;
+    width:80%;
+    margin:10px auto;
     >*{
-      width:33%;
+      width:30%;
+      //text-align: center;
     }
     a img{
       height:100px;

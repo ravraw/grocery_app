@@ -4,6 +4,7 @@ import CartItem from '../CartItem';
 import { graphql } from 'react-apollo';
 import { getCartQuery } from '../../queries/queries';
 import { NavLink, Link } from 'react-router-dom';
+import emptyCart from '../../assets/images/cart.png';
 
 class Cart extends Component {
   constructor(props) {
@@ -45,7 +46,14 @@ class Cart extends Component {
           );
         })
       ) : (
-        <h1> Your Cart is empty !!!!!</h1>
+        <div className="emptyCart">
+          <h1> Your Cart is empty ! </h1>
+          <img
+            src={emptyCart}
+            alt="delete"
+            style={{ height: '135px', width: '135px' }}
+          />
+        </div>
       );
     }
   }
