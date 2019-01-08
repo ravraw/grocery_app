@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import Product from "../Product";
-import CartItem from "../CartItem";
-import { graphql } from "react-apollo";
-import { getCartQuery } from "../../queries/queries";
-import { NavLink, Link } from "react-router-dom";
-import Order from "../OrderHistory/Order";
-import NavigationBar from "../NavigationBar.jsx";
+import React, { Component } from 'react';
+import Product from '../Product';
+import CartItem from '../CartItem';
+import { graphql } from 'react-apollo';
+import { getCartQuery } from '../../queries/queries';
+import { NavLink, Link } from 'react-router-dom';
+import Order from '../OrderHistory/Order';
+import NavigationBar from '../NavigationBar.jsx';
 
 const userId = 12;
-const email = "dongyingname@yahoo.com";
+const email = 'dongyingname@yahoo.com';
 
 class Account extends Component {
   constructor(props) {
@@ -18,36 +18,48 @@ class Account extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="account">
         <NavigationBar />
+        <div className="user_display">
+          <form className="user_profile">
+            <div className="account_info">
+              <h2>Account information</h2>
+              <label>
+                Account # <span>{userId}</span>
+              </label>
+              <label>
+                Email: <input type="text" placeholder={email} />
+              </label>
 
-        <div>
-          <h2>Account Detail</h2>
-          <h2>Email: {email}</h2>
-          <h2>Customer ID: {userId}</h2>
+              <label>
+                Password: <input type="password" value={123456789} />
+              </label>
+            </div>
+            <div className="personal_info">
+              <h2>Personal information</h2>
+              <label>
+                First Name: <input type="text" value="ravindra" />
+              </label>
 
-          <form>
-            <h2>Personal Information</h2>
-            <label>First Name: </label>
-            <input type="text" />
-            <label>Last Name: </label>
+              <label>
+                Last Name:
+                <input type="text" value="rawat" />{' '}
+              </label>
 
-            <input type="text" />
-            <label>Phone Number: </label>
-
-            <input type="text" />
-            <h2>Account Information: </h2>
-            <label>Old Password: </label>
-
-            <input type="password" />
-            <label>New Password: </label>
-            <input type="password" />
-            <label>New Password Confirmation: </label>
-
-            <input type="password" />
+              <label>
+                Phone : <input type="text" value={4039039057} />
+              </label>
+              <label>
+                Address :{' '}
+                <input
+                  type="text"
+                  value={'30 Somerglen Cove SW, Calgary,Alberta'}
+                />
+              </label>
+            </div>
           </form>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

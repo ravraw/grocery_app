@@ -3,24 +3,17 @@ import Product from "../Product";
 import CartItem from "../CartItem";
 import { graphql } from "react-apollo";
 import { getCartQuery } from "../../queries/queries";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, Redirect } from "react-router-dom";
 
 class LastOrder extends Component {
   constructor() {
     super();
     this.state = { shortestAddress: "", shortestDistance: "" };
-    super();
     this.getDistances = this.getDistances.bind(this);
   }
   getDistances() {
     const { deliveryAddress, storeName } = this.props.location.lastOrder;
-    // let myLocation = "";
-    // navigator.geolocation.getCurrentPosition(position => {
-    //   var latitude = position.coords.latitude;
-    //   var longitude = position.coords.longitude;
-    //   console.log("latitude", latitude);
-    //   console.log("longitude", longitude);
-    //   myLocation = latitude + "," + longitude;
+
     fetch("http://localhost:4000/distances", {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
@@ -30,49 +23,81 @@ class LastOrder extends Component {
       })
     }).then(res => {
       res.json().then(data => {
-        // console.log("data", data);
         const { shortestDistance, shortestAddress } = data;
-        // console.log("shortestDistance", shortestDistance);
-        // console.log("shortestAddress", shortestAddress);
-        // const shortest = { shortestAddress, shortestDistance };
-        this.setState({ shortestAddress, shortestDistance });
 
-        // return shortest;
+        this.setState({ shortestAddress, shortestDistance });
       });
     });
   }
   componentDidMount() {
-    // console.log("ahahahahahah", this.getDistances());
-    this.getDistances();
+    if (this.props.location.lastOrder) {
+      // console.log("ahahahahahah", this.getDistances());
+      this.getDistances();
+    }
   }
   render() {
-    // console.log("lastOrder", this.props.location.lastOrder);
-    const {
-      deliveryDate,
-      deliveryTime,
-      deliveryAddress,
-      storeName,
-      total
-    } = this.props.location.lastOrder;
+    if (!this.props.location.lastOrder) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/orderHistory"
+          }}
+        />
+      );
+    } else {
+      console.log("lastOrder", this.props.location.lastOrder);
+      const {
+        deliveryAddress,
+        deliveryDate,
+        deliveryTime,
+        delivery_charge,
+        gst_total,
+        storeName,
+        sub_total,
+        total
+      } = this.props.location.lastOrder;
 
-    return (
-      <div>
-        <h1>Thank You For Your Purchase!</h1>
+      return (
+        <div className="lastOrder">
+          <h1>Thank You For Your Purchase!</h1>
+          <div className="lastOrder_details">
+            <label>
+              delivered from{" "}
+              <span>
+                {storeName}
+                {this.state.shortestAddress}.
+              </span>
+            </label>
+            <label>
+              delivery Address <span>{deliveryAddress}</span>
+            </label>
+            <label>
+              distance <span>{this.state.shortestDistance} miles.</span>
+            </label>
 
-        <h3>DELIVERY DATE: {deliveryDate}</h3>
-        <h3>DELIVERY TIME: {deliveryTime}</h3>
-        <h3>DELIVERY ADDRESS: {deliveryAddress}</h3>
-        <h3>STORE: {storeName}</h3>
-        <h3>TOTAL: ${total}</h3>
-        <h3>
-          The groceries will be delivered from {this.state.shortestAddress}
-        </h3>
-        <h3>
-          The distance from your shipping address is{" "}
-          {this.state.shortestDistance} miles.
-        </h3>
-      </div>
-    );
+            <label>
+              delivery Date <span>{deliveryDate}</span>{" "}
+            </label>
+            <label>
+              delivery Time <span> {deliveryTime}</span>
+            </label>
+
+            <label>
+              Subtotal <span>${sub_total.toFixed(2)}</span>
+            </label>
+            <label>
+              Delivery Fee <span>${delivery_charge.toFixed(2)}</span>
+            </label>
+            <label>
+              Tax(Gst)<span> ${gst_total.toFixed(2)}</span>
+            </label>
+            <label>
+              Total Amount <span>${total.toFixed(2)}</span>
+            </label>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

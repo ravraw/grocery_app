@@ -20,24 +20,27 @@ const Category = require('./resolvers/Category');
 const Product = require('./resolvers/Product');
 const Order = require('./resolvers/Order');
 const jwt = require('jsonwebtoken');
-const SECRET = process.env.HASH_SECRET;
-const addUser = async req => {
-  const token = req.headers.authorization;
-  console.log('TOKEN', token);
-  try {
-    const user = await jwt.verify(token, SECRET);
-  } catch (err) {
-    console.log(err.message);
-  }
-  req.next();
-};
+// const SECRET = process.env.HASH_SECRET;
+// const addUser = (req, res, next) => {
+//   const token = req.headers.authorization.replace('Bearer ', '');
+//   console.log('TOKEN', token);
+//   try {
+//     //console.log('VERIFY', jwt.verify(token, SECRET));
+//     const { user } = jwt.verify(token, '123456ertyui');
+//     console.log('FROM REQUEST', user);
+//     req.user = user;
+//   } catch (err) {
+//     console.log('FROM CATCH', err.message);
+//   }
+//   req.next();
+// };
 
 //initiate express server
 const app = express();
-app.use(addUser);
+// app.use(addUser);
+app.use(cors());
 
 app.use(express.static('public'));
-app.use(cors());
 app.use(knexLogger(knex));
 app.use(require('body-parser').text());
 
@@ -49,6 +52,23 @@ const typeDefs = gql`
   ${fs.readFileSync(__dirname.concat('/schema.graphql'), 'utf8')}
 `;
 const pubSub = new PubSub();
+//auth
+const SECRET = process.env.HASH_SECRET;
+const addUser = (req, res, next) => {
+  const token = req.headers.authorization.replace('Bearer ', '');
+  console.log('TOKEN', token);
+  try {
+    //console.log('VERIFY', jwt.verify(token, SECRET));
+    const { user } = jwt.verify(token, '123456ertyui');
+    console.log('FROM REQUEST', user);
+    req.user = user;
+  } catch (err) {
+    console.log('FROM CATCH', err.message);
+  }
+  req.next();
+};
+app.use(addUser);
+
 const server = new ApolloServer({
   typeDefs,
   resolvers: {
@@ -61,11 +81,18 @@ const server = new ApolloServer({
     Product,
     Order
   },
-  context: {
+  // context: {
+  //   knex,
+  //   pubSub,
+  //   SECRET
+  // }
+  //,
+  context: ({ req }) => ({
     knex,
     pubSub,
-    SECRET
-  }
+    SECRET,
+    user: req.user
+  })
 });
 
 server.applyMiddleware({

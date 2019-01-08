@@ -9,7 +9,7 @@ import {
 
 class Product extends Component {
   onAdd() {
-    // console.log("FROM ADD IN PRODUCTS ___", this.props.product);
+    console.log('FROM ADD IN PRODUCTS ___', this.props.product);
     this.props
       .addCartItemMutation({
         variables: {
@@ -23,7 +23,7 @@ class Product extends Component {
   }
 
   onDecrease() {
-    // console.log("FROM UPDATE IN PRODUCTS ___", this.props);
+    console.log('FROM UPDATE IN PRODUCTS ___', this.props);
     this.props
       .addCartItemMutation({
         variables: {
@@ -71,6 +71,7 @@ class Product extends Component {
         <h4>{name}</h4>
         <p> {description || 'each'}</p>
         <p>$ {price}</p>
+        <p>#{id}</p>
         {store ? <p>Store: {store.name}</p> : ''}
         {quantity ? <p>Quantity: {quantity}</p> : ''}
         {price ? <button onClick={this.onAdd.bind(this)}>Add</button> : ''}

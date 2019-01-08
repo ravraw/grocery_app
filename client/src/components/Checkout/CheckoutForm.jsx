@@ -104,7 +104,7 @@ class CheckoutForm extends Component {
       return (
         <Redirect
           to={{
-            pathname: '/LastOrder',
+            pathname: '/lastOrder',
             lastOrder: {
               deliveryDate,
               deliveryTime,

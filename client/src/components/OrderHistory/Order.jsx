@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import Product from "../Product";
-import CartItem from "../CartItem";
-import { graphql } from "react-apollo";
-import { getCartQuery } from "../../queries/queries";
-import { NavLink, Link } from "react-router-dom";
-import Modal from "react-responsive-modal";
+import React, { Component } from 'react';
+import Product from '../Product';
+import CartItem from '../CartItem';
+import { graphql } from 'react-apollo';
+import { getCartQuery } from '../../queries/queries';
+import { NavLink, Link } from 'react-router-dom';
+import Modal from 'react-responsive-modal';
 
 class Order extends Component {
   constructor(props) {
@@ -27,71 +27,72 @@ class Order extends Component {
 
   // handleClick(event) {}
   displayOrderDetails() {
-    const { id, products, subtotal, gst, total } = this.props.order;
-    const productArr = products.map(product => {
+    const {
+      id,
+      orderItems,
+      sub_total,
+      gst_total,
+      grand_total
+    } = this.props.order;
+    const productArr = orderItems.map(product => {
       const { id, name, price, quantity, image, store } = product;
       return (
-        <div key={id} className="cart_item">
-          <Link to={`/product/${id}/show`}>
-            <img
-              src={image}
-              alt="dummy"
-              style={{ height: "150px", width: "150px" }}
-            />
-          </Link>
-          <div className="cart_item__details">
-            <h4>{name}</h4>
-            <p>
-              Unit Price:$ {price} Quantity: {quantity} Total Amount:{" "}
-              {price * quantity}
-            </p>
-            <p />
-            <p />
+        <div key={id} className="pastOrder_item">
+          <img
+            src={image}
+            alt="dummy"
+            style={{ height: '75px', width: '75px' }}
+          />
+          <div className="pastOrder_detail">
+            <span>{name}</span>
+            <span>Price:$ {price}</span>
+            <span>Qty: {quantity}</span>
+            <span>Amount:{price * quantity}</span>
           </div>
         </div>
       );
     });
     return (
-      <div>
-        <h2>Order ID: {id}</h2>
+      <div className="pastOrder_display">
+        <span>Order # {id}</span>
         {productArr}
-        <h2>Subtotal: {subtotal} </h2>
-        <h2>GST: {gst} </h2>
-        <h2>Total: {total}</h2>
+        <span>Subtotal: ${sub_total} </span>
+        <span>GST: ${gst_total} </span>
+        <span>Total: ${grand_total}</span>
       </div>
     );
   }
   render() {
     const {
       id,
-      distance,
-      deliveryAddress,
-      deliveryTime,
-      total,
-      userId,
-      email,
-      orderTime,
-      products,
-      storeAddress
+      delivery_address,
+      delivery_window,
+      grand_total,
+      created_at,
+      store
     } = this.props.order;
-    return (
-      <div>
-        <div>
-          <h1>Order ID: {id}</h1>
-          <h2>Time Ordered: {orderTime}</h2>
-          <h3>Total Amount Paid: {total}</h3>
-          <h3>Delivery Address: {deliveryAddress}</h3>
 
-          <h3>Delivery Time: {deliveryTime}</h3>
-          <h3>Delivery Distance: {distance}</h3>
-          <h3>Delivery Coming From: {storeAddress}</h3>
-        </div>
-        <div>
-          <button onClick={this.onOpenModal}>Details</button>{" "}
-          <Modal open={this.state.open} onClose={this.onCloseModal} center>
-            {this.displayOrderDetails()}
-          </Modal>
-        </div>
+    const date = new Date(Number(created_at)).toLocaleDateString();
+
+    console.log(date);
+    return (
+      <div className="order_info">
+        <span className="order_info__id">{id}</span>
+        <span className="order_info__date">{date}</span>
+        <span className="order_info__total">${grand_total}</span>
+        <span className="order_info__add">{delivery_address}</span>
+        <span className="order_info__window">{delivery_window}</span>
+        <span className="order_info__store">{store}</span>
+
+        <button
+          onClick={this.onOpenModal}
+          className="order_info__detail order_info__btn"
+        >
+          Details
+        </button>
+        <Modal open={this.state.open} onClose={this.onCloseModal} center>
+          {this.displayOrderDetails()}
+        </Modal>
       </div>
     );
   }

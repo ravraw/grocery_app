@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { graphql, compose, Subscription } from "react-apollo";
-import { getCartQuery, cartInfoSubscription } from "../../queries/queries";
+import {
+  getCartQuery,
+  cartInfoSubscription,
+  addCartItemMutation
+} from "../../queries/queries";
 import logo from "../../assets/images/logo.png";
 import cart from "../../assets/images/cart.svg";
 import loupe from "../../assets/images/loupe.png";
@@ -25,7 +29,7 @@ class Header extends Component {
   handleChange = event => {
     const path = event.target.value;
     // console.log('searchpath', path);
-    this.setState({ searchPath: path });
+    this.setState({ searchPath: "/products/" + path });
   };
   handleSubmit(event) {
     event.preventDefault();
@@ -55,9 +59,26 @@ class Header extends Component {
 
     recognition.onresult = e => {
       const transcript = e.results[0][0].transcript;
-      // console.log("Result!!!", transcript);
-      // console.log("event", event);
-      this.setState({ searchPath: transcript, redirect: true });
+      console.log("Result!!!", transcript);
+      console.log("event", event);
+      console.log("TO NUMBER", Number(transcript));
+      if (isNaN(Number(transcript))) {
+        this.setState({
+          searchPath: "./products/" + transcript,
+          redirect: true
+        });
+      } else {
+        this.props
+          .addCartItemMutation({
+            variables: {
+              quantity: 1,
+              user_id: 1, // hardcoded
+              product_id: Number(transcript)
+            }
+          })
+          .then(data => this.props.refetch())
+          .catch(err => console.log(err));
+      }
     };
     recognition.onspeechend = function() {
       recognition.stop();
@@ -70,8 +91,9 @@ class Header extends Component {
   // }
 
   render() {
-    let url = window.location.href;
-    let lastUrl = url.substr(url.lastIndexOf("/") + 1);
+    console.log("FROM HEADER ", this.props.data.shoppingCart);
+    console.log("FROM HEADER PROPS", this.props);
+    console.log("FROM HEADER USER", this.props.user);
     this.props.data.refetch();
     if (!("webkitSpeechRecognition" in window)) {
       throw new Error(
@@ -83,7 +105,7 @@ class Header extends Component {
     // var recognition = new webkitSpeechRecognition();
     if (this.state.redirect) {
       this.setState({ redirect: false });
-      return <Redirect to={`/products/${this.state.searchPath}`} />;
+      return <Redirect to={this.state.searchPath} />;
     }
     return (
       <header className="header">
@@ -121,15 +143,20 @@ class Header extends Component {
         </form>
         <div className="header__nav">
           <Link to="/">Home</Link>
-          <Link to={`/login`} className="login_link">
-            Login
-          </Link>
-          <Link to={`/user/new`} className="registration_link">
-            Register
-          </Link>
-          <Link to={`/account`} className="account_link">
-            Account
-          </Link>
+          {this.props.user.user ? (
+            this.props.user.user.email
+          ) : (
+            <Link to={`/login`} className="login_link">
+              Login
+            </Link>
+          )}
+          {this.props.user.user ? (
+            <p onClick={() => this.props.logout()}>LOGOUT</p>
+          ) : (
+            <Link to={`/user/new`} className="registration_link">
+              Register
+            </Link>
+          )}
 
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
@@ -158,5 +185,6 @@ export default compose(
       return { variables: { userId: 1 } };
     },
     name: "cartInfoSubscription"
-  })
+  }),
+  graphql(addCartItemMutation, { name: "addCartItemMutation" })
 )(Header);
