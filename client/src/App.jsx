@@ -39,26 +39,6 @@ const wsLink = new WebSocketLink({
   }
 });
 
-// const client = new ApolloClient({
-//   link: ApolloLink.from([
-//     onError(({ graphQLErrors, networkError }) => {
-//       if (graphQLErrors)
-//         graphQLErrors.map(({ message, locations, path }) =>
-//           console.log(
-//             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-//           )
-//         );
-//       if (networkError) console.log(`[Network error]: ${networkError}`);
-//     }),
-//     // new HttpLink({
-//     //   uri: 'http://localhost:4000/graphql',
-//     //   credentials: 'same-origin'
-//     // })
-//     httpLink,
-//     wsLink
-//   ]),
-//   cache: new InMemoryCache()
-// });
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem('token');
@@ -90,13 +70,24 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      current_user: {
-        //session['user_id']?
-        //session['user_email']?
-        id: 1,
-        email: 'imbirdy@yahoo.com'
-      }
+      currentUser: ''
     };
+    this.getCurrentUserHandler = this.getCurrentUserHandler.bind(this);
+    this.logoutHandler = this.logoutHandler.bind(this);
+  }
+
+  getCurrentUserHandler(user) {
+    console.log('USER FROM APP', user);
+    this.setState({
+      currentUser: user
+    });
+  }
+  logoutHandler() {
+    this.setState({
+      currentUser: ''
+    });
+    window.localStorage.setItem('token', '');
+    console.log('USER loggedout', this.state.currentUser);
   }
 
   render() {
@@ -104,8 +95,8 @@ class App extends Component {
       <BrowserRouter>
         <ApolloProvider client={client}>
           <div className="app">
-            <Header />
-            <Main />
+            <Header user={this.state.currentUser} logout={this.logoutHandler} />
+            <Main getCurrentUser={this.getCurrentUserHandler} />
             <Footer />
           </div>
         </ApolloProvider>

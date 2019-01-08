@@ -21,7 +21,7 @@ class Login extends Component {
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
     // console.log('FROM LOGIN ', { email, password })
-    this.props.history.push('/');
+    // this.props.history.push('/');
     this.props
       .loginUserMutation({
         variables: {
@@ -35,6 +35,12 @@ class Login extends Component {
         if (res.data.login) {
           window.localStorage.setItem('token', res.data.login);
           this.setState({ redirect: true });
+          const tokenParts = res.data.login.split('.');
+          const encodedPayload = tokenParts[1];
+          const rawPayload = atob(encodedPayload);
+          const user = JSON.parse(rawPayload);
+          console.log('DECODED USER', user);
+          this.props.getCurrentUser(user);
         }
       })
       .catch(err => {

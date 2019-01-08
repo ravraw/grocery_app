@@ -89,6 +89,8 @@ class Header extends Component {
 
   render() {
     console.log('FROM HEADER ', this.props.data.shoppingCart);
+    console.log('FROM HEADER PROPS', this.props);
+    console.log('FROM HEADER USER', this.props.user);
     this.props.data.refetch();
     if (!('webkitSpeechRecognition' in window)) {
       throw new Error(
@@ -138,12 +140,21 @@ class Header extends Component {
         </form>
         <div className="header__nav">
           <Link to="/">Home</Link>
-          <Link to={`/login`} className="login_link">
-            Login
-          </Link>
-          <Link to={`/user/new`} className="registration_link">
-            Register
-          </Link>
+          {this.props.user.user ? (
+            this.props.user.user.email
+          ) : (
+            <Link to={`/login`} className="login_link">
+              Login
+            </Link>
+          )}
+          {this.props.user.user ? (
+            <p onClick={() => this.props.logout()}>LOGOUT</p>
+          ) : (
+            <Link to={`/user/new`} className="registration_link">
+              Register
+            </Link>
+          )}
+
           <Link to={`/cart/${id}`} className="cart_link">
             <span className="cart_count">{this.displayCartCount()}</span>
             <img

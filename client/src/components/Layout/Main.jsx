@@ -31,7 +31,11 @@ class Main extends Component {
 
           <Route path="/order" component={OrderPage} />
 
-          <Route path="/login" component={Login} />
+          {/* <Route path="/login" component={Login} />*/}
+          <Route
+            path="/login"
+            render={() => <Login getCurrentUser={this.props.getCurrentUser} />}
+          />
 
           <Route path="/product/:id/show" component={Product_show} />
 
