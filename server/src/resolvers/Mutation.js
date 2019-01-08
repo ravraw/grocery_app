@@ -50,7 +50,7 @@ const Mutation = {
               SECRET,
               { expiresIn: '7 days' }
             );
-            console.log('TOKEN ', token);
+            console.log('TOKEN FROM LOGIN ', token);
             return token;
           }
         })

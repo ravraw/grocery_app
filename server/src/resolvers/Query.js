@@ -26,8 +26,8 @@ const Query = {
     return knex('stores').where('name', 'like', `%${args.query}%`);
   },
   // departments
-  departments(parent, args, { knex }, info) {
-    console.log('FROM RESOLVER  - QUERY/DEPARTMENTS');
+  departments(parent, args, { knex, user }, info) {
+    console.log('FROM RESOLVER  - QUERY/DEPARTMENTS,', user);
     const { query, id } = args;
     if (query) {
       return knex('departments').where('name', 'like', `%${query}%`);
