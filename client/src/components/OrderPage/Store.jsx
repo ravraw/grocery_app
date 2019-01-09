@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { graphql } from "react-apollo";
-import Product from "../Product";
-import CartItem from "../CartItem";
-import CompareItem from "../CompareItem";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import Product from '../Product';
+import CartItem from '../CartItem';
+import CompareItem from '../CompareItem';
 
 class Store extends Component {
   // constructor() {
@@ -21,7 +21,7 @@ class Store extends Component {
     return (
       <div className="store_wrapper">
         <div className="store">
-          <h2>{this.props.storeProducts[0].store.name || "Items"}</h2>
+          <h2>{this.props.storeProducts[0].store.name || 'Items'}</h2>
           {productList}
           <h2>${this.props.total.toFixed(2)}</h2>
         </div>

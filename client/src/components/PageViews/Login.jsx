@@ -56,8 +56,8 @@ class Login extends Component {
       <div className="login_container">
         <form className="login_form" onSubmit={this.handleSubmit}>
           <label>Login</label>
-          <input type="text" name="email" placeholder="Email " />
-          <input type="text" name="password" placeholder="Password" />
+          <input type="email" name="email" placeholder="Email " />
+          <input type="password" name="password" placeholder="Password" />
           <input
             className="form_btn"
             type="submit"

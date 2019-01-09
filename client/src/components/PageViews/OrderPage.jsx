@@ -85,7 +85,6 @@ class OrderPage extends Component {
           {namesOfComparedProducts}
           <h2>Total</h2>
         </div>
-        <div className="place_order">Place order</div>
       </div>,
       arr
     ];
