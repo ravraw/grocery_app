@@ -103,6 +103,39 @@ body {
        &:hover{
        transform: scale(1.1);
          border:none;
+         position: relative;
+         .pulse-ring {
+  content: '';
+  width: 45px;
+  height: 45px;
+  //border-left: 2px solid $primary-color;
+   border: 2px solid $primary-color;
+   // border-right: 2px solid $primary-color;
+  //  border-right: 5px solid $primary-color;
+  border-radius: 50%;
+  position: absolute;
+  // top: -50%;
+  // left: -50%;
+  // margin-left: auto;
+  // margin-right: auto;
+ top: -10%;
+  left: -5%;
+  // margin-left: -50px;
+  // margin-top: -50px;
+  // display:flex;
+  animation: pulsate infinite 2s;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 0;
+  }
+}
     
        }
      }

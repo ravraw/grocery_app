@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { graphql, compose, Subscription } from "react-apollo";
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { graphql, compose, Subscription } from 'react-apollo';
 import {
   getCartQuery,
   cartInfoSubscription,
   deleteCartItemMutation,
   addCartItemMutation
-} from "../../queries/queries";
-import logo from "../../assets/images/logo.png";
-import cart from "../../assets/images/cart.svg";
-import loupe from "../../assets/images/loupe.png";
-import microphone from "../../assets/images/microphone.png";
+} from '../../queries/queries';
+import logo from '../../assets/images/logo.png';
+import cart from '../../assets/images/cart.svg';
+import loupe from '../../assets/images/loupe.png';
+import microphone from '../../assets/images/microphone.png';
 // import webkitSpeechRecognition from "webkitSpeechRecognition";
 // var recognition = new webkitSpeechRecognition(); //get new instance
 
@@ -19,7 +19,7 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      searchPath: "/",
+      searchPath: '/',
       redirect: false,
       count: null
     };
@@ -30,7 +30,7 @@ class Header extends Component {
   handleChange = event => {
     const path = event.target.value;
     // console.log('searchpath', path);
-    this.setState({ searchPath: "/products/" + path });
+    this.setState({ searchPath: '/products/' + path });
   };
   handleSubmit(event) {
     event.preventDefault();
@@ -55,23 +55,23 @@ class Header extends Component {
     recognition.continuous = false;
     recognition.start();
     recognition.onstart = function() {
-      console.log("Recieving search command!!!!!!");
+      console.log('Recieving search command!!!!!!');
     };
 
     recognition.onresult = e => {
       const transcript = e.results[0][0].transcript;
-      console.log("Result!!!", transcript);
+      console.log('Result!!!', transcript);
       // console.log("transcript type", typeof transcript);
-      const brokenTranscript = transcript.split(" ");
-      const firstVoice = brokenTranscript[0] ? brokenTranscript[0] : "";
+      const brokenTranscript = transcript.split(' ');
+      const firstVoice = brokenTranscript[0] ? brokenTranscript[0] : '';
       // console.log("firstVoice", firstVoice);
-      const secondVoice = brokenTranscript[1] ? brokenTranscript[1] : "";
+      const secondVoice = brokenTranscript[1] ? brokenTranscript[1] : '';
       // console.log("secondVoice", secondVoice);
 
-      const thirdVoice = brokenTranscript[2] ? brokenTranscript[2] : "";
+      const thirdVoice = brokenTranscript[2] ? brokenTranscript[2] : '';
       // console.log("thirdVoice", thirdVoice);
-      const moreCommand = ["add", "ad", "at", "@", "plus", "+", "more"];
-      const lessCommand = ["minus", "less", "fewer", "reduce"];
+      const moreCommand = ['add', 'ad', 'at', '@', 'plus', '+', 'more'];
+      const lessCommand = ['minus', 'less', 'fewer', 'reduce'];
       const foundMoreCommand = moreCommand.find(function(Command) {
         return Command === secondVoice;
       });
@@ -79,13 +79,13 @@ class Header extends Component {
         return Command === secondVoice;
       });
       if (isNaN(Number(firstVoice))) {
-        console.log("first voice is not a number!");
+        console.log('first voice is not a number!');
         this.setState({
-          searchPath: "/products/" + transcript,
+          searchPath: '/products/' + transcript,
           redirect: true
         });
       } else if (foundMoreCommand) {
-        console.log("More!!!!!!!!!");
+        console.log('More!!!!!!!!!');
         this.props
           .addCartItemMutation({
             variables: {
@@ -97,7 +97,7 @@ class Header extends Component {
           .then(data => this.props.refetch())
           .catch(err => console.log(err));
       } else if (foundLessCommand) {
-        console.log("Less!!!!!!!!!");
+        console.log('Less!!!!!!!!!');
 
         this.props
           .addCartItemMutation({
@@ -109,8 +109,8 @@ class Header extends Component {
           })
           .then(data => this.props.refetch())
           .catch(err => console.log(err));
-      } else if (secondVoice === "delete" || secondVoice === "remove") {
-        console.log("Erase command!!!");
+      } else if (secondVoice === 'delete' || secondVoice === 'remove') {
+        console.log('Erase command!!!');
         this.props
           .deleteCartItemMutation({
             variables: {
@@ -137,11 +137,11 @@ class Header extends Component {
   // }
 
   render() {
-    console.log("FROM HEADER ", this.props.data.shoppingCart);
-    console.log("FROM HEADER PROPS", this.props);
+    console.log('FROM HEADER ', this.props.data.shoppingCart);
+    console.log('FROM HEADER PROPS', this.props);
     // console.log('FROM HEADER USER', this.props.user);
     this.props.data.refetch();
-    if (!("webkitSpeechRecognition" in window)) {
+    if (!('webkitSpeechRecognition' in window)) {
       throw new Error(
         "This browser doesn't support speech recognition. Try Google Chrome."
       );
@@ -171,7 +171,7 @@ class Header extends Component {
             <img
               src={loupe}
               alt="search"
-              style={{ height: "35px", width: "35px" }}
+              style={{ height: '35px', width: '35px' }}
             />
           </button>
           <button
@@ -182,8 +182,9 @@ class Header extends Component {
             <img
               src={microphone}
               alt="speak"
-              style={{ height: "35px", width: "35px" }}
+              style={{ height: '35px', width: '35px' }}
             />
+            <div class="pulse-ring" />
           </button>
           {/* <button type="button">Start</button> */}
         </form>
@@ -218,7 +219,7 @@ class Header extends Component {
             <img
               src={cart}
               alt="delete"
-              style={{ height: "35px", width: "35px" }}
+              style={{ height: '35px', width: '35px' }}
             />
           </Link>
         </div>
@@ -239,8 +240,8 @@ export default compose(
       // console.log('from props:', props);
       return { variables: { userId: 1 } };
     },
-    name: "cartInfoSubscription"
+    name: 'cartInfoSubscription'
   }),
-  graphql(addCartItemMutation, { name: "addCartItemMutation" }),
-  graphql(deleteCartItemMutation, { name: "deleteCartItemMutation" })
+  graphql(addCartItemMutation, { name: 'addCartItemMutation' }),
+  graphql(deleteCartItemMutation, { name: 'deleteCartItemMutation' })
 )(Header);
