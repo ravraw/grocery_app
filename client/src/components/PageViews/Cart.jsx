@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Product from '../Product';
 import CartItem from '../CartItem';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
+//import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
+import { getCartQuery, getCartSubscription } from '../../queries/queries';
 import { NavLink, Link } from 'react-router-dom';
 import emptyCart from '../../assets/images/cart.png';
 
@@ -73,6 +74,7 @@ class Cart extends Component {
     }
   }
   render() {
+    this.props.data.refetch();
     return (
       <React.Fragment>
         <div className="cart">{this.displayCart()}</div>
@@ -83,9 +85,18 @@ class Cart extends Component {
 }
 
 // export default Cart;l;lkjk
-export default graphql(getCartQuery, {
-  options: props => {
-    // console.log('from props:', props);
-    return { variables: { id: props.match.params.id } };
-  }
-})(Cart);
+export default compose(
+  graphql(getCartQuery, {
+    options: props => {
+      // console.log('from props:', props);
+      return { variables: { id: props.match.params.id } };
+    }
+  }),
+  graphql(getCartSubscription, {
+    options: props => {
+      // console.log('from props:', props);
+      return { variables: { userId: 1 } };
+    },
+    name: 'getCartSubscription'
+  })
+)(Cart);

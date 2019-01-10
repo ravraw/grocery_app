@@ -55,7 +55,9 @@ const pubSub = new PubSub();
 //auth
 const SECRET = process.env.HASH_SECRET;
 const addUser = (req, res, next) => {
-  const token = req.headers.authorization.replace('Bearer ', '');
+  const token =
+    req.headers.authorization &&
+    req.headers.authorization.replace('Bearer ', '');
   console.log('TOKEN', token);
   try {
     //console.log('VERIFY', jwt.verify(token, SECRET));

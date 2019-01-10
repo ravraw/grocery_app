@@ -295,6 +295,19 @@ const cartInfoSubscription = gql`
     }
   }
 `;
+// cartInfo
+const getCartSubscription = gql`
+  subscription($userId: ID!) {
+    cartInfo(userId: $userId) {
+      id
+      quantity
+      user_id
+      product_id
+      description
+      price
+    }
+  }
+`;
 
 export {
   getUsersQuery,
@@ -315,5 +328,6 @@ export {
   addOrderMutation,
   addOrderItemMutation,
   emptyCartMutation,
-  cartInfoSubscription
+  cartInfoSubscription,
+  getCartSubscription
 };
