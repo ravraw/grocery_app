@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { graphql, compose } from 'react-apollo';
-import logo from '../assets/images/rubbish-bin.svg';
-import plus from '../assets/images/plus.svg';
-import minus from '../assets/images/minus.svg';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { graphql, compose } from "react-apollo";
+import logo from "../assets/images/rubbish-bin.svg";
+import plus from "../assets/images/plus.svg";
+import minus from "../assets/images/minus.svg";
 
 import {
   addCartItemMutation,
-  deleteCartItemMutation,
-  getCartQuery
-} from '../queries/queries';
+  deleteCartItemMutation
+} from "../queries/queries";
 
 class Product extends Component {
   // let product_id =  this.props.product._typename === 'CartItem'
@@ -59,7 +58,6 @@ class Product extends Component {
       .catch(err => console.log(err));
   }
   render() {
-    const data = this.props.data;
     // console.log('FROM PRODUCT', this.props);
     const {
       id,
@@ -87,7 +85,7 @@ class Product extends Component {
           <img
             src={image}
             alt="dummy"
-            style={{ height: '150px', width: '150px' }}
+            style={{ height: "150px", width: "150px" }}
           />
         </Link>
         <div className="cart_item__details">
@@ -99,11 +97,11 @@ class Product extends Component {
         <div className="cart_item__update">
           {price ? (
             <button onClick={this.onAdd.bind(this)}>
-              {' '}
+              {" "}
               <img
                 src={plus}
                 alt="add"
-                style={{ height: '25px', width: '25px' }}
+                style={{ height: "25px", width: "25px" }}
               />
             </button>
           ) : null}
@@ -113,17 +111,17 @@ class Product extends Component {
               <img
                 src={minus}
                 alt="minus"
-                style={{ height: '25px', width: '25px' }}
+                style={{ height: "25px", width: "25px" }}
               />
             </button>
           ) : null}
           {quantity ? (
             <button onClick={this.onDelete.bind(this)}>
-              {' '}
+              {" "}
               <img
                 src={logo}
                 alt="delete"
-                style={{ height: '25px', width: '25px' }}
+                style={{ height: "25px", width: "25px" }}
               />
             </button>
           ) : null}
@@ -134,6 +132,6 @@ class Product extends Component {
 }
 
 export default compose(
-  graphql(addCartItemMutation, { name: 'addCartItemMutation' }),
-  graphql(deleteCartItemMutation, { name: 'deleteCartItemMutation' })
+  graphql(addCartItemMutation, { name: "addCartItemMutation" }),
+  graphql(deleteCartItemMutation, { name: "deleteCartItemMutation" })
 )(Product);

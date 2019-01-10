@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import Product from '../Product';
-import CartItem from '../CartItem';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
-import { NavLink, Link } from 'react-router-dom';
-import Modal from 'react-responsive-modal';
+import React, { Component } from "react";
+
+import Modal from "react-responsive-modal";
 
 class Order extends Component {
   constructor(props) {
@@ -35,13 +31,13 @@ class Order extends Component {
       grand_total
     } = this.props.order;
     const productArr = orderItems.map(product => {
-      const { id, name, price, quantity, image, store } = product;
+      const { id, name, price, quantity, image } = product;
       return (
         <div key={id} className="pastOrder_item">
           <img
             src={image}
             alt="dummy"
-            style={{ height: '75px', width: '75px' }}
+            style={{ height: "75px", width: "75px" }}
           />
           <div className="pastOrder_detail">
             <span>{name}</span>

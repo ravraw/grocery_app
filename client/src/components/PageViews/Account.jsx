@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
-import Product from '../Product';
-import CartItem from '../CartItem';
-import { graphql } from 'react-apollo';
-import { getCartQuery } from '../../queries/queries';
-import { NavLink, Link } from 'react-router-dom';
-import Order from '../OrderHistory/Order';
-import NavigationBar from '../NavigationBar.jsx';
+import React, { Component } from "react";
+
+import NavigationBar from "../NavigationBar.jsx";
 
 const userId = 12;
-const email = 'rav@rav.com';
+const email = "rav@rav.com";
 
 class Account extends Component {
   constructor(props) {
@@ -43,17 +38,17 @@ class Account extends Component {
 
               <label>
                 Last Name:
-                <input type="text" value="rawat" />{' '}
+                <input type="text" value="rawat" />{" "}
               </label>
 
               <label>
                 Phone : <input type="text" value={4039039057} />
               </label>
               <label>
-                Address :{' '}
+                Address :{" "}
                 <input
                   type="text"
-                  value={'30 Somerglen Cove SW, Calgary,Alberta'}
+                  value={"30 Somerglen Cove SW, Calgary,Alberta"}
                 />
               </label>
             </div>

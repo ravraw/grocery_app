@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import { getCategoryProductsQuery } from "../../queries/queries";
 import { Elements, StripeProvider } from "react-stripe-elements";
-import { NavLink, Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import CheckoutForm from "../Checkout/CheckoutForm";
 class Checkout extends Component {
