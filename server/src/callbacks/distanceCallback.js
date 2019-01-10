@@ -48,22 +48,6 @@ module.exports = function distanceCallback(req, res) {
               shortestDistance = numberDistance;
               shortestAddress = destination;
             }
-            console.log(
-              "Distance from " +
-                origin +
-                " to " +
-                destination +
-                " is " +
-                distance
-            );
-            distanceArr.push(
-              "Distance from " +
-                origin +
-                " to " +
-                destination +
-                " is " +
-                distance
-            );
           } else {
             console.log(
               destination + " is not reachable by land from " + origin
