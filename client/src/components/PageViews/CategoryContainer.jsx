@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { graphql } from "react-apollo";
-import { getCategoryProductsQuery } from "../../queries/queries";
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import { getCategoryProductsQuery } from '../../queries/queries';
 
-import Product from "../Product";
-import Sidebar from "../Sidebar";
+import Product from '../Product';
+import Sidebar from '../Sidebar';
 
 class Category_show extends Component {
   displayProducts() {
@@ -18,6 +18,7 @@ class Category_show extends Component {
     }
   }
   render(props) {
+    this.props.data.refetch();
     const categories = this.props.location.categories;
     return (
       <div className="single_category">
