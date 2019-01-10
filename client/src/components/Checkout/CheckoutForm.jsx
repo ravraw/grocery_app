@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { graphql, compose } from "react-apollo";

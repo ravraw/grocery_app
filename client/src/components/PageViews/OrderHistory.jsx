@@ -1,10 +1,9 @@
-import Order from '../OrderHistory/Order.jsx';
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import NavigationBar from '../NavigationBar.jsx';
-import { getUserOrders } from '../../queries/queries';
-const user_id = 1;
-const email = 'dongyingname@yahoo.com';
+import Order from "../OrderHistory/Order.jsx";
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import NavigationBar from "../NavigationBar.jsx";
+import { getUserOrders } from "../../queries/queries";
+
 class OrderHistory extends Component {
   constructor() {
     super();
@@ -23,7 +22,7 @@ class OrderHistory extends Component {
     }
   }
   render() {
-    console.log('PROPS FROM ORDER_HISTORY', this.props.data.userOrders);
+    console.log("PROPS FROM ORDER_HISTORY", this.props.data.userOrders);
     return (
       <div className="orderHistory">
         <NavigationBar />

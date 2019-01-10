@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { graphql, compose } from "react-apollo";
 
 import {
   addCartItemMutation,
-  deleteCartItemMutation,
-  getCartQuery
+  deleteCartItemMutation
 } from "../queries/queries";
 
 class Product extends Component {
@@ -56,17 +54,8 @@ class Product extends Component {
       .catch(err => console.log(err));
   }
   render() {
-    const data = this.props.data;
     // console.log('FROM PRODUCT', this.props);
-    const {
-      id,
-      name,
-      description,
-      price,
-      quantity,
-      image,
-      store
-    } = this.props.product;
+    const { price } = this.props.product;
     // const { id: store_id, name: store_name } = store;
     // console.log(
     //   'from product -----',

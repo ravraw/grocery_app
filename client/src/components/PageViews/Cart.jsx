@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import Product from '../Product';
-import CartItem from '../CartItem';
+import React, { Component } from "react";
+import CartItem from "../CartItem";
 //import { graphql } from 'react-apollo';
-import { graphql, compose } from 'react-apollo';
-import { getCartQuery, getCartSubscription } from '../../queries/queries';
-import { NavLink, Link } from 'react-router-dom';
-import emptyCart from '../../assets/images/cart.png';
+import { graphql, compose } from "react-apollo";
+import { getCartQuery, getCartSubscription } from "../../queries/queries";
+import { Link } from "react-router-dom";
+import emptyCart from "../../assets/images/cart.png";
 
 class Cart extends Component {
   constructor(props) {
@@ -52,7 +51,7 @@ class Cart extends Component {
           <img
             src={emptyCart}
             alt="delete"
-            style={{ height: '135px', width: '135px' }}
+            style={{ height: "135px", width: "135px" }}
           />
         </div>
       );
@@ -69,7 +68,7 @@ class Cart extends Component {
           Compare Prices
         </Link>
       ) : (
-        ''
+        ""
       );
     }
   }
@@ -97,6 +96,6 @@ export default compose(
       // console.log('from props:', props);
       return { variables: { userId: 1 } };
     },
-    name: 'getCartSubscription'
+    name: "getCartSubscription"
   })
 )(Cart);

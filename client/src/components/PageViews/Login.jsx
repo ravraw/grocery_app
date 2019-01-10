@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-import { graphql } from 'react-apollo';
-import { loginUserMutation } from '../../queries/queries';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { graphql } from "react-apollo";
+import { loginUserMutation } from "../../queries/queries";
 
 class Login extends Component {
   constructor() {
@@ -30,16 +30,16 @@ class Login extends Component {
         }
       })
       .then(res => {
-        console.log('FROM RES', res.data.login);
+        console.log("FROM RES", res.data.login);
 
         if (res.data.login) {
-          window.localStorage.setItem('token', res.data.login);
+          window.localStorage.setItem("token", res.data.login);
           this.setState({ redirect: true });
-          const tokenParts = res.data.login.split('.');
+          const tokenParts = res.data.login.split(".");
           const encodedPayload = tokenParts[1];
           const rawPayload = atob(encodedPayload);
           const user = JSON.parse(rawPayload);
-          console.log('DECODED USER', user);
+          console.log("DECODED USER", user);
           this.props.getCurrentUser(user);
         }
       })
@@ -70,4 +70,4 @@ class Login extends Component {
   }
 }
 
-export default graphql(loginUserMutation, { name: 'loginUserMutation' })(Login);
+export default graphql(loginUserMutation, { name: "loginUserMutation" })(Login);

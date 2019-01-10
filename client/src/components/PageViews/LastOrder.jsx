@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import Product from "../Product";
-import CartItem from "../CartItem";
-import { graphql } from "react-apollo";
-import { getCartQuery } from "../../queries/queries";
-import { NavLink, Link, Redirect } from "react-router-dom";
+
+import { Redirect } from "react-router-dom";
 
 class LastOrder extends Component {
   constructor() {
