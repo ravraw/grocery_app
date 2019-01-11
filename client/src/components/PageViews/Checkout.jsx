@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Elements, StripeProvider } from "react-stripe-elements";
-import { Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Redirect } from 'react-router-dom';
 
-import CheckoutForm from "../Checkout/CheckoutForm";
+import CheckoutForm from '../Checkout/CheckoutForm';
 class Checkout extends Component {
   constructor() {
     super();
-    this.state = { date: "", time: "", address: "" };
+    this.state = { date: '', time: '', address: '' };
     this.handleChange = this.handleDateChange.bind(this);
     this.displayTimeSelection = this.displayTimeSelection.bind(this);
   }
@@ -37,12 +37,12 @@ class Checkout extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/"
+            pathname: '/'
           }}
         />
       );
     } else {
-      console.log("PROPS FROM CHECKOUT ---", this.props.location.products);
+      console.log('PROPS FROM CHECKOUT ---', this.props.location.products);
       const storeName = this.props.location.storeName;
       const total = Number(this.props.match.params.total);
       const total1 = total.toFixed(2);
@@ -53,7 +53,7 @@ class Checkout extends Component {
       const allTotal = total + gst + deliveryFee;
       const allTotal1 = allTotal.toFixed(2);
       const currentDate = new Date();
-      const currentDate1 = currentDate.toISOString().split("T")[0];
+      const currentDate1 = currentDate.toISOString().split('T')[0];
 
       return (
         <div className="checkout">
