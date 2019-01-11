@@ -103,7 +103,9 @@ class User_new extends Component {
     return (
       <div className="register">
         <form className="register_form" onSubmit={this.handleSubmit}>
-          <label>Register</label>
+          <label>
+            <strong>Register</strong>
+          </label>
           <input
             type="text"
             name="email"
