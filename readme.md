@@ -7,7 +7,14 @@
 A website where customers may order grocery deliveries; it compares the prices of the selected groceries among stores and deliver from the closest location as possible.
 
 !["Screenshot of Home Page"](https://github.com/ravraw/grocery_app/screenshots/home.png)
-!["Screenshot of Home Page"](https://github.com/ravraw/grocery_app/screenshots/products.png)
+!["Screenshot of Category Page"](https://github.com/ravraw/grocery_app/screenshots/category.png)
+!["Screenshot of ProductDetail Page"](https://github.com/ravraw/grocery_app/screenshots/productDetails.png)
+!["Screenshot of OrderHistory"](https://github.com/ravraw/grocery_app/screenshots/orderHistory.png)
+!["Screenshot of Cart Page"](https://github.com/ravraw/grocery_app/screenshots/cart.png)
+!["Screenshot of Compare Page"](https://github.com/ravraw/grocery_app/screenshots/compare.png)
+!["Screenshot of Checkout Page"](https://github.com/ravraw/grocery_app/screenshots/checkout.png)
+!["Screenshot of OrderConfirmation Page"](https://github.com/ravraw/grocery_app/screenshots/orderConfirmation.png)
+!["Screenshot of Chatbot"](https://github.com/ravraw/grocery_app/screenshots/chatbot.png)
 
 ## Prerequisites
 
