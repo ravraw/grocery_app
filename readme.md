@@ -6,7 +6,8 @@
 
 A website where customers may order grocery deliveries; it compares the prices of the selected groceries among stores and deliver from the closest location as possible.
 
-!["Screenshot of Home Page"](https://raw.githubusercontent.com/hounslow/final-lhl-project/master/docs/homepage.png)
+!["Screenshot of Home Page"](https://github.com/ravraw/grocery_app/screenshots/home.png)
+!["Screenshot of Home Page"](https://github.com/ravraw/grocery_app/screenshots/products.png)
 
 ## Prerequisites
 
