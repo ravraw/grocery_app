@@ -6,15 +6,18 @@
 
 A website where customers may order grocery deliveries; it compares the prices of the selected groceries among stores and deliver from the closest location as possible.
 
-!["Screenshot of Home Page"](https://github.com/ravraw/grocery_app/screenshots/home.png)
-!["Screenshot of Category Page"](https://github.com/ravraw/grocery_app/screenshots/category.png)
-!["Screenshot of ProductDetail Page"](https://github.com/ravraw/grocery_app/screenshots/productDetails.png)
-!["Screenshot of OrderHistory"](https://github.com/ravraw/grocery_app/screenshots/orderHistory.png)
-!["Screenshot of Cart Page"](https://github.com/ravraw/grocery_app/screenshots/cart.png)
-!["Screenshot of Compare Page"](https://github.com/ravraw/grocery_app/screenshots/compare.png)
-!["Screenshot of Checkout Page"](https://github.com/ravraw/grocery_app/screenshots/checkout.png)
-!["Screenshot of OrderConfirmation Page"](https://github.com/ravraw/grocery_app/screenshots/orderConfirmation.png)
-!["Screenshot of Chatbot"](https://github.com/ravraw/grocery_app/screenshots/chatbot.png)
+## Product Screenshots
+
+<p align="center">
+<img src='./screenshots/home.png' width="60%" height="60%" alt='home'/>
+<img src='./screenshots/productDetails.png' width="60%" height="60%"  />
+<img src='./screenshots/category.png' width="60%" height="60%" />
+<img src='./screenshots/orderHistory.png' width="60%" height="60%" />
+<img src='./screenshots/compare.png' width="60%" height="60%" />
+<img src='./screenshots/checkout.png' width="60%" height="60%" />
+<img src='./screenshots/orderConfirmation.png' width="60%" height="60%" />
+<img src='./screenshots/chatbot.png' width="60%" height="60%" />
+</p>
 
 ## Prerequisites
 
@@ -78,23 +81,7 @@ The order is essential because the client server requests data on start.
 
 ### Front-End (./client)
 
-<img src='https://img.shields.io/badge/React-16.6.3-brightgreen.svg' />
-
-<img src='https://img.shields.io/badge/React--Apollo-2.3.2-brightgreen.svg' />
-<img src='https://img.shields.io/badge/React--Dom-16.6.3-brightgreen.svg' />
-<img src='https://img.shields.io/badge/React--Responsive--modal-3.5.1-brightgreen.svg' />
-<img src='https://img.shields.io/badge/React--Router--Dom-4.3.1-brightgreen.svg' />
-<img src='https://img.shields.io/badge/React--Scripts-2.1.3-brightgreen.svg' />
-<img src='https://img.shields.io/badge/React--Speech--Recognition-1.0.7-brightgreen.svg' />
-<img src='https://img.shields.io/badge/React--Stripe--Elements-2.0.1-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Apollo--Boost-0.1.22-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Apollo--Cache--Inmemory-1.3.12-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Apollo--Client-2.4.8-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Apollo--Link-1.2.6-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Apollo--Utilities-1.0.27-brightgreen.svg' />
-<img src='https://img.shields.io/badge/graphql-14.0.2-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Node--Sass-4.11.0-brightgreen.svg' />
-<img src='https://img.shields.io/badge/Prop--Types-15.6.2-brightgreen.svg' />
+<img src='https://img.shields.io/badge/React-16.6.3-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Apollo-2.3.2-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Dom-16.6.3-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Responsive--modal-3.5.1-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Router--Dom-4.3.1-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Scripts-2.1.3-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Speech--Recognition-1.0.7-brightgreen.svg' /><img src='https://img.shields.io/badge/React--Stripe--Elements-2.0.1-brightgreen.svg' /><img src='https://img.shields.io/badge/Apollo--Boost-0.1.22-brightgreen.svg' /><img src='https://img.shields.io/badge/Apollo--Cache--Inmemory-1.3.12-brightgreen.svg' /><img src='https://img.shields.io/badge/Apollo--Client-2.4.8-brightgreen.svg' /><img src='https://img.shields.io/badge/Apollo--Link-1.2.6-brightgreen.svg' /><img src='https://img.shields.io/badge/Apollo--Utilities-1.0.27-brightgreen.svg' /><img src='https://img.shields.io/badge/graphql-14.0.2-brightgreen.svg' /><img src='https://img.shields.io/badge/Node--Sass-4.11.0-brightgreen.svg' /><img src='https://img.shields.io/badge/Prop--Types-15.6.2-brightgreen.svg' />
 
 ### Back-End (./server)
 
