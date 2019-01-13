@@ -9,14 +9,23 @@ A website where customers may order grocery deliveries; it compares the prices o
 ## Product Screenshots
 
 <p align="center">
-<img src='./screenshots/home.png' width="60%" height="60%" alt='home'/>
-<img src='./screenshots/productDetails.png' width="60%" height="60%"  />
-<img src='./screenshots/category.png' width="60%" height="60%" />
-<img src='./screenshots/orderHistory.png' width="60%" height="60%" />
-<img src='./screenshots/compare.png' width="60%" height="60%" />
-<img src='./screenshots/checkout.png' width="60%" height="60%" />
-<img src='./screenshots/orderConfirmation.png' width="60%" height="60%" />
-<img src='./screenshots/chatbot.png' width="60%" height="60%" />
+<img src='./screenshots/home.png'/>
+<h3 align='middle'>Home Page</h3></br>
+<img src='./screenshots/category.png'  />
+<h3 align='middle' >One Category</h3></br>
+<img src='./screenshots/productDetails.png'   />
+<h3 align='middle'>One Product Detail</h3></br>
+<img src='./screenshots/orderHistory.png'  />
+<h3 align='middle'>Order History</h3></br>
+<img src='./screenshots/compare.png'  />
+<h3 align='middle'>Price Comparison</h3></br>
+<img src='./screenshots/checkout.png'  />
+<h3 align='middle'>Checkout Page</h3></br>
+<img src='./screenshots/orderConfirmation.png'  />
+<h3 align='middle'>Order Confirmation</h3></br>
+<img src='./screenshots/chatbot.png'  />
+<h3 align='middle'>Chatbot</h3></br>
+
 </p>
 
 ## Prerequisites
@@ -93,3 +102,5 @@ The order is essential because the client server requests data on start.
 <img src='https://img.shields.io/badge/Stripe-6.19.0-orange.svg' />
 <img src='https://img.shields.io/badge/Subscriptions--Transport--WS-0.9.15-orange.svg' />
 <img src='https://img.shields.io/badge/Twilio-3.26.0-orange.svg' />
+
+## MIT License
