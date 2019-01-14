@@ -94,13 +94,8 @@ The order is essential because the client server requests data on start.
 
 ### Back-End (./server)
 
-<img src='https://img.shields.io/badge/Apollo--Server-2.2.6-orange.svg' />
-<img src='https://img.shields.io/badge/Bcrypt-3.0.3-orange.svg' /><img src='https://img.shields.io/badge/Body--Parser-1.18.3-orange.svg' /><img src='https://img.shields.io/badge/Cors-2.8.5-orange.svg' /><img src='https://img.shields.io/badge/Dotenv-6.2.0-orange.svg' /><img src='https://img.shields.io/badge/Express-4.16.4-orange.svg' /><img src='https://img.shields.io/badge/Faker-4.1.0-orange.svg' />
-<img src='https://img.shields.io/badge/Graphql-14.0.2-orange.svg' />
-<img src='https://img.shields.io/badge/Graphql--Subscriptions-1.0.0-orange.svg' />
-<img src='https://img.shields.io/badge/Jsonwebtoken-8.4.0-orange.svg' /><img src='https://img.shields.io/badge/Knex-0.16.2-orange.svg' /><img src='https://img.shields.io/badge/pg-7.7.1-orange.svg' />
-<img src='https://img.shields.io/badge/Stripe-6.19.0-orange.svg' />
-<img src='https://img.shields.io/badge/Subscriptions--Transport--WS-0.9.15-orange.svg' />
-<img src='https://img.shields.io/badge/Twilio-3.26.0-orange.svg' />
+<img src='https://img.shields.io/badge/Apollo--Server-2.2.6-orange.svg' /><img src='https://img.shields.io/badge/Bcrypt-3.0.3-orange.svg' /><img src='https://img.shields.io/badge/Body--Parser-1.18.3-orange.svg' /><img src='https://img.shields.io/badge/Cors-2.8.5-orange.svg' /><img src='https://img.shields.io/badge/Dotenv-6.2.0-orange.svg' /><img src='https://img.shields.io/badge/Express-4.16.4-orange.svg' /><img src='https://img.shields.io/badge/Faker-4.1.0-orange.svg' /><img src='https://img.shields.io/badge/Graphql-14.0.2-orange.svg' />
+<img src='https://img.shields.io/badge/Graphql--Subscriptions-1.0.0-orange.svg' /><img src='https://img.shields.io/badge/Jsonwebtoken-8.4.0-orange.svg' /><img src='https://img.shields.io/badge/Knex-0.16.2-orange.svg' /><img src='https://img.shields.io/badge/pg-7.7.1-orange.svg' /><img src='https://img.shields.io/badge/Stripe-6.19.0-orange.svg' />
+<img src='https://img.shields.io/badge/Subscriptions--Transport--WS-0.9.15-orange.svg' /><img src='https://img.shields.io/badge/Twilio-3.26.0-orange.svg' />
 
 ## MIT License
