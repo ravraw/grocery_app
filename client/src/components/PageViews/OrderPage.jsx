@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 
 class OrderPage extends Component {
   constructor() {
+    //hallo kitty
     super();
     this.state = { redirect: false, total: 0, email: "useremail@yahoo.com" };
     this.displayStores = this.displayStores.bind(this);
